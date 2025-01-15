@@ -1,0 +1,41 @@
+object frmWaiting: TfrmWaiting
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  BorderWidth = 10
+  Caption = 'Octopus'
+  ClientHeight = 32
+  ClientWidth = 282
+  Color = clWhite
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbCaption: TLabel
+    Left = 0
+    Top = 0
+    Width = 282
+    Height = 13
+    Align = alTop
+    Caption = 'lbCaption'
+    ExplicitWidth = 45
+  end
+  object pbProgress: TProgressBar
+    Left = 0
+    Top = 24
+    Width = 282
+    Height = 8
+    Align = alBottom
+    Max = 1000
+    Smooth = True
+    Step = 1
+    TabOrder = 0
+  end
+end

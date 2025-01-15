@@ -1,0 +1,310 @@
+object frmSearch: TfrmSearch
+  Tag = 81
+  Left = 0
+  Top = 0
+  BorderStyle = bsSizeToolWin
+  Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090#1099' '#1087#1086#1080#1089#1082#1072
+  ClientHeight = 379
+  ClientWidth = 514
+  Color = clBtnFace
+  Constraints.MinHeight = 400
+  Constraints.MinWidth = 400
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnCreate = FormCreate
+  OnResize = FormResize
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnButtons: TPanel
+    Left = 0
+    Top = 344
+    Width = 514
+    Height = 35
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 0
+    object Label3: TLabel
+      Tag = 80
+      AlignWithMargins = True
+      Left = 10
+      Top = 10
+      Width = 501
+      Height = 13
+      Margins.Left = 10
+      Margins.Top = 10
+      Align = alTop
+      Caption = '* - '#1076#1074#1086#1081#1085#1086#1081' '#1097#1077#1083#1095#1086#1082' '#1095#1090#1086#1073#1099' '#1087#1086#1082#1072#1079#1072#1090#1100' '#1101#1083#1077#1084#1077#1085#1090
+      ExplicitWidth = 230
+    end
+  end
+  object pnMain: TPanel
+    Left = 0
+    Top = 65
+    Width = 514
+    Height = 279
+    Align = alClient
+    TabOrder = 1
+    object Splitter1: TSplitter
+      Left = 1
+      Top = 124
+      Width = 512
+      Height = 1
+      Cursor = crVSplit
+      Align = alTop
+      Color = clBtnShadow
+      ParentColor = False
+      ResizeStyle = rsLine
+      ExplicitLeft = 11
+      ExplicitTop = 134
+      ExplicitWidth = 362
+    end
+    object pnOrders: TPanel
+      Left = 1
+      Top = 1
+      Width = 512
+      Height = 123
+      Align = alTop
+      BevelOuter = bvNone
+      BorderWidth = 10
+      TabOrder = 0
+      object Label1: TLabel
+        Tag = 19
+        AlignWithMargins = True
+        Left = 13
+        Top = 10
+        Width = 486
+        Height = 13
+        Margins.Top = 0
+        Margins.Bottom = 10
+        Align = alTop
+        Caption = #1047#1072#1082#1072#1079#1099
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ExplicitWidth = 44
+      end
+      object grOrders: TOctopusStringGrid
+        Left = 10
+        Top = 33
+        Width = 492
+        Height = 80
+        Align = alClient
+        ColCount = 4
+        FixedCols = 0
+        RowCount = 2
+        TabOrder = 0
+        OnDblClick = OrdersDblClick
+        ColWidths = (
+          26
+          64
+          64
+          64)
+      end
+    end
+    object pnContainers: TPanel
+      Left = 1
+      Top = 125
+      Width = 512
+      Height = 153
+      Align = alClient
+      BevelOuter = bvNone
+      BorderWidth = 10
+      TabOrder = 1
+      object Label2: TLabel
+        Tag = 32
+        AlignWithMargins = True
+        Left = 13
+        Top = 10
+        Width = 486
+        Height = 13
+        Margins.Top = 0
+        Margins.Bottom = 10
+        Align = alTop
+        Caption = #1050#1086#1085#1090#1077#1081#1085#1077#1088#1072
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ExplicitWidth = 69
+      end
+      object grContainers: TOctopusStringGrid
+        Left = 10
+        Top = 33
+        Width = 492
+        Height = 110
+        Align = alClient
+        FixedCols = 0
+        RowCount = 2
+        TabOrder = 0
+        OnDblClick = grContainersDblClick
+        ColWidths = (
+          32
+          64
+          64
+          64
+          64)
+      end
+    end
+  end
+  object pnTop: TPanel
+    Left = 0
+    Top = 0
+    Width = 514
+    Height = 65
+    Align = alTop
+    AutoSize = True
+    BorderWidth = 10
+    TabOrder = 2
+    object lbCaption2: TLabel
+      AlignWithMargins = True
+      Left = 11
+      Top = 36
+      Width = 489
+      Height = 13
+      Margins.Left = 0
+      Margins.Bottom = 5
+      Align = alTop
+      Caption = 'lbCaption'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      ExplicitWidth = 45
+    end
+    object pnFilter: TPanel
+      Left = 11
+      Top = 11
+      Width = 492
+      Height = 22
+      Align = alTop
+      BevelOuter = bvNone
+      TabOrder = 0
+      object btnSearch: TSpeedButton
+        Left = 446
+        Top = 0
+        Width = 23
+        Height = 22
+        Align = alRight
+        Flat = True
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF008000000080000000FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF0080000000C0C0C0008000000080000000FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF0080000000C0C0C000800000008000000080000000FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF008000
+          0000C0C0C000800000008000000080000000FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF000000000000000000000000000000000080000000C0C0
+          C000800000008000000080000000FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF000000000000000000C0C0C000C0C0C000C0C0C000FFFFFF00808080008000
+          00008000000080000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF000000
+          000080808000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000FFFFFF008080
+          800000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF000000
+          0000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000FFFF
+          FF0000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF0000000000C0C0
+          C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C00000000000FF00FF00FF00FF00FF00FF00FF00FF0000000000C0C0
+          C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C00000000000FF00FF00FF00FF00FF00FF00FF00FF0000000000C0C0
+          C000FFFFFF00FFFF0000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C00000000000FF00FF00FF00FF00FF00FF00FF00FF0000000000C0C0
+          C000FFFFFF00FFFF0000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C00000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF000000
+          0000FFFFFF00FFFFFF00FFFF0000FFFF0000C0C0C000C0C0C000C0C0C000C0C0
+          C00000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF000000
+          000080808000FFFFFF00FFFFFF00FFFFFF00C0C0C000C0C0C000C0C0C0008080
+          800000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF000000000000000000C0C0C000C0C0C000C0C0C000C0C0C000000000000000
+          0000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF0000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
+        OnClick = btnSearchClick
+        ExplicitLeft = 307
+        ExplicitTop = -3
+      end
+      object btnClearSearch: TSpeedButton
+        Left = 469
+        Top = 0
+        Width = 23
+        Height = 22
+        Align = alRight
+        Flat = True
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF0000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0000000000FF00FF00FF00FF00FF00
+          FF00000000000000000000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF0000000000000000000000000000000000FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF0000000000FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00000000000000000000000000FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF0000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00000000000000000000000000FF00FF00FF00FF00FF00
+          FF00FF00FF000000000000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00000000000000000000000000FF00FF00FF00
+          FF000000000000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF000000000000000000000000000000
+          000000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF0000000000000000000000
+          0000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF000000000000000000000000000000
+          000000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00000000000000000000000000FF00FF00FF00
+          FF000000000000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF0000000000000000000000000000000000FF00FF00FF00FF00FF00
+          FF00FF00FF000000000000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF0000000000000000000000000000000000FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF000000000000000000FF00FF00FF00FF00FF00FF00FF00
+          FF00000000000000000000000000FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0000000000FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
+        OnClick = btnClearSearchClick
+        ExplicitLeft = 136
+        ExplicitTop = 8
+      end
+      object edSearch: TTntEdit
+        Left = 0
+        Top = 0
+        Width = 366
+        Height = 22
+        Align = alClient
+        OEMConvert = True
+        TabOrder = 0
+        OnKeyUp = edSearchKeyUp
+        ExplicitHeight = 21
+      end
+      object cbLanguage: TComboBox
+        Left = 366
+        Top = 0
+        Width = 80
+        Height = 21
+        Align = alRight
+        ItemHeight = 13
+        TabOrder = 1
+        Text = 'cbLanguage'
+      end
+    end
+  end
+end
