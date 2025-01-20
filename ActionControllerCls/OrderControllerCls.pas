@@ -493,6 +493,7 @@ var
   SelCol, SelRow: integer;
 begin
   if frmOrders.SelectItem = nil then Exit;
+  frmOrders.grOrder.Options := frmOrders.grOrder.Options - [goEditing];
   SelCol := frmOrders.grOrder.Selection.Left;
   SelRow := frmOrders.grOrder.Selection.Top;
   if frmPartEditor.EditPart(frmOrders.SelectItem.Part, Self.FDocument) <> nil then begin
