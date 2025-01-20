@@ -117,6 +117,15 @@ begin
         mdForCustom: frxDataSetMaster.RangeEndCount := FInvoice.CustomRowCount;
       end;
       frxDataSetMaster.First;
+      frxDataSetMaster.OnNext := nil;
+      frxDataSetMaster.OnGetValue := nil;
+
+      frxDataSetDetail.OnNext := nil;
+      frxDataSetDetail.OnGetValue := nil;;
+
+      frxDataSetSubDetail.OnNext := nil;
+      frxDataSetSubDetail.OnGetValue := nil;
+
       frxReport.OnGetValue := Self.frxDataSetMasterGetValue;
       frxReport.LoadFromFile(FileName);
       frxReport.PrepareReport(True);

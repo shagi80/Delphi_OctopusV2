@@ -82,8 +82,18 @@ begin
     FInvoice.Prepare(FDocument);
     with dmPrint do begin
       frmWaiting.WaitPrint;
+
       frxDataSetMaster.RangeEndCount := FInvoice.Count;
       frxDataSetMaster.First;
+      frxDataSetMaster.OnNext := nil;
+      frxDataSetMaster.OnGetValue := nil;
+
+      frxDataSetDetail.OnNext := nil;
+      frxDataSetDetail.OnGetValue := nil;;
+
+      frxDataSetSubDetail.OnNext := nil;
+      frxDataSetSubDetail.OnGetValue := nil;
+
       frxReport.OnGetValue := Self.frxReportGetValue;
       frxDataSetMaster.OnGetValue := Self.frxDataSetMasterGetValue;
       frxReport.LoadFromFile(FileName);
@@ -184,7 +194,7 @@ begin
   for I := 0 to FDocument.Containers.Count - 1 do
     ContNum := ContNum + FDocument.Containers.Items[I].Title + '/';
   Delete(ContNum, Length(ContNum), 1);
-  InvNum := FDocument.FileName;
+  InvNum := ExtractFileName(FDocument.FileName);
   InvDate := date;
   //
   if not frmPrintMode.GetInvoiceSettings(SupplierId, BuyerId, PortId,

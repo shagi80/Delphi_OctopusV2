@@ -84,6 +84,10 @@ implementation
 
 uses IniFiles, SysUtils, Forms, Dialogs;
 
+const
+  fnMultiplier = 'multiplier.cdl';
+  fnPriceDistribution = 'price_distribution.cdl';
+
 
 class procedure TSettingsSingleton.DestroyInstance;
 begin
@@ -138,17 +142,26 @@ begin
     FMoneyAccuracy := IniFile.ReadInteger('ACCURACY', 'MONEY', 2);
     FVolumeAccuracy := IniFile.ReadInteger('ACCURACY', 'VOLUME', 3);
     FMultiplierFileName := IniFile.ReadString('ACCURACY',
-      'MULTIPLIER_FILE', 'multiplier.cdl');
+      'MULTIPLIER_FILE', FBaseDir + fnMultiplier);
     FUseFOBForCFR := IniFile.ReadBool('PRICE', 'FOB_FOR_CFR', True);
     Val := IniFile.ReadString('PRICE', 'DEF_FOB', '');
     FDefFOBPrice := Self.UniverseStrToFloat(val, 0.01);
     Val := IniFile.ReadString('PRICE', 'CFR_FACTOR', '');
     FCFRPriceFactor :=  Self.UniverseStrToFloat(val, 7.3);
     FPricedDistributionFileName := IniFile.ReadString('PRICE',
-      'DISTRIBUTION_FILE', 'price_distribution.cdl');
+      'DISTRIBUTION_FILE', FBaseDir + fnPriceDistribution);
     FDefContainerGross := IniFile.ReadFloat('CONTAINER', 'DEF_GROSS', 25000);
     FDefContainerVolume := IniFile.ReadFloat('CONTAINER', 'DEF_VOLUME', 70);
     IniFile.Free;
+    // Если файлы из настроек не существуют пробуем найти их в конрневом катлоге
+    if not FileExists(Self.FMultiplierFileName) then begin
+      Self.FMultiplierFileName := FBaseDir + fnMultiplier;
+      if not FileExists(FMultiplierFileName) then FMultiplierFileName := '';
+    end;
+    if not FileExists(Self.FPricedDistributionFileName) then begin
+      Self.FPricedDistributionFileName := FBaseDir + fnPriceDistribution;
+      if not FileExists(FPricedDistributionFileName) then FPricedDistributionFileName := '';
+    end;
   end else begin
     FLanguage := 1;
     FShowNotloadCountInOrder := True;
@@ -161,8 +174,8 @@ begin
     FUseFOBForCFR := True;
     FDefFOBPrice := 0.01;
     FCFRPriceFactor := 7.3;
-    FPricedDistributionFileName := 'price_distribution.cdl';
-    FMultiplierFileName := 'multiplier.cdl';
+    FPricedDistributionFileName := FBaseDir + fnPriceDistribution;
+    FMultiplierFileName := FBaseDir + fnMultiplier;
     FDefContainerGross := 25000;
     FDefContainerVolume := 70;
     FAccessPassword := '';

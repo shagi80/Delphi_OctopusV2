@@ -137,9 +137,15 @@ begin
       frxDataSetMaster.RangeEndCount := OrderList.Count;
       frxDataSetMaster.First;
       frxDataSetMaster.OnNext := Self.frxDataSetMasterNext;
+      frxDataSetMaster.OnGetValue := nil;
+
       frxDataSetDetail.RangeEndCount := OrderList.Items[0].Count;
       frxDataSetDetail.First;
       frxDataSetDetail.OnNext := nil;
+      frxDataSetDetail.OnGetValue := nil;
+
+      frxDataSetSubDetail.OnNext := nil;
+      frxDataSetSubDetail.OnGetValue := nil;
 
       frxReport.OnGetValue := Self.frxDataSetMasterGetValue;
       frxReport.LoadFromFile(FileName);

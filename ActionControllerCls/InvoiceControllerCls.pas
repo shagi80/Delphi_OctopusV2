@@ -184,8 +184,7 @@ begin
   frmInvoice.grInvoice.GetSelectedObjects(1, Objects);
   // Спиок из настроек
   Code := TStringList.Create;
-  FileName := ExtractFilePath(Application.ExeName) +
-    GlobalSettings.GetInstance.PricedDistributionFileName;
+  FileName := GlobalSettings.GetInstance.PricedDistributionFileName;
   try
     Code.LoadFromFile(FileName);
   finally

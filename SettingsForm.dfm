@@ -23,7 +23,7 @@ object frmSettings: TfrmSettings
     Top = 0
     Width = 391
     Height = 381
-    ActivePage = tsMain
+    ActivePage = tsPrice
     Align = alClient
     TabOrder = 0
     object tsMain: TTabSheet
@@ -116,7 +116,7 @@ object frmSettings: TfrmSettings
         Top = 53
         Width = 145
         Height = 21
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 0
         Text = 'cbView'
       end
@@ -125,7 +125,7 @@ object frmSettings: TfrmSettings
         Top = 21
         Width = 145
         Height = 21
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 1
         Text = 'cbLanguage'
       end
@@ -150,7 +150,7 @@ object frmSettings: TfrmSettings
         Top = 223
         Width = 145
         Height = 21
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 4
         Text = 'cbShowCountInOrder'
       end
@@ -186,10 +186,6 @@ object frmSettings: TfrmSettings
       Tag = 86
       Caption = #1054#1082#1088#1091#1075#1083#1077#1085#1080#1077
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label4: TLabel
         Tag = 90
         Left = 38
@@ -373,7 +369,7 @@ object frmSettings: TfrmSettings
         Top = 163
         Width = 305
         Height = 21
-        BiDiMode = bdLeftToRight
+        BiDiMode = bdRightToLeft
         ParentBiDiMode = False
         ReadOnly = True
         TabOrder = 3
@@ -398,10 +394,6 @@ object frmSettings: TfrmSettings
       Tag = 134
       Caption = #1062#1077#1085#1099
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label9: TLabel
         Tag = 135
         Left = 24
@@ -528,6 +520,8 @@ object frmSettings: TfrmSettings
         Top = 163
         Width = 305
         Height = 21
+        BiDiMode = bdRightToLeft
+        ParentBiDiMode = False
         ReadOnly = True
         TabOrder = 2
         Text = 'edAccuracyFile'

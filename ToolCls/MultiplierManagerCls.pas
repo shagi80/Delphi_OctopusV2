@@ -44,8 +44,7 @@ var
   FileName: string;
 begin
   Result := False;
-  FileName := ExtractFilePath(Application.ExeName) +
-    GlobalSettings.GetInstance.MultiplierFileName;
+  FileName := GlobalSettings.GetInstance.MultiplierFileName;
   if not FileExists(FileName) then begin
     MessageDlg(Translator.GetInstance.TranslateMessage(
       73, 'Не найден файл с настройками округления') + ' !',

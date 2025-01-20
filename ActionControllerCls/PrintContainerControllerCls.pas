@@ -295,6 +295,7 @@ begin
 
       frxDataSetSubDetail.RangeEndCount := ContainerList.Items[0].Items[0].Count;
       frxDataSetSubDetail.First;
+      frxDataSetSubDetail.OnNext := nil;
       frxDataSetSubDetail.OnGetValue := Self.frxDataSetSubdetailGetValue;
 
       frxReport.OnGetValue := Self.frxReportGetValue;
