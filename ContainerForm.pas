@@ -660,6 +660,7 @@ begin
   Result := False;
   Self.edSearch.Text := '';
   Self.btnOnlyMark.Down := False;
+  grContainer.Options := grContainer.Options - [goEditing];
   for TabInd := 0 to Self.tsContainerList.Tabs.Count - 1 do begin
     Container := TContainer(tsContainerList.Tabs.Objects[TabInd]);
     for BoxInd := 0 to Container.Count - 1 do

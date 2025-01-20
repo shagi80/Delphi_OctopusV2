@@ -370,7 +370,7 @@ begin
   Self.grOrder.Clear;
   Language := GlobalSettings.GetInstance.Language;
   Self.RefreshGridHeader(Language);
-  grOrder.Enabled := (FCurOrder <> nil);
+  grOrder.Enabled := (FCurOrder <> nil) and (FCurOrder.Count > 0);
   grOrder.SelectCell(MaxInt, MaxInt);
   if Assigned(Self.FOnSelectItem) then FOnSelectItem(nil);
   if ((FCurOrder = nil) or (FCurOrder.Count = 0)) then begin
@@ -384,7 +384,7 @@ begin
 
   Finder := TFindInShipment.Create(FDocument);
   grOrder.RowCount := FCurOrder.Count + 1;
-  ARow := 1;
+  ARow := 0;
   for I := 0 to FCurOrder.Count - 1 do begin
     Item := TOrderItem(FCurOrder.Items[I]);
     LoadCount := Finder.CountForOrder(FcurOrder, Item.Part);
@@ -405,6 +405,7 @@ begin
     end;
     // Вывод строки.
     if AddRow then begin
+      inc(ARow);
       grOrder.Cells[1, ARow] := Item.Part.GetTranslatedTitle(Language);
       grOrder.Cells[2, ARow] := FloatToStr(Item.OrderCount);
       if not GlobalSettings.GetInstance.ShowNotloadCountInOrder then
@@ -415,21 +416,21 @@ begin
         grOrder.Cells[4, ARow] := FloatToStr(Item.Part.CountInBox);
       Self.SetGridRowColor(LoadCount, Item.OrderCount, Arow);
       Self.grOrder.Objects[1, ARow] := Item;
-      inc(ARow);
+
       frmWaiting.NextStep(Self);
     end;
   end;
   Self.RefreshSumPanel(Self);
-  grOrder.Enabled := (ARow > 1);
-  if ARow > 1 then begin
-    grOrder.RowCount := ARow;
-    Self.lbTotalData2.Caption := IntToStr(ARow - 1);
+  grOrder.Enabled := (ARow > 0);
+  if ARow > 0 then begin
+    grOrder.RowCount := ARow + 1;
+    Self.lbTotalData2.Caption := IntToStr(ARow);
   end else begin
     grOrder.RowCount := 2;
     Self.lbTotalData2.Caption := '0';
   end;
   if Self.FSorted then grOrder.Sort(1);
-  if ARow > 1 then
+  if ARow > 0 then
     for I := 1 to grOrder.RowCount - 1 do grOrder.Cells[0, I] := IntToStr(I);
   Finder.Free;
   OnResize(Self);
@@ -473,6 +474,7 @@ var
 begin
   Result := False;
   if OrderItem = nil then Exit;
+  grOrder.Options := grOrder.Options - [goEditing];
   Self.edSearch.Text := '';
   Self.btnShowAll.Down := True;
   for I := 0 to Self.tsOrderList.Tabs.Count - 1 do begin
