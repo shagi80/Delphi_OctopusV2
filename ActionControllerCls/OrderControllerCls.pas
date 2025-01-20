@@ -63,7 +63,8 @@ var
   SearchOrder: TOrder;
 begin
   Result := '';
-  if Order = nil then FDocument.GetNewOrderTitle else Title := Order.Title;
+  if Order = nil then Title := FDocument.GetNewOrderTitle
+    else Title := Order.Title;
   Text1 := Translator.GetInstance.TranslateMessage(
     13, 'Укажите заголовок заказа');
   repeat
