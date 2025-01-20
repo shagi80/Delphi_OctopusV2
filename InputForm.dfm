@@ -144,12 +144,13 @@ object frmInput: TfrmInput
       object UpDown1: TUpDown
         Left = 140
         Top = 0
-        Width = 16
+        Width = 17
         Height = 21
         Associate = edInteger
         Max = 10000
         Increment = 100
         TabOrder = 1
+        Thousands = False
       end
     end
   end

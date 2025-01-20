@@ -155,7 +155,7 @@ function TfrmInput.GetStringAndInteger(Text: string; var Value: string;
 begin
   Self.HidePanels;
   Self.lbText.Caption := Text;
-  Self.edInteger.Text := IntToStr(Count);
+  Self.UpDown1.Position := Count;
   Self.pnInteger.Visible := True;
   Self.edString.Text := Value;
   Self.pnString.Visible := True;
