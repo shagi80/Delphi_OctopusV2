@@ -259,6 +259,7 @@ var
 begin
   if Self.FBlockEditorChange then Exit;
   Count := StrToIntDef(edBoxCount.Text, 0);
+
   if Count <= 0 then begin
     Count := FBox.BoxCount;
     edBoxCount.Text := IntToStr(Count);
@@ -285,6 +286,8 @@ begin
   edNetWeight.Text := FloatToStr(FBox.OneBoxNetWeight) + ' / ' +
     FloatToStr(FBox.GroupNetWeight);
   Self.CheckWeight;
+
+
 end;
 
 procedure TfrmBox.SelectWeightControl(Sender: TObject);
@@ -344,6 +347,7 @@ procedure TfrmBox.RefreshBoxDataPanel(Sender: TObject);
 begin
   Self.FBlockEditorChange := True;
   edBoxNumber.Text := FBox.BoxCode;
+  self.UpDown1.Position := FBox.BoxCount;
   edBoxCount.Text := IntToStr(FBox.BoxCount);
   edNetWeight.Text := FloatToStr(FBox.OneBoxNetWeight) + ' / ' +
     FloatToStr(FBox.GroupNetWeight);
@@ -373,7 +377,7 @@ var
   I, ARow: integer;
   Item: TBoxItem;
 begin
-  if not Self.Visible then Exit;
+  //if not Self.Visible then Exit;
   grBox.Clear;
   Language := GlobalSettings.GetInstance.Language;
   RefreshGridHeader(Language);
@@ -388,7 +392,7 @@ begin
   end;
   grBox.RowCount := FBox.Count + 1;
 
-  Perform(WM_SETREDRAW, 0, 0);
+  //Perform(WM_SETREDRAW, 0, 0);
 
   ARow := 1;
   for I := 0 to Box.Count - 1 do begin
@@ -413,8 +417,8 @@ begin
   Self.FormResize(Self);
   //grBox.Selection := TGridRect(Rect(MaxInt, MaxInt, MaxInt, MaxInt));
 
-  Perform(WM_SETREDRAW, 1, 0);
-  RedrawWindow(Handle, nil, 0, RDW_FRAME or RDW_ALLCHILDREN or RDW_INVALIDATE);
+  //Perform(WM_SETREDRAW, 1, 0);
+  //RedrawWindow(Handle, nil, 0, RDW_FRAME or RDW_ALLCHILDREN or RDW_INVALIDATE);
 end;
 
 end.

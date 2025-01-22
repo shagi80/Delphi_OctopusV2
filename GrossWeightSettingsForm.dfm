@@ -37,7 +37,7 @@ object frmGrossWeightSettings: TfrmGrossWeightSettings
       Top = 19
       Width = 113
       Height = 21
-      BiDiMode = bdRightToLeft
+      BiDiMode = bdLeftToRight
       ParentBiDiMode = False
       TabOrder = 0
       Text = 'edNewGross'

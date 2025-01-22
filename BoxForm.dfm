@@ -19,7 +19,6 @@ object frmBox: TfrmBox
   OnDestroy = FormDestroy
   OnDeactivate = FormDeactivate
   OnResize = FormResize
-  OnShow = RefreshData
   PixelsPerInch = 96
   TextHeight = 13
   object pnTop: TPanel
