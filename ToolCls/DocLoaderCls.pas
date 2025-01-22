@@ -288,7 +288,7 @@ end;
 
 function TDocLoader.LoadOrderFrom1C(var Order: TOrder; Doc: TDocument): boolean;
 var
-  valString: string;
+  valString, Text: string;
   Substrings: TSubStrings;
   Part: TPart;
   OrderItem: TOrderItem;
@@ -304,7 +304,14 @@ begin
     // Создание экземпляра детали.
     part := doc.Parts.Items[Substrings[1]];
     if part = nil then begin
-      part := PartBuilder1C(Substrings);
+      try
+        part := PartBuilder1C(Substrings);
+      except
+        Text := Translator.GetInstance.TranslateMessage(
+          33, 'Ошибка загрузки') + ' !';
+        MessageDlg(Text, mtWarning, [mbOk], 0);
+        Exit;
+      end;
       doc.Parts.Add(part);
     end;
     // Создание экземпляра строки заказа.
