@@ -23,7 +23,7 @@ type
 implementation
 
 uses
-  SysUtils, Dialogs, StrUtils, OrderItemCls, BoxCls, GlobalSettingsCls,
+  SysUtils, Dialogs, StrUtils, OrderItemCls, BoxCls, 
   BoxItemCls, TranslatorCls;
 
 constructor TDocSaver.Create(filename: string);
@@ -58,23 +58,17 @@ begin
     str := str + Part.EngName + SEPARATOR;
     str := str + '0' + SEPARATOR; // Количество в комплектовочной ведомости
     str := str + Part.PartUnit + SEPARATOR;
-    str := str + FormatFloat(GlobalSettings.GetInstance.WeightAccuracyMask,
-      Part.Weight) + SEPARATOR;
-    str := str + FormatFloat(GlobalSettings.GetInstance.VolumeAccuracyMask,
-      Part.Volume) + SEPARATOR;
+    str := str + FloatToStr(Part.Weight) + SEPARATOR;
+    str := str + FloatToStr(Part.Volume) + SEPARATOR;
    // str := str + FormatFloat(GlobalSettings.GetInstance.WeightAccuracyMask,
     //  Part.CountInBox) + SEPARATOR;
     str := str + FloatToStr(Part.CountInBox) + SEPARATOR;
     str := str + '' + SEPARATOR; // Штрих-код детали
-    str := str + FormatFloat(GlobalSettings.GetInstance.WeightAccuracyMask,
-      Order.Items[I].OrderCount) + SEPARATOR;
+    str := str + FloatToStr(Order.Items[I].OrderCount) + SEPARATOR;
     str := str + '0' + SEPARATOR; // Вес брутто детали
-    str := str + FormatFloat(GlobalSettings.GetInstance.MoneyAccuracyMask,
-      Part.SupplierPrice) + SEPARATOR;
-    str := str + FormatFloat(GlobalSettings.GetInstance.MoneyAccuracyMask,
-      Part.FOBPrice) + SEPARATOR;
-    str := str + FormatFloat(GlobalSettings.GetInstance.MoneyAccuracyMask,
-      Part.CFRPrice) + SEPARATOR;
+    str := str + FloatToStr(Part.SupplierPrice) + SEPARATOR;
+    str := str + FloatToStr(Part.FOBPrice) + SEPARATOR;
+    str := str + FloatToStr(Part.CFRPrice) + SEPARATOR;
     str := str + 'false' + SEPARATOR; // Признак выделения детали
     if Part.NetUnit then str := str + 'true' + SEPARATOR
       else str := str + 'false' + SEPARATOR;
@@ -105,8 +99,7 @@ begin
     str := '"' + IntToStr(Box.BoxCount) + SEPARATOR;
     if Box.BoxCount = 1 then str := str + 'false' + SEPARATOR // в группе больше одной коробки
       else str := str + 'true' + SEPARATOR;
-    str := str + FormatFloat(GlobalSettings.GetInstance.WeightAccuracyMask,
-      Box.GroupGrossWeight) + SEPARATOR;
+    str := str + FloatToStr(Box.GroupGrossWeight) + SEPARATOR;
     str := str + Box.BoxCode + SEPARATOR;
     str := str + 'false' + '"'; // отметка, что коробка выбрана
     WriteLn(Self.FFile, str);
@@ -118,10 +111,8 @@ begin
       if Item.Part.NetUnit then str := str + 'true' + SEPARATOR
         else str := str + 'false' + SEPARATOR;
       str := str +FloatToStr(Item.OrderCount) + SEPARATOR;
-      str := str + FormatFloat(GlobalSettings.GetInstance.WeightAccuracyMask,
-        Item.Part.Weight) + SEPARATOR;
-      str := str + FormatFloat(GlobalSettings.GetInstance.VolumeAccuracyMask,
-        Item.Part.Volume) + SEPARATOR;
+      str := str + FloatToStr(Item.Part.Weight) + SEPARATOR;
+      str := str + FloatToStr(Item.Part.Volume) + SEPARATOR;
       str := str +IntTostr(J + 1) + '"';
       WriteLn(Self.FFile, str);
     end;
@@ -161,20 +152,15 @@ begin
     str := str + UTF8Encode(Part.ChinName) + SEPARATOR;
     str := str + '0' + SEPARATOR; // Кол-во в одном комплекте
     str := str + Part.PartUnit + SEPARATOR;
-    str := str + FormatFloat(GlobalSettings.GetInstance.WeightAccuracyMask,
-      Part.Weight) + SEPARATOR;
-    str := str + FormatFloat(GlobalSettings.GetInstance.VolumeAccuracyMask,
-      Part.Volume) + SEPARATOR;
+    str := str + FloatToStr(Part.Weight) + SEPARATOR;
+    str := str + FloatToStr(Part.Volume) + SEPARATOR;
     str := str + FloatToStr(Part.CountInBox) + SEPARATOR;
     str := str + '' + SEPARATOR; // Штрих-код детали
     str := str + '0' + SEPARATOR; // Вес брутто детали
     str := str + Part.BoxType + SEPARATOR;
-    str := str + FormatFloat(GlobalSettings.GetInstance.MoneyAccuracyMask,
-      Part.SupplierPrice) + SEPARATOR;
-    str := str + FormatFloat(GlobalSettings.GetInstance.MoneyAccuracyMask,
-      Part.FOBPrice) + SEPARATOR;
-    str := str + FormatFloat(GlobalSettings.GetInstance.MoneyAccuracyMask,
-      Part.CFRPrice) + SEPARATOR;
+    str := str + FloatToStr(Part.SupplierPrice) + SEPARATOR;
+    str := str + FloatToStr(Part.FOBPrice) + SEPARATOR;
+    str := str + FloatToStr(Part.CFRPrice) + SEPARATOR;
     str := str +FloatToStr(Order.Items[I].OrderCount) + '"';
     WriteLn(Self.FFile, str);
   end;

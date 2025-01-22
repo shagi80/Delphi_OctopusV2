@@ -35,7 +35,7 @@ implementation
 
 uses
   SysUtils, Dialogs, StrUtils, OrderItemCls, ContainerCls, BoxCls,
-  BoxItemCls, TranslatorCls, GlobalSettingsCLS;
+  BoxItemCls, TranslatorCls, GlobalSettingsCls;
 
 constructor TDocLoader.Create(filename: string);
 begin

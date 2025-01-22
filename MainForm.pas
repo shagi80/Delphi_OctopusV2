@@ -191,6 +191,10 @@ type
     N54: TMenuItem;
     ApplicationEvents1: TApplicationEvents;
     InvoiceChageTotalCost: TAction;
+    FileMerge: TAction;
+    FileMerge1: TMenuItem;
+    N36: TMenuItem;
+    procedure FileMergeExecute(Sender: TObject);
     procedure HelpAboutExecute(Sender: TObject);
     procedure ApplicationEvents1Message(var Msg: tagMSG; var Handled: Boolean);
     procedure HelpSettingsExecute(Sender: TObject);
@@ -239,7 +243,7 @@ uses
   SettingsForm, FormTranslatorCls, ContainerEditForm, InputForm, PartEditorForm,
   PartListForm, PrintInvoiceControllerCls, BoxItemAddForm, BoxAutoCreateForm,
   PartListUpdateForm, PartListCls, DocLoaderCls, GrossWeightSettingsForm,
-  PriceChangeSetiingsForm, AboutForm;
+  PriceChangeSetiingsForm, AboutForm, MergeDocManagerCls;
 
 var
   ViewController: TViewController;
@@ -518,6 +522,25 @@ end;
 procedure TfrmMain.FileExportExecute(Sender: TObject);
 begin
   if FDocument.Orders.Count > 0 then PrintModeForm.frmPrintMode.ShowExportMaster;
+end;
+
+procedure TfrmMain.FileMergeExecute(Sender: TObject);
+var
+  MergeDocManager: TMergeDocManager;
+begin
+  if not dlgFileOpen.Execute then Exit;
+  MergeDocManager := TMergeDocManager.Create(FDocument);
+  if MergeDocManager.Merge(dlgFileOpen.FileName, frmContainers.CurrentContainer) then begin
+    if FDocument.Parts.Count > 0 then
+      frmPartProperty.Part := FDocument.Parts.Items[0];
+    frmOrders.RefreshTabs(Self);
+    if FDocument.Orders.Count > 0 then frmOrders.ShowOrder(FDocument.Orders.Last);
+    frmContainers.RefreshTabs(Self);
+    frmContainers.ShowContainer(FDocument.Containers.Last);
+    frmInvoice.RefreshGrid(Self);
+    Self.OnChangeDataModel(Self, True);
+  end;
+  MergeDocManager.Free;
 end;
 
 procedure TfrmMain.FilePrintExecute(Sender: TObject);

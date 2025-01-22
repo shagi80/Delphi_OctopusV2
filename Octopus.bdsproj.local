@@ -80,5 +80,8 @@
     <Transaction>2025.01.12 12:17:48.087.dfm,C:\Users\HONOR\Documents\Borland Studio Projects\Test\Unit1.dfm=C:\Users\HONOR\Documents\Borland Studio Projects\Test\PriceChangeSetiingsForm.dfm</Transaction>
     <Transaction>2025.01.15 16:23:08.584.pas,C:\Users\HONOR\Documents\Borland Studio Projects\Test\Unit1.pas=C:\Users\HONOR\Documents\Borland Studio Projects\Test\AboutForm.pas</Transaction>
     <Transaction>2025.01.15 16:23:08.585.dfm,C:\Users\HONOR\Documents\Borland Studio Projects\Test\Unit1.dfm=C:\Users\HONOR\Documents\Borland Studio Projects\Test\AboutForm.dfm</Transaction>
+    <Transaction>2025.01.20 19:16:59.989.pas,C:\Users\HONOR\Documents\Borland Studio Projects\Octopus v2\Unit1.pas=C:\Users\HONOR\Documents\Borland Studio Projects\Octopus v2\ToolCls\MergeDocManagerCls.pas</Transaction>
+    <Transaction>2025.01.22 18:52:20.695.pas,C:\Users\HONOR\Documents\Borland Studio Projects\Octopus v2\Unit1.pas=C:\Users\HONOR\Documents\Borland Studio Projects\Octopus v2\MergeFileSettingsForm.pas</Transaction>
+    <Transaction>2025.01.22 18:52:20.695.dfm,C:\Users\HONOR\Documents\Borland Studio Projects\Octopus v2\Unit1.dfm=C:\Users\HONOR\Documents\Borland Studio Projects\Octopus v2\MergeFileSettingsForm.dfm</Transaction>
   </Transactions>
 </BorlandProject>

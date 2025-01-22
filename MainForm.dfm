@@ -97,7 +97,7 @@ object frmMain: TfrmMain
         Top = 0
         Width = 145
         Height = 21
-        ItemHeight = 13
+        ItemHeight = 0
         ItemIndex = 0
         TabOrder = 0
         Text = #1055#1088#1086#1089#1084#1086#1090#1088
@@ -200,6 +200,12 @@ object frmMain: TfrmMain
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1082#1072#1082
       end
       object N34: TMenuItem
+        Caption = '-'
+      end
+      object FileMerge1: TMenuItem
+        Action = FileMerge
+      end
+      object N36: TMenuItem
         Caption = '-'
       end
       object Print1: TMenuItem
@@ -890,6 +896,12 @@ object frmMain: TfrmMain
       Category = 'Invoice'
       Caption = 'InvoiceChageTotalCost'
       ImageIndex = 11
+    end
+    object FileMerge: TAction
+      Tag = 182
+      Category = 'File'
+      Caption = 'FileMerge'
+      OnExecute = FileMergeExecute
     end
   end
   object imgMain: TImageList

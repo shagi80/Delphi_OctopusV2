@@ -359,7 +359,7 @@ object frmInvoice: TfrmInvoice
         ParentFont = False
       end
       object lbTotalLabel2: TLabel
-        Tag = 68
+        Tag = 69
         Left = 225
         Top = 16
         Width = 58
@@ -412,7 +412,7 @@ object frmInvoice: TfrmInvoice
         ParentFont = False
       end
       object Label1: TLabel
-        Tag = 69
+        Tag = 68
         Left = 225
         Top = 35
         Width = 64

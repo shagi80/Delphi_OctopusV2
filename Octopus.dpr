@@ -61,7 +61,9 @@ uses
   GrossManagerCls in 'ToolCls\GrossManagerCls.pas',
   GrossWeightSettingsForm in 'GrossWeightSettingsForm.pas' {frmGrossWeightSettings},
   PriceChangeSetiingsForm in 'PriceChangeSetiingsForm.pas' {frmPriceChangeSetiings},
-  AboutForm in 'AboutForm.pas' {frmAbout};
+  AboutForm in 'AboutForm.pas' {frmAbout},
+  MergeDocManagerCls in 'ToolCls\MergeDocManagerCls.pas',
+  MergeFileSettingsForm in 'MergeFileSettingsForm.pas' {frmMergeFileSettings};
 
 {$R *.res}
 var
@@ -106,5 +108,6 @@ begin
   Application.CreateForm(TfrmGrossWeightSettings, frmGrossWeightSettings);
   Application.CreateForm(TfrmPriceChangeSetiings, frmPriceChangeSetiings);
   Application.CreateForm(TfrmAbout, frmAbout);
+  Application.CreateForm(TfrmMergeFileSettings, frmMergeFileSettings);
   Application.Run;
 end.

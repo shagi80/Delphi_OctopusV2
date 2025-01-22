@@ -421,7 +421,7 @@ begin
         if NewTopRow < 1 then NewTopRow := 1;
         Self.TopRow := NewTopRow;
       end;
-      Self.Selection := TGridRect(Rect(ACol, ARow, ACol, ARow));
+      Self.SelectCell(ACol, ARow);
       Exit;
     end;
 end;
