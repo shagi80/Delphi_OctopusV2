@@ -162,9 +162,9 @@ begin
   Self.grPart.Cells[0, 6] := LocalTranslator.TranslateWord('Ед изм');
   Self.grPart.Cells[1, 6] := FPart.PartUnit;
   Self.grPart.Cells[0, 7] := LocalTranslator.TranslateWord('Вес, кг');
-  Self.grPart.Cells[1, 7] := FloatToStr(FPart.Weight);
+  Self.grPart.Cells[1, 7] := FormatFloat('#0.0##########', FPart.Weight);
   Self.grPart.Cells[0, 8] := LocalTranslator.TranslateWord('Объем,м3');
-  Self.grPart.Cells[1, 8] := FloatToStr(FPart.Volume);
+  Self.grPart.Cells[1, 8] := FormatFloat('#0.0##########', FPart.Volume);
   Self.grPart.Cells[0, 9] := LocalTranslator.TranslateWord('BOM');
   Self.grPart.Cells[1, 9] := FPart.BOM;
   Self.grPart.Cells[0, 10] := LocalTranslator.TranslateWord('Код ТНВЭД');

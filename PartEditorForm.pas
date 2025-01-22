@@ -291,8 +291,8 @@ begin
   edFullName.Text := FPart.RusName;
   edEngName.Text := FPart.EngName;
   edSuppName.Text := FPart.ChinName;
-  edNet.Text := FloatToStr(FPart.Weight);
-  edVolume.Text := FloatToStr(FPart.Volume);
+  edNet.Text := FormatFloat('#0.0##########', FPart.Weight);
+  edVolume.Text := FormatFloat('#0.0##########', FPart.Volume);
   edBOM.Text := FPart.BOM;
   edTNVED.Text := FPart.CustomCode;
   edPrice.Text := FloatToStr(FPart.SupplierPrice);

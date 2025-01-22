@@ -295,6 +295,7 @@ begin
   if not Self.SetNewContainerProperty(Container) then Exit;
   frmContainers.RefreshTabs(Self);
   frmContainers.RefreshSumPanel(Self);
+  Self.ChangeModelEvent(False);
 end;
 
 procedure TContainerController.ContainerDelete(Sender: TObject);
