@@ -190,7 +190,7 @@ begin
   BuyerId := 0;
   PortId := 0;
   ContNum := '';
-  SpecNum := '1';
+  SpecNum := GlobalSettings.GetInstance.LastSpecificationNumber;
   for I := 0 to FDocument.Containers.Count - 1 do
     ContNum := ContNum + FDocument.Containers.Items[I].Title + '/';
   Delete(ContNum, Length(ContNum), 1);
@@ -208,6 +208,8 @@ begin
   Self.FPriceDate := InvDate - 45;
   Self.FPriceValidDate := InvDate + 7;
   Self.FSpecNum := SpecNum;
+  GlobalSettings.GetInstance.LastSpecificationNumber := SpecNum;
+  GlobalSettings.GetInstance.Save;
   EntitiesBase := TEntitiesBase.Create;
   EntitiesBase.GetOneEntitie(SupplierId, Self.FSupplier);
   EntitiesBase.GetOneEntitie(BuyerId, Self.FBuyer);

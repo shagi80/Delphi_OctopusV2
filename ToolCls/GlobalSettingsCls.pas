@@ -32,6 +32,7 @@ type
     FMarkedZerousPack: boolean;
     FMinPackWeight: real;
     FDefFileName: string;
+    FLastSpecificationNumber: string;
     const INI_FILENAME: string = 'global.ini';
     procedure LoadFromIni;
     procedure SetLanguage(language: integer);
@@ -72,6 +73,8 @@ type
       write FMarkedZerousPack;
     property MinPackWeight: real read FMinPackWeight write FMinPackWeight;
     property DefFileNmae: string read FDefFileName write FDefFileName;
+    property LastSpecificationNumber: string read FLastSpecificationNumber
+      write FLastSpecificationNumber;
     procedure Save;
   end;
 
@@ -152,6 +155,8 @@ begin
       'DISTRIBUTION_FILE', FBaseDir + fnPriceDistribution);
     FDefContainerGross := IniFile.ReadFloat('CONTAINER', 'DEF_GROSS', 25000);
     FDefContainerVolume := IniFile.ReadFloat('CONTAINER', 'DEF_VOLUME', 70);
+    FLastSpecificationNumber := IniFile.ReadString('PRINT',
+      'LAST_SPECIFICATION_NUMBER', '1');
     IniFile.Free;
     // Если файлы из настроек не существуют пробуем найти их в конрневом катлоге
     if not FileExists(Self.FMultiplierFileName) then begin
@@ -181,6 +186,7 @@ begin
     FAccessPassword := '';
     FMinPackWeight := 0.01;
     FDefFileName := '';
+    FLastSpecificationNumber := '1';
   end;
 end;
 
@@ -210,6 +216,7 @@ begin
   IniFile.WriteString('PRICE', 'DISTRIBUTION_FILE', FPricedDistributionFileName);
   IniFile.WriteFloat('CONTAINER', 'DEF_GROSS', FDefContainerGross);
   IniFile.WriteFloat('CONTAINER', 'DEF_VOLUME', FDefContainerVolume);
+  IniFile.WriteString('PRINT', 'LAST_SPECIFICATION_NUMBER', FLastSpecificationNumber);
   IniFile.Free;
 end;
 
