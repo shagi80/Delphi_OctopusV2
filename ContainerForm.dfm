@@ -227,6 +227,7 @@ object frmContainers: TfrmContainers
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
+    PopupMenu = pmContainerTabs
     TabPosition = tpTop
     OnChange = tsContainerListChange
   end
@@ -1371,6 +1372,22 @@ object frmContainers: TfrmContainers
     end
     object miDeleteBox: TMenuItem
       Caption = 'miDeleteBox'
+    end
+  end
+  object pmContainerTabs: TPopupMenu
+    Left = 120
+    Top = 208
+    object miAddContainer: TMenuItem
+      Caption = 'miAddContainer'
+    end
+    object miEditContainer: TMenuItem
+      Caption = 'miEditContainer'
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object miDeleteContainer: TMenuItem
+      Caption = 'miDeleteContaine'
     end
   end
 end

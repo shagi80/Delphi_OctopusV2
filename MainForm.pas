@@ -410,6 +410,9 @@ begin
   frmContainers.miAddInBoxSelected.Action := ContainerAddInBoxSelect;
   frmContainers.miAddInBoxMark.Action := ContainerAddInBoxMark;
   frmContainers.btnChangeGross.Action := ContainerChangeGross;
+  frmContainers.miAddContainer.Action := ContainerAdd;
+  frmContainers.miEditContainer.Action := ContainerEdit;
+  frmContainers.miDeleteContainer.Action := ContainerDelete;
 
   frmInvoice.btnSearchPart.Action := InvoiceSearchPart;
   frmInvoice.btnChageTotalCost.Action := InvoiceChageTotalCost;

@@ -166,7 +166,8 @@ function TfrmOrders.GetSelectItem: TOrderItem;
 begin
   Result := nil;
   if FCurOrder = nil then Exit;
-  if grOrder.Selection.Top > 0 then
+  self.Caption := inttostr(grOrder.Selection.Top);
+  if (grOrder.Selection.Top > 0) then
     Result := TOrderItem(grOrder.Objects[1, grOrder.Selection.Top]);
 end;
 
@@ -371,8 +372,8 @@ begin
   Language := GlobalSettings.GetInstance.Language;
   Self.RefreshGridHeader(Language);
   grOrder.Enabled := (FCurOrder <> nil) and (FCurOrder.Count > 0);
-  grOrder.SelectCell(MaxInt, MaxInt);
-  if Assigned(Self.FOnSelectItem) then FOnSelectItem(nil);
+  //grOrder.SelectCell(MaxInt, MaxInt);
+  //if Assigned(Self.FOnSelectItem) then FOnSelectItem(nil);
   if ((FCurOrder = nil) or (FCurOrder.Count = 0)) then begin
     grOrder.RowCount := 2;
     Self.RefreshSumPanel(Self);
@@ -437,6 +438,8 @@ begin
   if (TopRow < (grOrder.RowCount - 1))
     and (grOrder.RowCount > grOrder.VisibleRowCount) then
       grOrder.TopRow := TopRow;
+  grOrder.SelectCell(MaxInt, MaxInt);
+  //if Assigned(Self.FOnSelectItem) then FOnSelectItem(nil);
 
   Perform(WM_SETREDRAW, 1, 0);
   RedrawWindow(Handle, nil, 0, RDW_FRAME or RDW_ALLCHILDREN or RDW_INVALIDATE);

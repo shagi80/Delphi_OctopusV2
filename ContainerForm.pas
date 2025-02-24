@@ -84,6 +84,11 @@ type
     miEdit: TMenuItem;
     ToolButton6: TToolButton;
     btnChangeGross: TToolButton;
+    pmContainerTabs: TPopupMenu;
+    miEditContainer: TMenuItem;
+    miDeleteContainer: TMenuItem;
+    miAddContainer: TMenuItem;
+    N1: TMenuItem;
     procedure pnWarningClick(Sender: TObject);
     procedure grContainerMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
