@@ -241,12 +241,13 @@ begin
     end;
   until frmPrintMode.GetOrderCopyMode(CopyMode);
   OrderList := TOrderList.Create;
-  for I := 0 to FDocument.Orders.Count - 1 do begin
-    Order := TOrder.Create;
-    Order.Title := FDocument.Orders.Items[I].Title;
-    CreateOrderData(FDocument.Orders.Items[I], Order, SortMode, CopyMode);
-    OrderList.Add(Order);
-  end;
+  for I := 0 to FDocument.Orders.Count - 1 do
+    if FDocument.Orders[I].Count > 0 then begin
+      Order := TOrder.Create;
+      Order.Title := FDocument.Orders.Items[I].Title;
+      CreateOrderData(FDocument.Orders.Items[I], Order, SortMode, CopyMode);
+      OrderList.Add(Order);
+    end;
   Self.PrintOrders(OrderList);
   OrderList.Free;
 end;

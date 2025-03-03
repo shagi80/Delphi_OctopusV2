@@ -158,12 +158,13 @@ begin
     Exit;
   end;
   ContainerList := TContainerList.Create;
-  for I := 0 to FDocument.Containers.Count - 1 do begin
-    Container := TContainer.Create;
-    Container.Title := FDocument.Containers.Items[I].Title;
-    Self.CreateBoxData(FDocument.Containers.Items[I], Container, SortMode);
-    ContainerList.Add(Container);
-  end;
+  for I := 0 to FDocument.Containers.Count - 1 do
+    if FDocument.Containers[I].Count > 0 then begin
+      Container := TContainer.Create;
+      Container.Title := FDocument.Containers.Items[I].Title;
+      Self.CreateBoxData(FDocument.Containers.Items[I], Container, SortMode);
+      ContainerList.Add(Container);
+    end;
   if Self.FMode = mdLabels then Self.MultiplyBoxes(ContainerList);
   Self.PrintContainers(ContainerList);
   ContainerList.Free;
