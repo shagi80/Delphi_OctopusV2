@@ -122,10 +122,6 @@ end;
 
 procedure TfrmPrintMode.FormShow(Sender: TObject);
 begin
-  Self.Height := 440;
-  Self.Width := 480;
-  Self.Left := trunc((Screen.Width - Self.Width) / 2);
-  Self.Top := trunc((Screen.Height - Self.Height) / 2);
   Self.ShowMainPage;
   Self.catbtnPrintMode.SelectedItem := nil;
   Self.catbtnExportMode.SelectedItem := nil;
@@ -133,6 +129,10 @@ end;
 
 procedure TfrmPrintMode.ShowMainPage;
 begin
+  Self.Height := 440;
+  Self.Width := 480;
+  Self.Left := trunc((Screen.Width - Self.Width) / 2);
+  Self.Top := trunc((Screen.Height - Self.Height) / 2);
   pnBottom.Visible := False;
   case FMode of
     0: pcMain.ActivePage := Self.tsModePrint;

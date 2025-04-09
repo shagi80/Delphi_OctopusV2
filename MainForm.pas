@@ -373,7 +373,7 @@ begin
   frmOrders.btnOrderCancate.Action := OrderConcate;
   frmOrders.btnOrderEditTitle.Action := OrderRename;
   frmOrders.btnOrderDelete.Action := OrderDelete;
-  frmOrders.btnPartAdd.Action := OrderAddPart;
+  frmOrders.btnPartAdd.Action := PartNew;
   frmOrders.btnPartEdit.Action := OrderEditPart;
   frmOrders.btnPartDelete.Action := OrderDeletePart;
   frmOrders.miAddPart.Action := OrderAddPart;

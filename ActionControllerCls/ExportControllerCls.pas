@@ -18,7 +18,7 @@ type
     procedure frxDataSetMasterGetValue(const VarName: string; var Value: Variant);
     procedure ResizePrintModeForm;
     //procedure frxDataSetMasterNext(Sender: TObject);
-    function GetSystemDecSeparator: char;
+    //function GetSystemDecSeparator: char;
   public
     constructor Create(Document: TDocument);
     destructor Destroy; override;
@@ -141,7 +141,7 @@ begin
     end;
     FInvoice.Free;
   end else Self.CannotExportMessage;
-  frmPrintMode.Close;
+  frmPrintMode.ShowMainPage;
 end;
 
 procedure TExportController.frxDataSetMasterGetValue(const VarName: string; var Value: Variant);
@@ -185,14 +185,14 @@ begin
   frmPrintMode.Top := trunc((Screen.Height - frmPrintMode.Height) / 2);
 end;
 
-function TExportController.GetSystemDecSeparator: char;
+{function TExportController.GetSystemDecSeparator: char;
 var
   pcLCA: Array[0..20] of Char;
 begin
   if (GetLocaleInfo(LOCALE_SYSTEM_DEFAULT, LOCALE_SDECIMAL, pcLCA, 19) <= 0) then
     pcLCA[0] := #0;
   Result := pcLCA[0];
-end;
+end;    }
 
 // Экспорт для 1С в TXT формат
 
@@ -226,9 +226,9 @@ begin
   Title := Title + '. ' + ExtractFileName(FDocument.FileName);
   Saver.SaveExportTo1C(Title, Invoice);
   Saver.Destroy;
-  frmPrintMode.Close;
   Invoice.Free;
   Self.ExportDoneMessage;
+  frmPrintMode.ShowMainPage;
 end;
 
 // Экспорт для инвойса

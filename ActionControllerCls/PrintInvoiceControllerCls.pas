@@ -103,7 +103,7 @@ begin
     end;
     FInvoice.Free;
   end else Self.CannotPrintMessage;
-  frmPrintMode.Close;
+  frmPrintMode.ShowMainPage;
 end;
 
 procedure TPrintInvoiceController.frxReportGetValue(const VarName: string; var Value: Variant);

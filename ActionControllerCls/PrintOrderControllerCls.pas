@@ -155,7 +155,7 @@ begin
     end;
     FOrderList := nil;
   end else Self.CannotPrintMessage;
-  frmPrintMode.Close;
+  frmPrintMode.ShowMainPage;
 end;
 
 // Настройка компонентов frx

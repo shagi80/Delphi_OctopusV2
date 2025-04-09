@@ -414,6 +414,7 @@ begin
         Integer(frmContainers.grContainer.Objects[3, ARow]));
     frmContainers.grContainer.Repaint;
     frmContainers.RefreshSumPanel(Self);
+    frmContainers.CheckContainer(Self);
     if Assigned(FOnChangeModel) then FOnChangeModel(Self, True);
   end;
 end;

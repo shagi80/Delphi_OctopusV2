@@ -166,7 +166,6 @@ function TfrmOrders.GetSelectItem: TOrderItem;
 begin
   Result := nil;
   if FCurOrder = nil then Exit;
-  self.Caption := inttostr(grOrder.Selection.Top);
   if (grOrder.Selection.Top > 0) then
     Result := TOrderItem(grOrder.Objects[1, grOrder.Selection.Top]);
 end;
@@ -390,12 +389,8 @@ begin
     Item := TOrderItem(FCurOrder.Items[I]);
     LoadCount := Finder.CountForOrder(FcurOrder, Item.Part);
     AddRow := True;
-    // Отбор по полю поиска.
-    if Length(edSearch.Text) > 0 then
-      AddRow := (pos(WideUpperCase(edSearch.Text),
-        WideUpperCase(Item.Part.GetTranslatedTitle(Language))) > 0);
     // Отбор по загруженному количеству.
-    if not Self.btnShowAll.Down then begin
+    if (not Self.btnShowAll.Down) then begin
       AddRow := False;
       if (Self.btnNotLoad.Down) and (LoadCount = 0) then
         AddRow := True
@@ -404,6 +399,10 @@ begin
       else if (Self.btnUnderload.Down) and (LoadCount < Item.OrderCount) then
         AddRow := True;
     end;
+    // Отбор по полю поиска.
+    if (AddRow) and (Length(edSearch.Text) > 0) then
+      AddRow := (pos(WideUpperCase(edSearch.Text),
+        WideUpperCase(Item.Part.GetTranslatedTitle(Language))) > 0);
     // Вывод строки.
     if AddRow then begin
       inc(ARow);

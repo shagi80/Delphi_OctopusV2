@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, Classes, frxClass, frxExportODF, frxExportTXT, frxExportPDF,
-  frxExportXLS;
+  frxExportXLS, frxBarcode;
 
 type
   TdmPrint = class(TDataModule)
@@ -17,6 +17,7 @@ type
     frxPDFExport1: TfrxPDFExport;
     frxTXTExport1: TfrxTXTExport;
     frxODTExport1: TfrxODTExport;
+    frxBarCodeObject1: TfrxBarCodeObject;
   private
     { Private declarations }
   public

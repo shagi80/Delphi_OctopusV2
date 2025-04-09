@@ -466,11 +466,11 @@ function TfrmContainers.GetRowMark(Box: TBox): TEditableCellSet;
 begin
   Result := [];
   if Box.GroupGrossWeight < Box.GroupNetWeight then
-    Result := Result + [9];
+    Result := Result + [8];
   if GlobalSettings.GetInstance.MarkedZerousPack then begin
-    if Box.PackageWeight <= 0 then Result := Result + [10];
+    if Box.PackageWeight <= 0 then Result := Result + [9];
   end else begin
-    if Box.PackageWeight < 0 then Result := Result + [10];
+    if Box.PackageWeight < 0 then Result := Result + [9];
   end;
 end;
 

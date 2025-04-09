@@ -77,6 +77,8 @@ type
     procedure ScrollToObject(ACol: integer; GridObject: TObject);
     procedure GetSelectedObjects(ACol: integer; Target: TObjectList);
     function CheckRowSelection(ARow: integer): boolean;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer); override;
   end;
 
 procedure Register;
@@ -368,7 +370,7 @@ procedure TOctopusStringGrid.Click;
 var
   RowState: TRowState;
 begin
-  if (CheckListStyle) and (Col = 0) and (Row >= FixedRows) then begin
+ { if (CheckListStyle) and (Col = 0) and (Row >= FixedRows) then begin
     if Self.Objects[0, Row] = nil then begin
         RowState := TRowState.Create;
         Self.Objects[0, Row] := RowState;
@@ -376,7 +378,7 @@ begin
     if not CheckRowSelection(Self.Row) then RowState.RowSelected := True
       else RowState.RowSelected := False;
     Refresh;
-  end;
+  end;          }
 end;
 
 function  TOctopusStringGrid.CheckRowSelection(ARow: Integer): boolean;
@@ -438,6 +440,24 @@ begin
       if (ColObject <> nil) or (integer(ColObject) = 0) then Target.Add(ColObject);
     end;
 end;
+
+procedure TOctopusStringGrid.MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: Integer);
+var
+  RowState: TRowState;
+begin
+  inherited MouseDown(Button, Shift, X, Y);
+  if (CheckListStyle) and (Col = 0) and (Row >= FixedRows) then begin
+    if Self.Objects[0, Row] = nil then begin
+        RowState := TRowState.Create;
+        Self.Objects[0, Row] := RowState;
+      end else RowState := TRowState(Self.Objects[0, Row]);
+    if not CheckRowSelection(Self.Row) then RowState.RowSelected := True
+      else RowState.RowSelected := False;
+    Refresh;
+  end;
+end;
+
 
 // Register
 

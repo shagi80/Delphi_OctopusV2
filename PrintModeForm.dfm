@@ -2257,6 +2257,7 @@ object frmPrintMode: TfrmPrintMode
       Width = 75
       Height = 25
       Caption = 'btnNext'
+      Default = True
       TabOrder = 1
       OnClick = btnNextClick
     end

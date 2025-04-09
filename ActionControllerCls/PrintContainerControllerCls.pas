@@ -308,7 +308,7 @@ begin
 
     FContainerList := nil;
   end else Self.CannotPrint;
-  frmPrintMode.Close;
+  frmPrintMode.ShowMainPage;
 end;
 
 // Подключаемые процедуры компонентов FastReports.
@@ -375,6 +375,7 @@ end;
 procedure TPrintContainerController.frxDataSetDetailGetValue(const VarName: string; var Value: Variant);
 var
   Box: TBox;
+  FileName: string;
 begin
   Value := '';
   frmWaiting.NextStep(Self);
@@ -392,6 +393,11 @@ begin
   if VarName = 'BoxVol' then Value := Box.Volume;
   if VarName = 'OneBoxGross' then Value := Box.OneBoxGrossWeight;
   if VarName = 'OneBoxNet' then Value := Box.OneBoxNetWeight;
+  if VarName = 'valBarCode' then begin
+    FileName := ExtractFileName(Self.FDocument.FileName);
+    FileName := copy(FileName, 1, 7);
+    Value := FileName + '-' + Box.BoxCode;
+  end;
 end;
 
 procedure TPrintContainerController.frxDataSetSubdetailGetValue(const VarName: string;

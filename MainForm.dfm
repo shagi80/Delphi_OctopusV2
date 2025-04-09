@@ -743,7 +743,7 @@ object frmMain: TfrmMain
       Tag = 14
       Category = 'Part'
       Caption = #1053#1086#1074#1072#1103' '#1076#1077#1090#1072#1083#1100
-      ImageIndex = 34
+      ImageIndex = 19
     end
     object PartEdit: TAction
       Tag = 16
