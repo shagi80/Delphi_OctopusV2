@@ -711,7 +711,7 @@ begin
   OrderSearchPart.Enabled := (frmOrders.SelectItem <> nil);
   OrderSaveTo1C.Enabled:= (frmOrders.CurrentOrder <> nil);
 
-  BoxNew.Enabled := (FDocument.Orders.Count > 1);
+  BoxNew.Enabled := (FDocument.Orders.Count > 0);
   BoxLoadPart.Enabled := (frmOrders.SelectItem <> nil);
   BoxNewAndLoad.Enabled := (frmOrders.SelectItem <> nil);
   BoxLoadPartAuto.Enabled := (frmOrders.SelectItem <> nil) and (frmContainers.CurrentContainer <> nil);
