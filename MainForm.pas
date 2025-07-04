@@ -194,6 +194,9 @@ type
     FileMerge: TAction;
     FileMerge1: TMenuItem;
     N36: TMenuItem;
+    ToolBar4: TToolBar;
+    Label1: TLabel;
+    edInvoiceNumber: TEdit;
     procedure FileMergeExecute(Sender: TObject);
     procedure HelpAboutExecute(Sender: TObject);
     procedure ApplicationEvents1Message(var Msg: tagMSG; var Handled: Boolean);
@@ -218,6 +221,7 @@ type
     procedure OnSelectInvoicePart(Part: TPart);
     procedure OnSelectBox(Box: TBox);
     procedure OnChangeLanguage(Sender: TObject);
+    function GetInvoiceNumber(FileName: string): string;
   public
     { Public declarations }
     FileController: TFileController;
@@ -575,13 +579,24 @@ end;
 
 //
 
+function TfrmMain.GetInvoiceNumber(FileName: string): string;
+begin
+  Result := ExtractFileName(FileName);
+  Result := copy(Result, 1, 7);
+end;
+
 procedure TfrmMain.OnNewDocument(Sender: TObject);
 var
   FileName: string;
 begin
   if (FDocument.Orders.Count > 0) then frmWaiting.WaitTableUpdate;
-  if Length(FDocument.FileName) = 0 then FileName := 'No name'
-    else FileName :=  ExtractFileName(FDocument.FileName);
+  if Length(FDocument.FileName) = 0 then begin
+      FileName := 'No name';
+      edInvoiceNumber.Text := '';
+    end else begin
+      FileName := ExtractFileName(FDocument.FileName);
+      edInvoiceNumber.Text := Self.GetInvoiceNumber(FileName);
+    end;
   Self.Caption := VERSION + ' - ' + FileName;
   FDocument.IsModified := False;
   frmOrders.Document := FDocument;
@@ -599,7 +614,9 @@ end;
 
 procedure TfrmMain.OnSaveDocument(Sender: TObject);
 begin
-  Self.Caption := VERSION + ' - ' +FDocument.FileName;
+  Self.Caption := VERSION + ' - ' + FDocument.FileName;
+  edInvoiceNumber.Text := GetInvoiceNumber(
+    ExtractFileName(FDocument.FileName));
   FDocument.IsModified := False;
   UpdateInterface(Self);
 end;

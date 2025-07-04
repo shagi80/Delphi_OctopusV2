@@ -373,9 +373,15 @@ begin
 end;
 
 procedure TPrintContainerController.frxDataSetDetailGetValue(const VarName: string; var Value: Variant);
+
+  function GetFileName: string;
+  begin
+    Result := ExtractFileName(Self.FDocument.FileName);
+    Result := copy(Result, 1, 7);
+  end;
+
 var
   Box: TBox;
-  FileName: string;
 begin
   Value := '';
   frmWaiting.NextStep(Self);
@@ -386,6 +392,7 @@ begin
   if dmPrint.frxDataSetSubDetail.RecNo > 0 then Exit;
   if VarName = 'Row' then Value := dmPrint.frxDataSetDetail.RecNo + 1;
   if VarName = 'BoxCode' then Value := Box.BoxCode;
+  if VarName = 'LabelBoxCode' then Value := GetFileName + '-' + Box.BoxCode;
   if VarName = 'BoxCount' then Value := Box.BoxCount;
   if VarName = 'BoxNet' then Value := Box.GroupNetWeight;
   if VarName = 'BoxGross' then Value := Box.GroupGrossWeight;
@@ -393,11 +400,7 @@ begin
   if VarName = 'BoxVol' then Value := Box.Volume;
   if VarName = 'OneBoxGross' then Value := Box.OneBoxGrossWeight;
   if VarName = 'OneBoxNet' then Value := Box.OneBoxNetWeight;
-  if VarName = 'valBarCode' then begin
-    FileName := ExtractFileName(Self.FDocument.FileName);
-    FileName := copy(FileName, 1, 7);
-    Value := FileName + '-' + Box.BoxCode;
-  end;
+  if VarName = 'valBarCode' then Value := GetFileName + '-' + Box.BoxCode;
 end;
 
 procedure TPrintContainerController.frxDataSetSubdetailGetValue(const VarName: string;

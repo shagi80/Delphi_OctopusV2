@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 0
   Caption = 'Developer: Shaginyan SV'
   ClientHeight = 31
-  ClientWidth = 928
+  ClientWidth = 1290
   Color = clBtnFace
   Constraints.MaxHeight = 90
   Constraints.MinHeight = 90
@@ -24,7 +24,7 @@ object frmMain: TfrmMain
   object ControlBar1: TControlBar
     Left = 0
     Top = 0
-    Width = 928
+    Width = 1290
     Height = 30
     Align = alTop
     AutoSize = True
@@ -32,7 +32,7 @@ object frmMain: TfrmMain
     object ToolBar1: TToolBar
       Left = 436
       Top = 2
-      Width = 289
+      Width = 277
       Height = 22
       Caption = 'ToolBar1'
       Images = imgMain
@@ -41,14 +41,15 @@ object frmMain: TfrmMain
         Tag = 18
         Left = 0
         Top = 0
-        Width = 105
+        Width = 100
         Height = 22
+        Margins.Right = 10
         AutoSize = False
         Caption = #1055#1086#1080#1089#1082' '#1076#1077#1090#1072#1083#1080
         Layout = tlCenter
       end
       object edSearch: TEdit
-        Left = 105
+        Left = 100
         Top = 0
         Width = 121
         Height = 22
@@ -56,7 +57,7 @@ object frmMain: TfrmMain
         OnKeyUp = edSearchKeyUp
       end
       object ToolButton1: TToolButton
-        Left = 226
+        Left = 221
         Top = 0
         Width = 8
         Caption = 'ToolButton1'
@@ -64,12 +65,12 @@ object frmMain: TfrmMain
       end
       object btnSearch: TToolButton
         Tag = 18
-        Left = 234
+        Left = 229
         Top = 0
         Action = SearchStart
       end
       object btnSearchClear: TToolButton
-        Left = 257
+        Left = 252
         Top = 0
         Action = SearchClear
       end
@@ -172,9 +173,37 @@ object frmMain: TfrmMain
         Action = FileExport
       end
     end
+    object ToolBar4: TToolBar
+      Left = 727
+      Top = 2
+      Width = 210
+      Height = 22
+      Caption = 'ToolBar1'
+      Images = imgMain
+      TabOrder = 3
+      object Label1: TLabel
+        Tag = 145
+        Left = 0
+        Top = 0
+        Width = 105
+        Height = 22
+        AutoSize = False
+        Caption = #1055#1086#1080#1089#1082' '#1076#1077#1090#1072#1083#1080
+        Layout = tlCenter
+      end
+      object edInvoiceNumber: TEdit
+        Left = 105
+        Top = 0
+        Width = 102
+        Height = 22
+        ReadOnly = True
+        TabOrder = 0
+        OnKeyUp = edSearchKeyUp
+      end
+    end
   end
   object mmMain: TMainMenu
-    Left = 816
+    Left = 1176
     object FileItem: TMenuItem
       Tag = 1
       Caption = #1060#1074#1081#1083
@@ -497,11 +526,11 @@ object frmMain: TfrmMain
     DefaultExt = '*.txt'
     Filter = 'Text files (*.txt)|*.txt'
     Title = #1054#1090#1082#1088#1099#1090#1080#1077' '#1092#1072#1081#1083#1072
-    Left = 752
+    Left = 1232
   end
   object actMain: TActionList
     Images = imgMain
-    Left = 848
+    Left = 1256
     object FileNew: TAction
       Tag = 2
       Category = 'File'
@@ -905,7 +934,7 @@ object frmMain: TfrmMain
     end
   end
   object imgMain: TImageList
-    Left = 880
+    Left = 1208
     Bitmap = {
       494C01012E003100040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000D0000000010020000000000000D0
@@ -2634,10 +2663,10 @@ object frmMain: TfrmMain
     DefaultExt = '*.txt'
     Filter = 'Text files (*.txt)|*.txt'
     Title = #1057#1086#1093#1088#1072#1085#1077#1085#1080#1077' '#1092#1072#1081#1083#1072
-    Left = 784
+    Left = 1144
   end
   object ApplicationEvents1: TApplicationEvents
     OnMessage = ApplicationEvents1Message
-    Left = 496
+    Left = 1120
   end
 end
