@@ -199,6 +199,8 @@ type
     edInvoiceNumber: TEdit;
     OrderSelectForAutoload: TAction;
     N39: TMenuItem;
+    ContainerSelectByOrder: TAction;
+    ContainerSelectByOrder1: TMenuItem;
     procedure FileMergeExecute(Sender: TObject);
     procedure HelpAboutExecute(Sender: TObject);
     procedure ApplicationEvents1Message(var Msg: tagMSG; var Handled: Boolean);
@@ -357,6 +359,7 @@ begin
   ContainerAddInBoxSelect.OnExecute := ContainerController.ContainerAddInOneSelect;
   ContainerAddInBoxMark.OnExecute := ContainerController.ContainerAddInOneMark;
   ContainerChangeGross.OnExecute := ContainerController.ContainerChangeGross;
+  ContainerSelectByOrder.OnExecute := frmContainers.SelectByOrder;
 
   InvoiceSearchPart.OnExecute := InvoiceController.SearchPart;
   Self.InvoiceChageTotalCost.OnExecute := InvoiceController.ChangeTotalCost;
@@ -421,6 +424,7 @@ begin
   frmContainers.miAddContainer.Action := ContainerAdd;
   frmContainers.miEditContainer.Action := ContainerEdit;
   frmContainers.miDeleteContainer.Action := ContainerDelete;
+  frmContainers.btnSelectByOrder.Action := ContainerSelectByOrder;
 
   frmInvoice.btnSearchPart.Action := InvoiceSearchPart;
   frmInvoice.btnChageTotalCost.Action := InvoiceChageTotalCost;
@@ -640,7 +644,7 @@ end;
 
 procedure TfrmMain.OnSelectBox(Box: TBox);
 begin
-  if {ViewController.CurrentView = vwBoxCreator} frmBox.Visible then frmBox.Box := Box;
+  if (Box <> nil) and (frmBox.Visible) then frmBox.Box := Box;
   Self.UpdateInterface(Self);
 end;
 
@@ -726,12 +730,15 @@ begin
   OrderConcate.Enabled := (FDocument.Orders.Count > 1);
   OrderRename.Enabled := (frmOrders.CurrentOrder <> nil);
   OrderAddPart.Enabled := (frmOrders.CurrentOrder <> nil);
-  OrderEditPart.Enabled := (AccesManager.GetInstance.CanEditParts) and (frmOrders.SelectItem <> nil);
+  OrderEditPart.Enabled := (AccesManager.GetInstance.CanEditParts)
+    and (frmOrders.SelectItem <> nil);
   OrderDeletePart.Enabled := (frmOrders.SelectItem <> nil);
-  OrderCopyPart.Enabled := (AccesManager.GetInstance.CanEditParts) and (frmOrders.SelectItem <> nil);
+  OrderCopyPart.Enabled := (AccesManager.GetInstance.CanEditParts)
+    and (frmOrders.SelectItem <> nil);
   OrderSearchPart.Enabled := (frmOrders.SelectItem <> nil);
   OrderSaveTo1C.Enabled:= (frmOrders.CurrentOrder <> nil);
-  OrderSelectForAutoload.Enabled := (frmOrders.CurrentOrder <> nil);
+  OrderSelectForAutoload.Enabled := (frmOrders.CurrentOrder <> nil)
+    and (frmOrders.CurrentOrder.Count > 0);
 
   BoxNew.Enabled := (FDocument.Orders.Count > 0);
   BoxLoadPart.Enabled := (frmOrders.SelectItem <> nil);
@@ -767,6 +774,10 @@ begin
     and (frmContainers.SelectBox <> nil) and (frmOrders.SelectItem <> nil)
     and (frmContainers.EditBoxes);
   ContainerChangeGross.Enabled :=(frmContainers.CurrentContainer <> nil);
+  ContainerSelectByOrder.Enabled := (frmContainers.CurrentContainer <> nil)
+    and (FDOcument.Orders.Count > 0)
+    and (frmContainers.CurrentContainer.Count > 0)
+    and (frmContainers.grContainer.CheckListStyle);
 
   InvoiceSearchPart.Enabled := (frmInvoice.SelectedPart <> nil);
   InvoiceChageTotalCost.Enabled := (frmInvoice.Invoice <> nil) and (frmInvoice.Invoice.Count > 0);

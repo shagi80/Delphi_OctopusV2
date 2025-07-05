@@ -501,7 +501,7 @@ end;
 
 procedure TfrmOrders.SelectAutoloadParts(Sender: TObject);
 var
-  ARow, Count: integer;
+  ARow, Count, SelectRow: integer;
   Item: TOrderItem;
   Finder: TFindInShipment;
   LoadCount: real;
@@ -510,6 +510,7 @@ begin
   if (FCurOrder = nil) or (FCurOrder.Count = 0) then Exit;
   Finder := TFindInShipment.Create(Self.FDocument);
   Count := 0;
+  SelectRow := -1;
   for ARow := grOrder.FixedRows to grOrder.RowCount - 1 do begin
     Item := TOrderItem(grOrder.Objects[1, ARow]);
     if Item = nil then Continue;
@@ -518,12 +519,17 @@ begin
       and (Item.OrderCount - LoadCount > Item.Part.CountInBox) then begin
         grOrder.MarkedRow(ARow);
         Inc(Count);
+        if (SelectRow < 0) then SelectRow := ARow;        
       end;
   end;
-  grOrder.Repaint;
-  Text := Format(Translator.GetInstance.TranslateMessage(109,
-    'Выбранно %d деталей. Теперь вы можете преместить их в контейнер'),
-    [Count]);
+  if Count > 0 then begin
+    grOrder.SelectCell(1, SelectRow);
+    grOrder.Repaint;
+    Text := Format(Translator.GetInstance.TranslateMessage(109,
+      'Выбранно %d деталей. Теперь вы можете преместить их в контейнер'),
+      [Count]);
+  end else Text := Translator.GetInstance.TranslateMessage(111,
+    'По вашему запросу ничего не найдено !');
   MessageDlg(Text, mtInformation, [mbOk], 0);
   Finder.Free;
 end;

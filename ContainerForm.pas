@@ -89,6 +89,7 @@ type
     miDeleteContainer: TMenuItem;
     miAddContainer: TMenuItem;
     N1: TMenuItem;
+    btnSelectByOrder: TToolButton;
     procedure pnWarningClick(Sender: TObject);
     procedure grContainerMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -148,6 +149,7 @@ type
     function ShowContainer(Container: TContainer): boolean;
     function ShowBox(Box: TBox): boolean;
     function CursorInClient(X, Y: integer; Control: TControl): boolean;
+    procedure SelectByOrder(Sender: TObject);
   published
     procedure CheckContainer(Sender: TObject);
     procedure RefreshTabs(Sender: TObject);
@@ -163,7 +165,8 @@ implementation
 
 {$R *.dfm}
 uses
-  Math, TranslatorCls, GlobalSettingsCls, BoxForm, WaitingForm, LoggerCls;
+  Math, TranslatorCls, GlobalSettingsCls, BoxForm, WaitingForm, LoggerCls,
+  SelectOrdersForm, OrderCls;
 
 // Сеттеры.
 
@@ -438,6 +441,8 @@ begin
   if Self.btnCheckListMode.Down then grContainer.UnselectAll;
   SetCheckButtonsEnabled(grContainer.CheckListStyle);
   grContainer.Repaint;
+  if Assigned(FOnSelectBox) then FOnSelectBox(nil);
+  
 end;
 
 procedure TfrmContainers.SetCheckButtonsEnabled(Value: Boolean);
@@ -683,6 +688,54 @@ begin
         Exit;
       end;
   end;
+end;
+
+//
+procedure TfrmContainers.SelectByOrder(Sender: TObject);
+
+  function OrderIsSelect(Order: TOrder): boolean;
+  var
+    I: integer;
+  begin
+    Result := False;
+    for I := 0 to frmSelectOrders.chblOrders.Items.Count - 1 do
+      if (frmSelectOrders.chblOrders.Checked[I])
+        and (TOrder(frmSelectOrders.chblOrders.Items.Objects[I]) = Order)
+          then begin
+            Result := True;
+            Exit;
+          end
+  end;
+
+var
+  ARow, BoxRow, SelectRow, Count: integer;
+  Item: TBoxItem;
+  Text: string;
+begin
+  if (FCurContainer = nil) or (FCurContainer.Count = 0) then Exit;
+  frmSelectOrders.SetOrders(FDocument.Orders);
+  SelectRow := -1;
+  BoxRow := -1;
+  Count := 0;
+  if frmSelectOrders.ShowModal = mrOk then
+    for ARow := grContainer.FixedRows to grContainer.RowCount - 1 do begin
+      Item := TBoxItem(grContainer.Objects[2, ARow]);
+      if Item = nil then Continue;
+      if OrderIsSelect(Item.Order) then begin
+        BoxRow := Integer(grContainer.Objects[3, ARow]);
+        grContainer.MarkedRow(BoxRow);
+        if SelectRow < 0 then SelectRow := BoxRow;
+        Inc(Count);
+      end;
+    end else Exit;
+  if Count > 0 then begin
+    grContainer.SelectCell(3, SelectRow);
+    grContainer.Refresh;
+    Text := Format(Translator.GetInstance.TranslateMessage(110,
+      'Выбранно %d коробок'), [Count]);
+  end else Text := Translator.GetInstance.TranslateMessage(111,
+    'По вашему запросу ничего не найдено !');
+  MessageDlg(Text, mtInformation, [mbOk], 0);
 end;
 
 end.
