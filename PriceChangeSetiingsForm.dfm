@@ -57,7 +57,7 @@ object frmPriceChangeSetiings: TfrmPriceChangeSetiings
       AlignWithMargins = True
       Left = 14
       Top = 254
-      Width = 490
+      Width = 31
       Height = 13
       Margins.Top = 10
       Margins.Bottom = 10
@@ -69,7 +69,6 @@ object frmPriceChangeSetiings: TfrmPriceChangeSetiings
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      ExplicitWidth = 31
     end
     object pnByAll: TPanel
       AlignWithMargins = True
@@ -86,7 +85,7 @@ object frmPriceChangeSetiings: TfrmPriceChangeSetiings
         AlignWithMargins = True
         Left = 6
         Top = 6
-        Width = 475
+        Width = 238
         Height = 13
         Margins.Left = 0
         Margins.Top = 0
@@ -101,7 +100,6 @@ object frmPriceChangeSetiings: TfrmPriceChangeSetiings
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = ModePanelClick
-        ExplicitWidth = 238
       end
       object Label3: TLabel
         Tag = 179
@@ -133,7 +131,7 @@ object frmPriceChangeSetiings: TfrmPriceChangeSetiings
         AlignWithMargins = True
         Left = 6
         Top = 6
-        Width = 475
+        Width = 285
         Height = 13
         Margins.Left = 0
         Margins.Top = 0
@@ -148,7 +146,6 @@ object frmPriceChangeSetiings: TfrmPriceChangeSetiings
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = ModePanelClick
-        ExplicitWidth = 285
       end
       object Label6: TLabel
         Tag = 180
@@ -181,7 +178,7 @@ object frmPriceChangeSetiings: TfrmPriceChangeSetiings
         AlignWithMargins = True
         Left = 6
         Top = 6
-        Width = 475
+        Width = 315
         Height = 13
         Margins.Left = 0
         Margins.Top = 0
@@ -196,7 +193,6 @@ object frmPriceChangeSetiings: TfrmPriceChangeSetiings
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = ModePanelClick
-        ExplicitWidth = 315
       end
       object Label5: TLabel
         Tag = 181

@@ -104,7 +104,7 @@ var
 begin
   index := IndByTitle(newItem.Title);
   if index < 0 then Result := inherited Add(newItem)
-    else raise EAbstractError.Create('Container title duplicated !');
+    else raise Exception.Create('Container title duplicated !');
 end;
 
 procedure TContainerList.Insert(Index: Integer; newItem: TContainer);
@@ -113,7 +113,7 @@ var
 begin
   ind := IndByTitle(newItem.Title);
   if ind < 0 then inherited Insert(index, newItem)
-    else raise EAbstractError.Create('Container title duplicated !');
+    else raise Exception.Create('Container title duplicated !');
 end;
 
 

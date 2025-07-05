@@ -102,13 +102,13 @@ end;
 function TPartList.Add(newPart: TPart): integer;
 begin
   if GetIndexByCode(newPart.Code) < 0 then Result := inherited Add(newPart)
-    else raise EAbstractError.Create('Part code duplicate !');
+    else raise Exception.Create('Part code duplicate !');
 end;
 
 procedure TpartList.Insert(Index: Integer; newPart: TPart);
 begin
   if GetIndexByCode(newPart.Code) < 0 then inherited Insert(Index, newPart)
-    else raise EAbstractError.Create('Part code duplicate !');
+    else raise Exception.Create('Part code duplicate !');
 end;
 
 end.

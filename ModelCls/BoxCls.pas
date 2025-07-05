@@ -195,7 +195,7 @@ var
 begin
   ind := IndexOf(newItem);
   if ind < 0 then inherited Insert(index, newItem)
-    else raise EAbstractError.Create('Box code duplicated !');
+    else raise Exception.Create('Box code duplicated !');
 end;
 
 

@@ -396,8 +396,8 @@ begin
         AddRow := True
       else if (Self.btnOverload.Down) and (LoadCount > Item.OrderCount) then
         AddRow := True
-      else if (Self.btnUnderload.Down) and (LoadCount < Item.OrderCount) then
-        AddRow := True;
+      else if (Self.btnUnderload.Down) and (LoadCount < Item.OrderCount)
+        and (LoadCount > 0 ) then AddRow := True;
     end;
     // Отбор по полю поиска.
     if (AddRow) and (Length(edSearch.Text) > 0) then

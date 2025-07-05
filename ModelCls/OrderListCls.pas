@@ -104,7 +104,7 @@ var
 begin
   ind := IndByTitle(newItem.Title);
   if ind < 0 then inherited Insert(index, newItem)
-    else raise EAbstractError.Create('Order title duplicated !');
+    else raise Exception.Create('Order title duplicated !');
 end;
 
 end.

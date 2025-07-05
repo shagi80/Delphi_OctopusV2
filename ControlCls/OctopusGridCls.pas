@@ -367,8 +367,6 @@ begin
 end;
 
 procedure TOctopusStringGrid.Click;
-var
-  RowState: TRowState;
 begin
  { if (CheckListStyle) and (Col = 0) and (Row >= FixedRows) then begin
     if Self.Objects[0, Row] = nil then begin

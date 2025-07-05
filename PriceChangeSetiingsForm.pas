@@ -103,7 +103,6 @@ function TfrmPriceChangeSetiings.GetNewCost(HaveSelectedParts, HaveSettingParts:
 var
   I: integer;
 begin
-  Result := 0;
   Self.edNewCost.Text := FloatToStr(NewCost);
   Self.pnBySelected.Enabled := HaveSelectedParts;
   for I := 0 to pnBySelected.ControlCount - 1 do
