@@ -417,6 +417,20 @@ object frmOrders: TfrmOrders
           Caption = 'btnPartListUpdate'
           ImageIndex = 6
         end
+        object ToolButton6: TToolButton
+          Left = 361
+          Top = 0
+          Width = 8
+          Caption = 'ToolButton6'
+          ImageIndex = 7
+          Style = tbsSeparator
+        end
+        object btnSelectForAutolad: TToolButton
+          Left = 369
+          Top = 0
+          Caption = 'btnSelectForAutolad'
+          ImageIndex = 7
+        end
       end
     end
   end

@@ -64,6 +64,8 @@ type
     ToolButton4: TToolButton;
     ToolButton5: TToolButton;
     btnPartListUpdate: TToolButton;
+    ToolButton6: TToolButton;
+    btnSelectForAutolad: TToolButton;
     procedure grOrderMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure grOrderDblClick(Sender: TObject);
@@ -112,6 +114,7 @@ type
     procedure RefreshTabs(Sender: TObject);
     procedure RefreshGrid(Sender: TObject);
     procedure ViewButtonsClick(Sender: TObject);
+    procedure SelectAutoloadParts(Sender: TObject);
   end;
 
 var
@@ -492,6 +495,37 @@ begin
       Exit;
     end;
   end;
+end;
+
+// Выделение деталей для групповой загрузки (05.07.25)
+
+procedure TfrmOrders.SelectAutoloadParts(Sender: TObject);
+var
+  ARow, Count: integer;
+  Item: TOrderItem;
+  Finder: TFindInShipment;
+  LoadCount: real;
+  Text: string;
+begin
+  if (FCurOrder = nil) or (FCurOrder.Count = 0) then Exit;
+  Finder := TFindInShipment.Create(Self.FDocument);
+  Count := 0;
+  for ARow := grOrder.FixedRows to grOrder.RowCount - 1 do begin
+    Item := TOrderItem(grOrder.Objects[1, ARow]);
+    if Item = nil then Continue;
+    LoadCount := Finder.CountForOrder(FcurOrder, Item.Part);
+    if (Item.Part.CountInBox > 0)
+      and (Item.OrderCount - LoadCount > Item.Part.CountInBox) then begin
+        grOrder.MarkedRow(ARow);
+        Inc(Count);
+      end;
+  end;
+  grOrder.Repaint;
+  Text := Format(Translator.GetInstance.TranslateMessage(109,
+    'Выбранно %d деталей. Теперь вы можете преместить их в контейнер'),
+    [Count]);
+  MessageDlg(Text, mtInformation, [mbOk], 0);
+  Finder.Free;
 end;
 
 end.

@@ -197,6 +197,8 @@ type
     ToolBar4: TToolBar;
     Label1: TLabel;
     edInvoiceNumber: TEdit;
+    OrderSelectForAutoload: TAction;
+    N39: TMenuItem;
     procedure FileMergeExecute(Sender: TObject);
     procedure HelpAboutExecute(Sender: TObject);
     procedure ApplicationEvents1Message(var Msg: tagMSG; var Handled: Boolean);
@@ -332,6 +334,7 @@ begin
   OrderEditPart.OnExecute := OrderController.OrderEditPartExecute;
   OrderAddPartFromOther.OnExecute := OrderController.OrderAddPartFromFileExecute;
   OrderSaveTo1C.OnExecute := OrderController.OrderSaveTo1C;
+  OrderSelectForAutoload.OnExecute := frmOrders.SelectAutoloadParts;
 
   BoxNew.OnExecute := BoxController.BoxNew;
   BoxNewAndLoad.OnExecute := BoxController.BoxNewAndLoadPart;
@@ -387,6 +390,7 @@ begin
   frmOrders.btnSearchPart.Action := OrderSearchPart;
   frmOrders.btnOrderSave.Action := OrderSaveTo1C;
   frmOrders.btnPartListUpdate.Action := PartListUpdate;
+  frmOrders.btnSelectForAutolad.Action := OrderSelectForAutoload;
 
   frmBox.tbEditTools.Images := Self.imgMain;
   frmBox.btnNewBox.Action := BoxNew;
@@ -727,6 +731,7 @@ begin
   OrderCopyPart.Enabled := (AccesManager.GetInstance.CanEditParts) and (frmOrders.SelectItem <> nil);
   OrderSearchPart.Enabled := (frmOrders.SelectItem <> nil);
   OrderSaveTo1C.Enabled:= (frmOrders.CurrentOrder <> nil);
+  OrderSelectForAutoload.Enabled := (frmOrders.CurrentOrder <> nil);
 
   BoxNew.Enabled := (FDocument.Orders.Count > 0);
   BoxLoadPart.Enabled := (frmOrders.SelectItem <> nil);

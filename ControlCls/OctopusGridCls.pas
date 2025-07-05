@@ -79,6 +79,7 @@ type
     function CheckRowSelection(ARow: integer): boolean;
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
+    procedure MarkedRow(ARow: integer);
   end;
 
 procedure Register;
@@ -331,11 +332,24 @@ begin
   Self.FCheckListStyle := Style;
 end;
 
+//
+
+procedure TOctopusStringGrid.MarkedRow(ARow: integer);
+var
+  RowState: TRowState;
+begin
+  if (Length(Self.Cells[0, ARow]) > 0) then begin
+    if (Objects[0, ARow] = nil) then Objects[0, ARow] := TRowState.Create;
+    RowState := TRowState(Self.Objects[0, ARow]);
+    RowState.FRowSelected := True;
+  end;
+end;
+
 procedure TOctopusStringGrid.UnselectAll;
 var
   I: integer;
 begin
-  for I := 0 to RowCount - 1 do
+  for I := Self.FixedRows to RowCount - 1 do
     if Objects[0, I] <> nil then
       TRowState(Self.Objects[0, I]).FRowSelected := False;
 end;
@@ -343,14 +357,9 @@ end;
 procedure TOctopusStringGrid.SelectAll;
 var
   I: integer;
-  RowState: TRowState;
 begin
-  for I := 0 to RowCount - 1 do
-    if (Length(Self.Cells[0, I]) > 0) then begin
-      if (Objects[0, I] = nil) then Objects[0, I] := TRowState.Create;
-      RowState := TRowState(Self.Objects[0, I]);
-      RowState.FRowSelected := True;
-    end;
+  for I := Self.FixedRows to RowCount - 1 do
+    if (Length(Self.Cells[0, I]) > 0) then MarkedRow(I);
 end;
 
 procedure TOctopusStringGrid.ChangeSelection;
@@ -358,13 +367,15 @@ var
   I: integer;
   RowState: TRowState;
 begin
-  for I := 0 to RowCount - 1 do
+  for I := Self.FixedRows to RowCount - 1 do
     if (Length(Self.Cells[0, I]) > 0) then begin
       if (Objects[0, I] = nil) then Objects[0, I] := TRowState.Create;
       RowState := TRowState(Self.Objects[0, I]);
       RowState.FRowSelected := not RowState.FRowSelected;
     end;
 end;
+
+//
 
 procedure TOctopusStringGrid.Click;
 begin
