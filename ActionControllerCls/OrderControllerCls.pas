@@ -557,6 +557,12 @@ begin
   LoadCount := Finder.CountForOrder(frmOrders.CurrentOrder, Item.Part);
   Finder.Free;
   frmOrders.SetGridRowColor(LoadCount, Item.OrderCount, ARow );
+  // Добавлено 15.07.25. При изменение заказанного кол-ва надо пересчитывать
+  // и баланс
+  if not GlobalSettings.GetInstance.ShowNotloadCountInOrder then
+      frmOrders.grOrder.Cells[3, ARow] := FloatToStr(LoadCount)
+    else
+      frmOrders.grOrder.Cells[3, ARow] := FloatToStr(Item.OrderCount - LoadCount);
   frmOrders.grOrder.Repaint;
   Result := True;
 end;
@@ -587,7 +593,6 @@ begin
   end;
   if NewValue <= 0 then frmOrders.grOrder.Cells[ACol, ARow] := '0';
   if Update then Self.ChangeModelEvent(False);
-  
 end;
 
 // Поиск элемента заказа в конейтерах

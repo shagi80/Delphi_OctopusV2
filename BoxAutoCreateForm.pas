@@ -365,7 +365,7 @@ begin
     if BoxItem.OrderCount = 0 then BoxItem.OrderCount := 1;
     Box := TBox.Create;
     // Cчитаем кол-во коробок
-    if (BoxItem.Part.CountInBox > 0) and (BoxItem.Part.CountInBox < BoxItem.OrderCount) then begin
+    if (BoxItem.Part.CountInBox > 0) and (BoxItem.Part.CountInBox <= BoxItem.OrderCount) then begin
       Box.BoxCount := trunc(BoxItem.OrderCount / BoxItem.Part.CountInBox);
       BoxItem.OrderCount := Box.BoxCount * BoxItem.Part.CountInBox;
     end;
