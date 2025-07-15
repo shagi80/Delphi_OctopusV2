@@ -55,6 +55,8 @@ begin
   Invoice := frmInvoice.Invoice;
   if Invoice.TotalPrice = 0 then Exit;
   PerUnitOfPrice := (TargetSum - Invoice.TotalPrice) / Invoice.TotalPrice;
+  // Изменение 15.07.25. Вводится необщая сумма, а лишть сумма к распределению
+  PerUnitOfPrice := TargetSum / Invoice.TotalPrice;
   for I := 0 to Invoice.Count - 1 do begin
     Term := (PerUnitOfPrice * Invoice.Row[I].CFRTotal) / Invoice.Row[I].Count;
     Term := SimpleRoundTo(Term, - GlobalSettings.GetInstance.MoneyAccuracy);
@@ -83,7 +85,8 @@ begin
     end;
   end;
   if TotalSum = 0 then Exit;
-  PerUnitOfPrice := (TargetSum - Invoice.TotalPrice) / TotalSum;
+  // Изменение 15.07.25. Вводится необщая сумма, а лишть сумма к распределению
+  PerUnitOfPrice := TargetSum / TotalSum;
   for I := 0 to Invoice.Count - 1 do begin
     Code := Invoice.Row[I].Code;
     Coef := StrToFloatDef(CodeList.Values[Code], 0);

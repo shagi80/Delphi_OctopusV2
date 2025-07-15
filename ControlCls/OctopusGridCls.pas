@@ -428,7 +428,7 @@ begin
   for ARow := 1 to Self.RowCount - 1 do
     if Self.Objects[ACol, ARow] = GridObject then begin
       if ((ARow - Self.TopRow) > Self.VisibleRowCount) or (ARow < Self.TopRow) then begin
-        NewTopRow := ARow - 1;
+        NewTopRow := ARow - 10;
         if NewTopRow < 1 then NewTopRow := 1;
         Self.TopRow := NewTopRow;
       end;
