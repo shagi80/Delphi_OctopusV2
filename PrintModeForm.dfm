@@ -37,6 +37,10 @@ object frmPrintMode: TfrmPrintMode
         BorderWidth = 20
         Caption = 'ModePrint'
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object catbtnPrintMode: TCategoryButtons
           AlignWithMargins = True
           Left = 0
@@ -126,8 +130,8 @@ object frmPrintMode: TfrmPrintMode
           object lbPrintMode: TLabel
             Left = 0
             Top = 0
-            Width = 267
-            Height = 22
+            Width = 222
+            Height = 13
             Align = alClient
             Caption = #1042#1099#1073#1077#1088#1080#1090#1077', '#1095#1090#1086' '#1074#1099' '#1093#1086#1090#1080#1090#1077' '#1085#1072#1087#1077#1095#1072#1090#1072#1090#1100
             Font.Charset = DEFAULT_CHARSET
@@ -136,8 +140,6 @@ object frmPrintMode: TfrmPrintMode
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-            ExplicitWidth = 222
-            ExplicitHeight = 13
           end
           object btnCollapse: TSpeedButton
             Left = 267
@@ -183,6 +185,10 @@ object frmPrintMode: TfrmPrintMode
         Caption = 'SelectCheck'
         ImageIndex = 1
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object pnSelectTitle: TPanel
           Left = 0
           Top = 0
@@ -194,8 +200,8 @@ object frmPrintMode: TfrmPrintMode
           object lbSelectCheck: TLabel
             Left = 0
             Top = 0
-            Width = 290
-            Height = 22
+            Width = 222
+            Height = 13
             Align = alClient
             Caption = #1042#1099#1073#1077#1088#1080#1090#1077', '#1095#1090#1086' '#1074#1099' '#1093#1086#1090#1080#1090#1077' '#1085#1072#1087#1077#1095#1072#1090#1072#1090#1100
             Font.Charset = DEFAULT_CHARSET
@@ -204,8 +210,6 @@ object frmPrintMode: TfrmPrintMode
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-            ExplicitWidth = 222
-            ExplicitHeight = 13
           end
         end
         object cbCheck: TCheckListBox
@@ -228,6 +232,10 @@ object frmPrintMode: TfrmPrintMode
         Caption = 'SelectRadio'
         ImageIndex = 2
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object pnSortTitle: TPanel
           Left = 0
           Top = 0
@@ -239,8 +247,8 @@ object frmPrintMode: TfrmPrintMode
           object lbSelectRadio: TLabel
             Left = 0
             Top = 0
-            Width = 290
-            Height = 22
+            Width = 222
+            Height = 13
             Align = alClient
             Caption = #1042#1099#1073#1077#1088#1080#1090#1077', '#1095#1090#1086' '#1074#1099' '#1093#1086#1090#1080#1090#1077' '#1085#1072#1087#1077#1095#1072#1090#1072#1090#1100
             Font.Charset = DEFAULT_CHARSET
@@ -249,8 +257,6 @@ object frmPrintMode: TfrmPrintMode
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-            ExplicitWidth = 222
-            ExplicitHeight = 13
           end
         end
         object rgRadio: TRadioGroup
@@ -277,6 +283,10 @@ object frmPrintMode: TfrmPrintMode
         Caption = 'ModeExport'
         ImageIndex = 4
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Panel1: TPanel
           Left = 0
           Top = 0
@@ -288,8 +298,8 @@ object frmPrintMode: TfrmPrintMode
           object lbExportMode: TLabel
             Left = 0
             Top = 0
-            Width = 290
-            Height = 22
+            Width = 250
+            Height = 13
             Align = alClient
             Caption = #1042#1099#1073#1077#1088#1080#1090#1077', '#1095#1090#1086' '#1074#1099' '#1093#1086#1090#1080#1090#1077'  '#1101#1082#1089#1087#1086#1088#1090#1080#1088#1086#1074#1072#1090#1100
             Font.Charset = DEFAULT_CHARSET
@@ -298,8 +308,6 @@ object frmPrintMode: TfrmPrintMode
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-            ExplicitWidth = 250
-            ExplicitHeight = 13
           end
         end
         object catbtnExportMode: TCategoryButtons

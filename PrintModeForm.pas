@@ -122,6 +122,7 @@ end;
 
 procedure TfrmPrintMode.FormShow(Sender: TObject);
 begin
+  FDoClose := False;
   Self.ShowMainPage;
   Self.catbtnPrintMode.SelectedItem := nil;
   Self.catbtnExportMode.SelectedItem := nil;
