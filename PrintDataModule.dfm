@@ -12,7 +12,7 @@ object dmPrint: TdmPrint
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40621.537163900500000000
-    ReportOptions.LastChange = 45834.697238125000000000
+    ReportOptions.LastChange = 45854.712244606480000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -308,10 +308,10 @@ object dmPrint: TdmPrint
           ParentFont = False
         end
         object BarCode1: TfrxBarCodeView
-          Left = 15.118120000000000000
+          Left = 10.842610000000000000
           Top = 7.559060000000000000
           Width = 129.000000000000000000
-          Height = 45.354360000000000000
+          Height = 37.795275590000000000
           ShowHint = False
           BarType = bcCode39
           DataField = 'valBarCode'

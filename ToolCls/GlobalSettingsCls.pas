@@ -33,6 +33,8 @@ type
     FMinPackWeight: real;
     FDefFileName: string;
     FLastSpecificationNumber: string;
+    FChineseFileName: string;
+    FBarCodeZoom: real;
     const INI_FILENAME: string = 'global.ini';
     procedure LoadFromIni;
     procedure SetLanguage(language: integer);
@@ -75,6 +77,8 @@ type
     property DefFileNmae: string read FDefFileName write FDefFileName;
     property LastSpecificationNumber: string read FLastSpecificationNumber
       write FLastSpecificationNumber;
+    property ChineseFileName: string read FChineseFileName write FChineseFileName;
+    property BarCodeZoom: real read FBarCodeZoom write FBarCodeZoom;
     procedure Save;
   end;
 
@@ -90,6 +94,7 @@ uses IniFiles, SysUtils, Forms, Dialogs;
 const
   fnMultiplier = 'multiplier.cdl';
   fnPriceDistribution = 'price_distribution.cdl';
+  fnChineNames = 'chine_names.txt';
 
 
 class procedure TSettingsSingleton.DestroyInstance;
@@ -157,6 +162,9 @@ begin
     FDefContainerVolume := IniFile.ReadFloat('CONTAINER', 'DEF_VOLUME', 70);
     FLastSpecificationNumber := IniFile.ReadString('PRINT',
       'LAST_SPECIFICATION_NUMBER', '1');
+    FChineseFileName := IniFile.ReadString('MAIN', 'CHINE_NAMES_FILE',
+      fnChineNames);
+    FBarCodeZoom := IniFile.ReadFloat('MAIN', 'BARCODE_ZOOM', 1);
     IniFile.Free;
     // Если файлы из настроек не существуют пробуем найти их в конрневом катлоге
     if not FileExists(Self.FMultiplierFileName) then begin
@@ -187,6 +195,8 @@ begin
     FMinPackWeight := 0.01;
     FDefFileName := '';
     FLastSpecificationNumber := '1';
+    FChineseFileName := fnChineNames;
+    FBarCodeZoom := 1;
   end;
 end;
 
@@ -217,6 +227,8 @@ begin
   IniFile.WriteFloat('CONTAINER', 'DEF_GROSS', FDefContainerGross);
   IniFile.WriteFloat('CONTAINER', 'DEF_VOLUME', FDefContainerVolume);
   IniFile.WriteString('PRINT', 'LAST_SPECIFICATION_NUMBER', FLastSpecificationNumber);
+  IniFile.WriteString('MAIN', 'CHINE_NAMES_FILE', FChineseFileName);
+  IniFile.WriteFloat('MAIN', 'BARCODE_ZOOM', FBarCodeZoom);
   IniFile.Free;
 end;
 

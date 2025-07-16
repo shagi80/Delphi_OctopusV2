@@ -58,6 +58,8 @@ type
     cbMarkedZerousPack: TCheckBox;
     Label17: TLabel;
     edMinPackWeight: TEdit;
+    Label18: TLabel;
+    edBarCodeZoom: TEdit;
     procedure btnChangeAccuracyFileClick(Sender: TObject);
     procedure btnChangePriceFileClick(Sender: TObject);
     procedure btnUpdateAccessClick(Sender: TObject);
@@ -237,6 +239,8 @@ begin
   //
   edMinPackWeight.Text := FloatToStr(Settings.MinPackWeight);
   //
+  edBarCodeZoom.Text := FloatToStr(Settings.BarCodeZoom);
+  //
   edWeightAccuracy.Text := IntToStr(Settings.WeightAccuracy);
   edVolumeAccuracy.Text := IntToStr(Settings.VolumeAccuracy);
   edPriceAccuracy.Text := IntToStr(Settings.MoneyAccuracy);
@@ -275,6 +279,7 @@ begin
   Settings.FixBoxPackWeightForChange := Self.cbFixPackBoxWeight.Checked;
   Settings.MarkedZerousPack := Self.cbMarkedZerousPack.Checked;
   Settings.MinPackWeight := StrToFloatDef(edMinPackWeight.Text, 0.01);
+  Settings.BarCodeZoom := StrToFloatDef(edBarCodeZoom.Text, 1);
   // Настройки суперадминистратора.
   AccesManager.GetInstance.SetAccessLevel(Settings.AccessPassword);
   if AccesManager.GetInstance.CanEditSettings then begin

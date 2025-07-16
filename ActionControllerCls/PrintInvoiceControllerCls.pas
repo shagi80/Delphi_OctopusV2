@@ -172,7 +172,7 @@ begin
   if VarName = 'Risk' then Value := Row.PriceRisk;
 end;
 
-//
+// Основная процедура.
 
 procedure TPrintInvoiceController.PrintInvoiceAll(Sender: TObject);
 var
@@ -190,12 +190,13 @@ begin
   BuyerId := 0;
   PortId := 0;
   ContNum := '';
-  SpecNum := GlobalSettings.GetInstance.LastSpecificationNumber;
+  //SpecNum := GlobalSettings.GetInstance.LastSpecificationNumber;
+  SpecNum := FDocument.InvoiceNumber;
   for I := 0 to FDocument.Containers.Count - 1 do
     ContNum := ContNum + FDocument.Containers.Items[I].Title + '/';
   Delete(ContNum, Length(ContNum), 1);
-  InvNum := ExtractFileName(FDocument.FileName);
-  InvDate := date;
+  InvNum := 'INV-HY-' + FDocument.InvoiceNumber;
+  InvDate := now;
   //
   if not frmPrintMode.GetInvoiceSettings(SupplierId, BuyerId, PortId,
     ContNum, InvNum, InvDate, SpecNum) then begin

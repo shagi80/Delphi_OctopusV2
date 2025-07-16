@@ -14,7 +14,8 @@ type
     procedure CannotExportMessage;
     procedure ExportDoneMessage;
     function GetFileName(Ext: string): string;
-    procedure ExportWithFastReports(ExportFormat: integer);
+    procedure ExportWithFastReports(ExportFormat: integer;
+      ExportFileName: string = '');
     procedure frxDataSetMasterGetValue(const VarName: string; var Value: Variant);
     procedure ResizePrintModeForm;
     //procedure frxDataSetMasterNext(Sender: TObject);
@@ -85,6 +86,7 @@ begin
   SaveDlg := TSaveDialog.Create(nil);
   SaveDlg.Title := Translator.GetInstance.TranslateMessage(
     59, 'Выберите файл для сохранения');
+  SaveDlg.FileName := FDocument.InvoiceNumber + '-for_1C';
   SaveDlg.DefaultExt := '*.' + Ext;
   if Ext = 'txt' then SaveDlg.Filter := 'Text files (*.txt)|*.txt';
   if Ext = 'csv' then SaveDlg.Filter := 'CSV files (*.csv)|*.csv';
@@ -92,7 +94,8 @@ begin
   Result := SaveDlg.FileName;
 end;
 
-procedure TExportController.ExportWithFastReports(ExportFormat: integer);
+procedure TExportController.ExportWithFastReports(ExportFormat: integer;
+  ExportFileName: string = '');
 var
   FileName: string;
 begin
@@ -132,11 +135,32 @@ begin
       frmWaiting.Close;
       //frxReport.ShowPreparedReport;
       case ExportFormat of
-        0: frxReport.Export(frxXLSExport1);
-        1: frxReport.Export(frxODTExport1);
-        2: frxReport.Export(frxODSExport1);
-        3: frxReport.Export(frxPDFExport1);
-        4: frxReport.Export(frxTXTExport1);
+        0: begin
+          frxXLSExport1.FileName := ExportFileName;
+          frxXLSExport1.OpenExcelAfterExport := False;
+          frxXLSExport1.PageBreaks := False;
+          frxReport.Export(frxXLSExport1);
+        end;
+        1: begin
+          frxODTExport1.FileName := ExportFileName;
+          frxODTExport1.OpenAfterExport := False;
+          frxReport.Export(frxODTExport1);
+        end;
+        2: begin
+          frxODSExport1.FileName := ExportFileName;
+          frxODSExport1.OpenAfterExport := False;
+          frxODSExport1.SingleSheet := True;
+          frxReport.Export(frxODSExport1);
+        end;
+        3: begin
+          frxPDFExport1.FileName := ExportFileName;
+          frxPDFExport1.OpenAfterExport := False;
+          frxReport.Export(frxPDFExport1);
+        end;
+        4: begin
+          frxTXTExport1.FileName := ExportFileName;
+          frxReport.Export(frxTXTExport1);
+        end;
       end;
     end;
     FInvoice.Free;
@@ -240,7 +264,8 @@ begin
   FMode := mdForInvoice;
   ExportFormat := -1;
   if frmPrintMode.GetExportMode(ExportFormat) then
-    Self.ExportWithFastReports(ExportFormat)
+    Self.ExportWithFastReports(ExportFormat,
+      FDocument.InvoiceNumber + '_invoice')
       else frmPrintMode.ShowMainPage;
 end;
 
@@ -251,7 +276,8 @@ begin
   FMode := mdForCustom;
   ExportFormat := -1;
   if frmPrintMode.GetExportMode(ExportFormat) then
-    Self.ExportWithFastReports(ExportFormat)
+    Self.ExportWithFastReports(ExportFormat,
+      FDocument.InvoiceNumber + '_cust_code')
       else frmPrintMode.ShowMainPage;
 end;
 

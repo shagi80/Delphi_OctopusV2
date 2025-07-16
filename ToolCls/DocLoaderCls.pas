@@ -21,6 +21,7 @@ type
     const SEPARATOR = '","';
     function CalculateCFRPrice(CFRPrice, FOBPrice: real): real;
     function UniverseStrToFloat(val: string; Def: real): real;
+    procedure LoadChineseNames(Parts: TPartList);
   public
     constructor Create(filename: string);
     destructor Destroy; override;
@@ -35,7 +36,7 @@ implementation
 
 uses
   SysUtils, Dialogs, StrUtils, OrderItemCls, ContainerCls, BoxCls,
-  BoxItemCls, TranslatorCls, GlobalSettingsCls;
+  BoxItemCls, TranslatorCls, GlobalSettingsCls, Forms, Classes;
 
 constructor TDocLoader.Create(filename: string);
 begin
@@ -268,6 +269,27 @@ begin
   end;
 end;
 
+procedure TDocLoader.LoadChineseNames(Parts: TPartList);
+var
+  FileName, Name: string;
+  NamesStrings: TStringList;
+  Part: TPart;
+  I: integer;
+begin
+  FileName := ExtractFilePath(Application.ExeName)
+    + GlobalSettings.GetInstance.ChineseFileName;
+  if not FileExists(FileName) then Exit;
+  NamesStrings := TStringList.Create;
+  NamesStrings.LoadFromFile(FileName);
+  if NamesStrings.Count > 0 then
+    for I := 0 to Parts.Count - 1 do begin
+      Part := Parts.Items[I];
+      Name := Copy(Part.Code, 2, MaxInt);
+      Part.ChinName := NamesStrings.Values[Name];
+    end;
+  NamesStrings.Free;
+end;
+
 //
 
 function TDocLoader.Load(doc: TDocument): boolean;
@@ -276,7 +298,10 @@ var
 begin
   Reset(FFile);
   if not LoadPartsAndOrders(doc) then Result := False
-    else Result := Self.LoadContainers(doc);
+    else begin
+      LoadChineseNames(Doc.Parts);
+      Result := Self.LoadContainers(doc);
+    end;
   if not Result then begin
     Text := Translator.GetInstance.TranslateMessage(
       33, 'Ошибка загрузки') + ' !' + chr(13)
@@ -319,6 +344,7 @@ begin
     OrderItem.OrderCount := UniverseStrToFloat(Substrings[19], 0);
     Order.Add(OrderItem);
   end;
+  LoadChineseNames(Doc.Parts);
   Result := True;
 end;
 
@@ -339,6 +365,7 @@ begin
     Part := PartBuilder1C(Substrings);
     Parts.Add(part);
   end;
+  LoadChineseNames(Parts);
   Result := True;
 end;
 

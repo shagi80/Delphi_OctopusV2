@@ -196,7 +196,7 @@ type
     N36: TMenuItem;
     ToolBar4: TToolBar;
     Label1: TLabel;
-    edInvoiceNumber: TEdit;
+    edInvNumber: TEdit;
     OrderSelectForAutoload: TAction;
     N39: TMenuItem;
     ContainerSelectByOrder: TAction;
@@ -600,13 +600,14 @@ begin
   if (FDocument.Orders.Count > 0) then frmWaiting.WaitTableUpdate;
   if Length(FDocument.FileName) = 0 then begin
       FileName := 'No name';
-      edInvoiceNumber.Text := '';
+      FDocument.InvoiceNumber := '';
     end else begin
       FileName := ExtractFileName(FDocument.FileName);
-      edInvoiceNumber.Text := Self.GetInvoiceNumber(FileName);
+      FDocument.InvoiceNumber := GetInvoiceNumber(FileName);
     end;
   Self.Caption := VERSION + ' - ' + FileName;
   FDocument.IsModified := False;
+  edInvNumber.Text := FDocument.InvoiceNumber;
   frmOrders.Document := FDocument;
   frmContainers.Document := FDocument;
   frmSearch.Document := FDocument;
@@ -623,9 +624,10 @@ end;
 procedure TfrmMain.OnSaveDocument(Sender: TObject);
 begin
   Self.Caption := VERSION + ' - ' + FDocument.FileName;
-  edInvoiceNumber.Text := GetInvoiceNumber(
+  FDocument.InvoiceNumber := GetInvoiceNumber(
     ExtractFileName(FDocument.FileName));
   FDocument.IsModified := False;
+  edInvNumber.Text := FDocument.InvoiceNumber;
   UpdateInterface(Self);
 end;
 

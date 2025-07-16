@@ -27,6 +27,7 @@ type
     procedure CreateBoxData(Source, Target: TContainer; SortInd: integer);
     procedure MultiplyBoxes(Containers: TContainerList);
     procedure ResizePrintModeForm;
+    procedure PrepareBarCode(Report: TfrxReport);
   public
     constructor Create(Document: TDocument);
     destructor Destroy; override;
@@ -43,7 +44,8 @@ implementation
 
 uses
  PrintModeForm, TranslatorCls, Dialogs, FindInShipmentCls, BoxCls, BoxItemCls,
- SysUtils, ContainerForm, Forms, GlobalSettingsCls, PrintDataModule, WaitingForm;
+ SysUtils, ContainerForm, Forms, GlobalSettingsCls, PrintDataModule, WaitingForm,
+ frxBarcode;
 
 const
   SortNone =  -1;
@@ -262,6 +264,19 @@ begin
   ContainerList.Free;
 end;
 
+procedure TPrintContainerController.PrepareBarCode(Report: TfrxReport);
+var
+  BarCode: TfrxBarCodeView;
+  Memo: TfrxMemoView;
+begin
+  BarCode := TfrxBarCodeView(Report.FindObject('BarCode1'));
+  Memo := TfrxMemoView(Report.FindObject('Memo20'));
+  if not Assigned(BarCode) then Exit;
+  if not Assigned(Memo) then BarCode.Height := 40
+    else BarCode.Height := trunc(Memo.Height * 0.9);
+  BarCode.Zoom := GlobalSettings.GetInstance.BarCodeZoom;
+end;
+
 // Настройка компонентов FastReports.
 
 procedure TPrintContainerController.PrintContainers(ContainerList: TContainerList);
@@ -301,6 +316,7 @@ begin
 
       frxReport.OnGetValue := Self.frxReportGetValue;
       frxReport.LoadFromFile(FileName);
+      if Self.FMode = mdLabels then Self.PrepareBarCode(frxReport);      
       frxReport.PrepareReport(True);
       frmWaiting.Hide;
       frxReport.ShowPreparedReport;

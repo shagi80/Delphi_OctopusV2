@@ -197,8 +197,8 @@ object frmContainers: TfrmContainers
         AlignWithMargins = True
         Left = 5
         Top = 3
-        Width = 568
-        Height = 18
+        Width = 190
+        Height = 13
         Margins.Left = 5
         Align = alClient
         Caption = #1055#1088#1086#1074#1077#1088#1100#1090#1077' '#1079#1072#1087#1086#1083#1085#1077#1085#1080#1077' '#1080#1085#1074#1086#1081#1089#1072' !'
@@ -211,8 +211,6 @@ object frmContainers: TfrmContainers
         ParentColor = False
         ParentFont = False
         Layout = tlCenter
-        ExplicitWidth = 190
-        ExplicitHeight = 13
       end
     end
   end
@@ -631,7 +629,7 @@ object frmContainers: TfrmContainers
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 591
+        Width = 244
         Height = 13
         Align = alTop
         Alignment = taCenter
@@ -643,7 +641,6 @@ object frmContainers: TfrmContainers
         Font.Style = []
         ParentFont = False
         Layout = tlCenter
-        ExplicitWidth = 244
       end
       object pnEachSeparately: TPanel
         AlignWithMargins = True
@@ -813,7 +810,7 @@ object frmContainers: TfrmContainers
     Left = 24
     Top = 208
     Bitmap = {
-      494C01010B000E00040010001000FFFFFFFFFF00FFFFFFFFFFFFFFFF424D3600
+      494C01010B000E00040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1345,7 +1342,8 @@ object frmContainers: TfrmContainers
       C0038003F001F00180018001FFF9FFF980018001800980090000800180098009
       000080019FC99FC90000800199C99FC90000800190C99FC90000800180499FC9
       0000800196099FC9800180019F099FC9800180019FCF9FCFC0038001800F800F
-      E0078001800F800FF81FFFFFFFFFFFFF}
+      E0078001800F800FF81FFFFFFFFFFFFF00000000000000000000000000000000
+      000000000000}
   end
   object pmAddItem: TPopupMenu
     Images = ImageList1

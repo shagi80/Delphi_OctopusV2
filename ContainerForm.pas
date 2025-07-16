@@ -714,8 +714,7 @@ var
 begin
   if (FCurContainer = nil) or (FCurContainer.Count = 0) then Exit;
   frmSelectOrders.SetOrders(FDocument.Orders);
-  SelectRow := -1;
-  BoxRow := -1;
+  SelectRow := -1;;
   Count := 0;
   if frmSelectOrders.ShowModal = mrOk then
     for ARow := grContainer.FixedRows to grContainer.RowCount - 1 do begin

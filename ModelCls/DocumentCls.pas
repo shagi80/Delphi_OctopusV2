@@ -13,6 +13,7 @@ type
     FContainers: TContainerList;
     FFileName: string;
     FIsModified: boolean;
+    FInvoiceNumber: string;
   public
     constructor Create;
     destructor Destroy; override;
@@ -21,6 +22,7 @@ type
     property Containers: TContainerList read FContainers;
     property IsModified: boolean read FIsModified write FIsModified;
     property FileName: string read FFileName write FFileName;
+    property InvoiceNumber: string read FInvoiceNumber write FInvoiceNumber;
     function LoadFromFile(filename: string=''): boolean;
     function Save: boolean;
     function GetNewBoxNumber(Pref: string = ''): string;
@@ -41,6 +43,7 @@ begin
   FOrders := TOrderList.Create;
   FContainers := TContainerList.Create;
   FIsModified := False;
+  FInvoiceNumber := '';
 end;
 
 destructor TDocument.Destroy;

@@ -4,7 +4,7 @@ object frmSettings: TfrmSettings
   Top = 0
   BorderStyle = bsDialog
   Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
-  ClientHeight = 437
+  ClientHeight = 456
   ClientWidth = 391
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -22,13 +22,15 @@ object frmSettings: TfrmSettings
     Left = 0
     Top = 0
     Width = 391
-    Height = 381
-    ActivePage = tsPrice
+    Height = 400
+    ActivePage = tsMain
     Align = alClient
     TabOrder = 0
+    ExplicitHeight = 381
     object tsMain: TTabSheet
       Tag = 82
       Caption = #1054#1089#1085#1086#1074#1085#1099#1077
+      ExplicitHeight = 353
       object Label1: TLabel
         Tag = 84
         Left = 24
@@ -90,7 +92,7 @@ object frmSettings: TfrmSettings
       object Label15: TLabel
         Tag = 153
         Left = 24
-        Top = 250
+        Top = 251
         Width = 209
         Height = 13
         Caption = #1060#1080#1082#1089#1080#1088#1086#1074#1072#1090#1100' '#1074#1077#1089' '#1082#1086#1088#1086#1073#1082#1080' '#1087#1088#1080' '#1080#1079#1084#1077#1085#1077#1085#1080#1080
@@ -98,7 +100,7 @@ object frmSettings: TfrmSettings
       object Label16: TLabel
         Tag = 160
         Left = 24
-        Top = 274
+        Top = 276
         Width = 205
         Height = 13
         Caption = #1055#1086#1076#1089#1074#1077#1095#1080#1074#1072#1090#1100' '#1082#1086#1088#1086#1073#1082#1080' '#1089' '#1085#1091#1083#1077#1074#1099#1084' '#1074#1077#1089#1086#1084
@@ -106,10 +108,18 @@ object frmSettings: TfrmSettings
       object Label17: TLabel
         Tag = 176
         Left = 24
-        Top = 299
+        Top = 301
         Width = 141
         Height = 13
         Caption = #1052#1080#1085#1080#1084#1072#1083#1100#1085#1099#1081' '#1074#1077#1089' '#1091#1087#1072#1082#1086#1074#1082#1080
+      end
+      object Label18: TLabel
+        Tag = 188
+        Left = 24
+        Top = 326
+        Width = 99
+        Height = 13
+        Caption = #1052#1072#1089#1096#1090#1072#1073' '#1096#1090#1080#1093#1082#1086#1076#1072
       end
       object cbView: TComboBox
         Left = 136
@@ -156,7 +166,7 @@ object frmSettings: TfrmSettings
       end
       object cbFixPackBoxWeight: TCheckBox
         Left = 306
-        Top = 250
+        Top = 248
         Width = 39
         Height = 17
         Alignment = taLeftJustify
@@ -172,7 +182,7 @@ object frmSettings: TfrmSettings
       end
       object edMinPackWeight: TEdit
         Left = 264
-        Top = 296
+        Top = 298
         Width = 81
         Height = 21
         BiDiMode = bdLeftToRight
@@ -181,11 +191,23 @@ object frmSettings: TfrmSettings
         Text = 'edMinPackWeight'
         OnKeyPress = edFloatKeyPress
       end
+      object edBarCodeZoom: TEdit
+        Left = 264
+        Top = 323
+        Width = 81
+        Height = 21
+        BiDiMode = bdLeftToRight
+        ParentBiDiMode = False
+        TabOrder = 8
+        Text = 'edMinPackWeight'
+        OnKeyPress = edFloatKeyPress
+      end
     end
     object tsRound: TTabSheet
       Tag = 86
       Caption = #1054#1082#1088#1091#1075#1083#1077#1085#1080#1077
       ImageIndex = 1
+      ExplicitHeight = 353
       object Label4: TLabel
         Tag = 90
         Left = 38
@@ -394,6 +416,7 @@ object frmSettings: TfrmSettings
       Tag = 134
       Caption = #1062#1077#1085#1099
       ImageIndex = 2
+      ExplicitHeight = 353
       object Label9: TLabel
         Tag = 135
         Left = 24
@@ -548,12 +571,13 @@ object frmSettings: TfrmSettings
   end
   object pnButtons: TPanel
     Left = 0
-    Top = 381
+    Top = 400
     Width = 391
     Height = 56
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitTop = 381
     object btnOk: TBitBtn
       Left = 119
       Top = 16
