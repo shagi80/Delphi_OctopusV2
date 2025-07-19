@@ -47,6 +47,11 @@ type
     lbPackCount: TLabel;
     Label2: TLabel;
     grOrders: TOctopusStringGrid;
+    Label3: TLabel;
+    edFactory: TEdit;
+    Label4: TLabel;
+    edGross: TEdit;
+    Label5: TLabel;
     procedure GridKeyPress(Sender: TObject; var Key: Char);
     procedure btnOkClick(Sender: TObject);
     procedure GridDrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -192,6 +197,8 @@ begin
   FPart.CFRPrice := StrToFloatDef(edCFRPrice.Text, 0);
   FPart.BoxType := edPack.Text;
   FPart.CountInBox := StrToFloatDef(edPackCount.Text, 0);
+  FPart.Factory := edFactory.Text;
+  FPart.GrossWeight := StrToFloatDef(edGross.Text, 0);
 
   if (cbUnit.ItemIndex >= 0) and (cbUnit.ItemIndex <= High(NetStrings)) then
     FPart.PartUnit := NetStrings[cbUnit.ItemIndex];
@@ -274,7 +281,7 @@ begin
   Enable := AccesManager.GetInstance.CanEditParts;
   pnProperty.Enabled := Enable;
   Self.pnButtons.Visible := Enable;
-  if not pnButtons.Visible then Self.Height := 485 else Self.Height := 540;
+  if not pnButtons.Visible then Self.Height := 505 else Self.Height := 560;
   if not Enable then
     Self.Caption := LocalTranslator.TranslateWord('Только просмотр');
   Self.RefreshPropertyGrid(Self);
@@ -300,6 +307,8 @@ begin
   edCFRPrice.Text := FloatToStr(FPart.CFRPrice);
   edPack.Text := FPart.BoxType;
   edPackCount.Text := FloatToStr(FPart.CountInBox);
+  edFactory.Text := FPart.Factory;
+  edGross.Text := FloatToStr(FPart.GrossWeight);
   // Part unit
   cbUnit.Items.Clear;
   Ind := -1;
@@ -333,6 +342,8 @@ begin
   edCFRPrice.Text := '';
   edPack.Text := '';
   edPackCount.Text := '';
+  edFactory.Text := '';
+  edGross.Text := '';
   // Part unit
   cbUnit.Items.Clear;
   for I := 0 to High(NetStrings) do

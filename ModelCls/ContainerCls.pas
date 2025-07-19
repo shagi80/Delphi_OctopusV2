@@ -20,6 +20,7 @@ type
     function GetRealGrossWeight: real;
     function GetRealVolume: real;
     function GetTotalBoxCount: integer;
+    function GetBoxByCode(BoxCode: string): TBox;
   protected
     function GetItem(ind: integer): TBox; overload;
     procedure SetItem(ind: integer; AObject: TBox);  overload;
@@ -40,6 +41,7 @@ type
     property RealGrossWeight: real read GetRealGrossWeight;
     property RealVolume: real read GetRealVolume;
     property TotalBoxCount: integer read GetTotalBoxCount;
+    property BoxByCode[BoxCode: string]: TBox read GetBoxByCode;
   end;
 
 implementation
@@ -148,6 +150,15 @@ begin
   Count := 0;
   for I := 0 to self.Count - 1 do Count := Count + Items[I].BoxCount;
   Result := Count;
+end;
+
+function TContainer.GetBoxByCode(BoxCode: string): TBox;
+var
+  Ind: integer;
+begin
+  Result := nil;
+  Ind := Self.IndByCode(BoxCode);
+  if Ind >= 0 then Result := Self.Items[Ind];
 end;
 
 end.

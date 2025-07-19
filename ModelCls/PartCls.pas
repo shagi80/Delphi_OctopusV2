@@ -33,6 +33,8 @@ type
     FCustomCode: string;
     FCountInBox: real;
     FBoxType: string;
+    FFactory: string;
+    FGrossWeight: real;
     function GetTitle(ind: integer): widestring;
     procedure SetTitle(ind: integer; newTitle: widestring);
     function CheckNetUnit: boolean;
@@ -65,6 +67,8 @@ type
     property BoxType: string read FBoxType write FBoxType;
     property Weight: real read FWeight write FWeight;
     property Volume: real read FVolume write FVolume;
+    property Factory: string read FFactory write FFactory;
+    property GrossWeight: real read FGrossWeight write FGrossWeight;
   end;
 
 implementation

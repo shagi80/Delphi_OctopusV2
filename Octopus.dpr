@@ -63,7 +63,8 @@ uses
   PriceChangeSetiingsForm in 'PriceChangeSetiingsForm.pas' {frmPriceChangeSetiings},
   AboutForm in 'AboutForm.pas' {frmAbout},
   MergeDocManagerCls in 'ToolCls\MergeDocManagerCls.pas',
-  MergeFileSettingsForm in 'MergeFileSettingsForm.pas' {frmMergeFileSettings};
+  MergeFileSettingsForm in 'MergeFileSettingsForm.pas' {frmMergeFileSettings},
+  PrintFactoryDocControllerCls in 'ActionControllerCls\PrintFactoryDocControllerCls.pas';
 
 {$R *.res}
 var

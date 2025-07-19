@@ -27,7 +27,7 @@ object frmPartProperty: TfrmPartProperty
     Align = alClient
     ColCount = 2
     FixedCols = 0
-    RowCount = 16
+    RowCount = 17
     TabOrder = 0
     OnDblClick = grPartDblClick
   end

@@ -22,6 +22,7 @@ type
     function CalculateCFRPrice(CFRPrice, FOBPrice: real): real;
     function UniverseStrToFloat(val: string; Def: real): real;
     procedure LoadChineseNames(Parts: TPartList);
+    procedure LoadFactoryAndFactoryPrice(Parts: TPartList);
   public
     constructor Create(filename: string);
     destructor Destroy; override;
@@ -37,6 +38,9 @@ implementation
 uses
   SysUtils, Dialogs, StrUtils, OrderItemCls, ContainerCls, BoxCls,
   BoxItemCls, TranslatorCls, GlobalSettingsCls, Forms, Classes;
+
+const
+  FactoryAndPriceFile = 'factories_and_prices.txt';
 
 constructor TDocLoader.Create(filename: string);
 begin
@@ -284,10 +288,39 @@ begin
   if NamesStrings.Count > 0 then
     for I := 0 to Parts.Count - 1 do begin
       Part := Parts.Items[I];
+      if Length(Part.ChinName) > 0 then Continue;
       Name := Copy(Part.Code, 2, MaxInt);
       Part.ChinName := NamesStrings.Values[Name];
     end;
   NamesStrings.Free;
+end;
+
+procedure TDocLoader.LoadFactoryAndFactoryPrice(Parts: TPartList);
+var
+  FileName, Name: string;
+  FactoryStrings: TStringList;
+  Value, Factory: string;
+  Price: real;
+  Part: TPart;
+  I: integer;
+begin
+  FileName := ExtractFilePath(Application.ExeName)
+    + FactoryAndPriceFile;
+  if not FileExists(FileName) then Exit;
+  FactoryStrings := TStringList.Create;
+  FactoryStrings.LoadFromFile(FileName);
+  if FactoryStrings.Count > 0 then
+    for I := 0 to Parts.Count - 1 do begin
+      Part := Parts.Items[I];
+      Name := Copy(Part.Code, 2, MaxInt);
+      Value := FactoryStrings.Values[Name];
+      if (Length(Value) = 0) or (pos('|', Value) <= 0) then Continue;
+      Factory := copy(Value, 1, pos('|', Value) - 1);
+      Price := StrToFloatDef(copy(Value, pos('|', Value) + 1, MaxInt), 0);
+      if Length(Part.Factory) = 0 then Part.Factory := Factory;
+      if Part.SupplierPrice = 0 then Part.SupplierPrice := Price;
+    end;
+  FactoryStrings.Free;
 end;
 
 //
@@ -300,6 +333,7 @@ begin
   if not LoadPartsAndOrders(doc) then Result := False
     else begin
       LoadChineseNames(Doc.Parts);
+      LoadFactoryAndFactoryPrice(Doc.Parts);
       Result := Self.LoadContainers(doc);
     end;
   if not Result then begin
@@ -345,6 +379,7 @@ begin
     Order.Add(OrderItem);
   end;
   LoadChineseNames(Doc.Parts);
+  LoadFactoryAndFactoryPrice(Doc.Parts);
   Result := True;
 end;
 
@@ -366,6 +401,7 @@ begin
     Parts.Add(part);
   end;
   LoadChineseNames(Parts);
+  LoadFactoryAndFactoryPrice(Parts);
   Result := True;
 end;
 

@@ -28,6 +28,7 @@ type
     function Extract(Item: TObject): TPart;
     function Add(newPart: TPart): Integer;
     procedure Insert(Index: Integer; newPart: TPart);
+    procedure SortByName(Lang: integer);
   end;
 
 
@@ -109,6 +110,21 @@ procedure TpartList.Insert(Index: Integer; newPart: TPart);
 begin
   if GetIndexByCode(newPart.Code) < 0 then inherited Insert(Index, newPart)
     else raise Exception.Create('Part code duplicate !');
+end;
+
+procedure TpartList.SortByName(Lang: integer);
+
+  function CompareTitle(Item1, Item2: Pointer): integer;
+  var
+    Name1, Name2: widestring;
+  begin
+    Name1 := TPart(Item1).GetTranslatedTitle(Lang);
+    Name2 := TPart(Item2).GetTranslatedTitle(Lang);
+    Result := CompareStr(Name1, Name2);
+  end;
+
+begin
+  self.Sort(@CompareTitle);
 end;
 
 end.

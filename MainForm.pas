@@ -251,7 +251,8 @@ uses
   SettingsForm, FormTranslatorCls, ContainerEditForm, InputForm, PartEditorForm,
   PartListForm, PrintInvoiceControllerCls, BoxItemAddForm, BoxAutoCreateForm,
   PartListUpdateForm, PartListCls, DocLoaderCls, GrossWeightSettingsForm,
-  PriceChangeSetiingsForm, AboutForm, MergeDocManagerCls;
+  PriceChangeSetiingsForm, AboutForm, MergeDocManagerCls,
+  PrintFactoryDocControllerCls;
 
 var
   ViewController: TViewController;
@@ -264,6 +265,7 @@ var
   ExportController: TExportController;
   InvoiceController: TInvoiceController;
   PrintInvoiceController: TPrintInvoiceController;
+  PrintFactoryDocController: TPrintFactoryDocController;
 
 //
 
@@ -284,6 +286,7 @@ begin
   ExportController := TExportController.Create(FDocument);
   InvoiceController := TInvoiceController.Create(FDocument);
   PrintInvoiceController := TPrintInvoiceController.Create(FDocument);
+  PrintFactoryDocController := TPrintFactoryDocController.Create(FDocument);
   //
   {if DecimalSeparator <> ',' then begin
     Application.UpdateFormatSettings := False;
@@ -445,6 +448,8 @@ begin
   frmPrintMode.ExportForInvoice.OnExecute := ExportController.ExportForInvoice;
   frmPrintMode.ExportForCustomCode.OnExecute := ExportController.ExportForCustomCode;
   frmPrintMode.PrintInvoiceAll.OnExecute := PrintInvoiceController.PrintInvoiceAll;
+  frmPrintMode.PrintFactoryOrder.OnExecute := PrintFactoryDocController.PrintFactoryOrder;
+  frmPrintMode.PrintFactoryBalance.OnExecute := PrintFactoryDocController.PrintFactoryBalance;
 
   // Подключение событий контролллетов и форм.
   GlobalSettings.GetInstance.OnLanguageChange := Self.OnChangeLanguage;

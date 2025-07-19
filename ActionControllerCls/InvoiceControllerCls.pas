@@ -54,7 +54,7 @@ begin
   Result := 0;
   Invoice := frmInvoice.Invoice;
   if Invoice.TotalPrice = 0 then Exit;
-  PerUnitOfPrice := (TargetSum - Invoice.TotalPrice) / Invoice.TotalPrice;
+  //PerUnitOfPrice := (TargetSum - Invoice.TotalPrice) / Invoice.TotalPrice;
   // Изменение 15.07.25. Вводится необщая сумма, а лишть сумма к распределению
   PerUnitOfPrice := TargetSum / Invoice.TotalPrice;
   for I := 0 to Invoice.Count - 1 do begin

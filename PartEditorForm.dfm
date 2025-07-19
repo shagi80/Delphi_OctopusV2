@@ -3,8 +3,8 @@ object frmPartEditor: TfrmPartEditor
   Top = 0
   BorderStyle = bsToolWindow
   Caption = 'frmPartEditor'
-  ClientHeight = 511
-  ClientWidth = 806
+  ClientHeight = 531
+  ClientWidth = 812
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,15 +20,15 @@ object frmPartEditor: TfrmPartEditor
   object pnMain: TPanel
     Left = 0
     Top = 0
-    Width = 806
-    Height = 456
+    Width = 812
+    Height = 476
     Align = alClient
     TabOrder = 0
     object pnProperty: TPanel
       Left = 1
       Top = 1
-      Width = 804
-      Height = 454
+      Width = 810
+      Height = 474
       Align = alClient
       TabOrder = 0
       object Label1: TLabel
@@ -115,30 +115,30 @@ object frmPartEditor: TfrmPartEditor
         Tag = 108
         Left = 24
         Top = 322
-        Width = 35
+        Width = 68
         Height = 13
-        Caption = #1042#1077#1089', '#1082#1075
+        Caption = #1042#1077#1089' '#1085#1077#1090#1090#1086', '#1082#1075
       end
       object lbUnit: TLabel
         Tag = 107
         Left = 23
-        Top = 295
+        Top = 296
         Width = 69
         Height = 13
         Caption = #1045#1076' '#1080#1079#1084#1077#1088#1077#1085#1080#1103
       end
       object lbCFRPrice: TLabel
         Tag = 114
-        Left = 331
-        Top = 349
+        Left = 491
+        Top = 376
         Width = 47
         Height = 13
         Caption = 'CFR '#1094#1077#1085#1072
       end
       object lbFOBPrice: TLabel
         Tag = 113
-        Left = 331
-        Top = 322
+        Left = 491
+        Top = 349
         Width = 47
         Height = 13
         Caption = 'FOB '#1094#1077#1085#1072
@@ -153,8 +153,8 @@ object frmPartEditor: TfrmPartEditor
       end
       object lbPrice: TLabel
         Tag = 112
-        Left = 331
-        Top = 295
+        Left = 491
+        Top = 322
         Width = 91
         Height = 13
         Caption = #1062#1077#1085#1072' '#1087#1086#1089#1090#1072#1074#1097#1080#1082#1072
@@ -212,6 +212,36 @@ object frmPartEditor: TfrmPartEditor
         Font.Style = [fsBold]
         ParentFont = False
       end
+      object Label3: TLabel
+        Tag = 191
+        Left = 491
+        Top = 296
+        Width = 57
+        Height = 13
+        Caption = #1055#1086#1089#1090#1072#1074#1097#1080#1082
+      end
+      object Label4: TLabel
+        Tag = 192
+        Left = 24
+        Top = 430
+        Width = 74
+        Height = 13
+        Caption = #1042#1077#1089' '#1073#1088#1091#1090#1090#1086', '#1082#1075
+      end
+      object Label5: TLabel
+        Tag = 193
+        Left = 491
+        Top = 268
+        Width = 135
+        Height = 13
+        Caption = #1055#1088#1086#1080#1079#1074#1086#1076#1080#1090#1077#1083#1100' '#1080' '#1094#1077#1085#1099
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
       object edCode: TEdit
         Left = 168
         Top = 37
@@ -256,8 +286,8 @@ object frmPartEditor: TfrmPartEditor
         OnKeyPress = GridKeyPress
       end
       object edFOBPrice: TEdit
-        Left = 475
-        Top = 319
+        Left = 635
+        Top = 346
         Width = 80
         Height = 21
         TabOrder = 5
@@ -265,8 +295,8 @@ object frmPartEditor: TfrmPartEditor
         OnKeyPress = GridKeyPress
       end
       object edPrice: TEdit
-        Left = 475
-        Top = 292
+        Left = 635
+        Top = 319
         Width = 80
         Height = 21
         TabOrder = 6
@@ -317,8 +347,8 @@ object frmPartEditor: TfrmPartEditor
         TabOrder = 11
       end
       object edCFRPrice: TEdit
-        Left = 475
-        Top = 346
+        Left = 635
+        Top = 373
         Width = 80
         Height = 21
         TabOrder = 12
@@ -347,7 +377,7 @@ object frmPartEditor: TfrmPartEditor
         Left = 575
         Top = 40
         Width = 209
-        Height = 249
+        Height = 189
         ColCount = 2
         DefaultRowHeight = 20
         FixedCols = 0
@@ -356,12 +386,30 @@ object frmPartEditor: TfrmPartEditor
         OnDrawCell = GridDrawCell
         OnKeyPress = GridKeyPress
       end
+      object edFactory: TEdit
+        Left = 635
+        Top = 292
+        Width = 149
+        Height = 21
+        TabOrder = 16
+        Text = 'edPrice'
+        OnKeyPress = GridKeyPress
+      end
+      object edGross: TEdit
+        Left = 167
+        Top = 428
+        Width = 81
+        Height = 21
+        TabOrder = 17
+        Text = 'edPackCount'
+        OnKeyPress = GridKeyPress
+      end
     end
   end
   object pnButtons: TPanel
     Left = 0
-    Top = 456
-    Width = 806
+    Top = 476
+    Width = 812
     Height = 55
     Align = alBottom
     BevelOuter = bvNone

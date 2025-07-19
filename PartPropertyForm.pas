@@ -169,7 +169,7 @@ begin
   Self.grPart.Cells[1, 9] := FPart.BOM;
   Self.grPart.Cells[0, 10] := LocalTranslator.TranslateWord('Код ТНВЭД');
   Self.grPart.Cells[1, 10] := FPart.CustomCode;
-  Self.grPart.Cells[0, 11] := LocalTranslator.TranslateWord('Цена постаыщика');
+  Self.grPart.Cells[0, 11] := LocalTranslator.TranslateWord('Цена производителя');
   Self.grPart.Cells[1, 11] := FloatToStr(FPart.SupplierPrice);
   Self.grPart.Cells[0, 12] := LocalTranslator.TranslateMessage(87, 'FOB цена');
   Self.grPart.Cells[1, 12] := FloatToStr(FPart.FOBPrice);
@@ -179,6 +179,8 @@ begin
   Self.grPart.Cells[1, 14] := FPart.BoxType;
   Self.grPart.Cells[0, 15] := LocalTranslator.TranslateWord('В коробке');
   Self.grPart.Cells[1, 15] := FloatToStr(FPart.CountInBox);
+  Self.grPart.Cells[0, 16] := LocalTranslator.TranslateWord('Производитель');
+  Self.grPart.Cells[1, 16] := FPart.Factory;
   Self.FormResize(Self);
 
   Perform(WM_SETREDRAW, 1, 0);

@@ -66,6 +66,8 @@ type
     cbSupplier: TTntComboBox;
     Label8: TLabel;
     edSpecNum: TEdit;
+    PrintFactoryOrder: TAction;
+    PrintFactoryBalance: TAction;
     procedure btnCollapseClick(Sender: TObject);
     procedure btnGoPreviosClick(Sender: TObject);
     procedure btnNextClick(Sender: TObject);
@@ -91,7 +93,7 @@ type
     function GetSortMode(var SortMode: integer; ItIsLastStep: boolean = True): boolean;
     function GetBoxSortMode(var SortMode: integer; ItIsLastStep: boolean = True): boolean;
     function GetOrderCopyMode(var CopyMode: integer; ItIsLastStep: boolean = True): boolean;
-    function SetCheckList(ObjectList: TObjectList): boolean;
+    function SetCheckList(ObjectList: TObject): boolean;
     function GetExportMode(var ExportMode: integer; ItIsLastStep: boolean = True): boolean;
     function GetInvoiceSettings(var SupplierId: integer; var BuyerId: integer;
       var PortId: integer; var ContNum: string; var InvNum: string;
@@ -213,6 +215,9 @@ begin
   Self.catbtnPrintMode.Categories.Items[3].Caption :=
     Translator.GetInstance.TranslateMessage(
       89, 'Печать инвойса');
+  Self.catbtnPrintMode.Categories.Items[4].Caption :=
+    Translator.GetInstance.TranslateMessage(
+      112, 'Документы для поставщиков');
   FLastButtonCaption := Translator.GetInstance.TranslateWord('Печать');
   Self.ShowModal;
 end;
@@ -308,7 +313,7 @@ begin
   rgRadio.Items.Clear;
 end;
 
-function TfrmPrintMode.SetCheckList(ObjectList: TObjectList): boolean;
+function TfrmPrintMode.SetCheckList(ObjectList: TObject): boolean;
 var
   I: integer;
   Title: string;
@@ -316,13 +321,17 @@ begin
   lbSelectCheck.Caption := Translator.GetInstance.TranslateMessage(
     45, 'Выберите элементы для печати' + ':');
   cbCheck.Items.Clear;
-  for I := 0 to ObjectList.Count - 1 do begin
-    if (ObjectList.Items[I] is TOrder) then
-      Title := TOrder(ObjectList.Items[I]).Title;
-    if (ObjectList.Items[I] is TContainer) then
-      Title := TContainer(ObjectList.Items[I]).Title;
-    cbCheck.Items.AddObject(Title, ObjectList.Items[I]);
-  end;
+  if ObjectList is TObjectList then
+    for I := 0 to TObjectList(ObjectList).Count - 1 do begin
+      if (TObjectList(ObjectList).Items[I] is TOrder) then
+        Title := TOrder(TObjectList(ObjectList).Items[I]).Title;
+      if (TObjectList(ObjectList).Items[I] is TContainer) then
+        Title := TContainer(TObjectList(ObjectList).Items[I]).Title;
+      cbCheck.Items.AddObject(Title, TObjectList(ObjectList).Items[I]);
+    end
+    else if ObjectList is TStringList then
+      for I := 0 to TStringList(ObjectList).Count - 1 do
+        cbCheck.Items.Add(TStringList(ObjectList).Strings[I]);
   btnNext.Font.Style := btnNext.Font.Style + [fsBold];
   btnNext.Caption := Translator.GetInstance.TranslateWord(FLastButtonCaption);
   pnBottom.Visible := True;

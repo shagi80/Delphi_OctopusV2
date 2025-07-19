@@ -53,12 +53,13 @@ type
     function ExtractOrderItem(Order: TOrder; OrderItem: TOrderItem): integer;
     procedure SetTotalGrossByOneBoxGross(OneBoxGross: real);
     procedure SetTotalGrossByOneBoxPack(OneBoxPack: real);
+    procedure SortByNameAndOrder;
   end;
 
 implementation
 
 uses
-  Math, GlobalSettingsCls, Dialogs;
+  Math, GlobalSettingsCls, Dialogs, PartCls;
 
 constructor TBox.Create;
 begin
@@ -269,6 +270,26 @@ begin
   Self.FGrossWeight := Self.GetNetWeight + Self.FBoxCount * OneBoxPack;
   Self.FGrossWeight := SimpleRoundTo(Self.FGrossWeight,
     -GlobalSettings.GetInstance.WeightAccuracy);
+end;
+
+procedure TBox.SortByNameAndOrder;
+
+  function CompareTitle(Item1, Item2: Pointer): integer;
+  var
+    Name1, Name2: widestring;
+    Part1, Part2: TBoxItem;
+    Lang: integer;
+  begin
+    Part1 := TBoxItem(Item1);
+    Part2 := TBoxItem(Item2);
+    Lang := GlobalSettings.GetInstance.Language;
+    Name1 := Part1.Part.GetTranslatedTitle(Lang) + Part1.Order.Title;
+    Name2 := Part2.Part.GetTranslatedTitle(Lang) + Part2.Order.Title;
+    Result := CompareStr(Name1, Name2);
+  end;
+
+begin
+  self.Sort(@CompareTitle);
 end;
 
 end.
