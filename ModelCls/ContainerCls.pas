@@ -20,7 +20,7 @@ type
     function GetRealGrossWeight: real;
     function GetRealVolume: real;
     function GetTotalBoxCount: integer;
-    function GetBoxByCode(BoxCode: string): TBox;
+    function GetBoxByCode(BoxCode: widestring): TBox;
   protected
     function GetItem(ind: integer): TBox; overload;
     procedure SetItem(ind: integer; AObject: TBox);  overload;
@@ -32,7 +32,7 @@ type
     function Last: TBox;
     function Extract(Item: TObject): TBox;
     function Add(newItem: TBox): Integer;
-    function IndByCode(boxCode: string): integer;
+    function IndByCode(boxCode: widestring): integer;
     procedure Insert(Index: Integer; newItem: TBox);
     property Title: string read FTitle write FTitle;
     property MaxWeight: real read FMaxWeight write FMaxWeight;
@@ -41,7 +41,7 @@ type
     property RealGrossWeight: real read GetRealGrossWeight;
     property RealVolume: real read GetRealVolume;
     property TotalBoxCount: integer read GetTotalBoxCount;
-    property BoxByCode[BoxCode: string]: TBox read GetBoxByCode;
+    property BoxByCode[BoxCode: widestring]: TBox read GetBoxByCode;
   end;
 
 implementation
@@ -59,7 +59,7 @@ begin
   inherited Destroy;
 end;
 
-function TContainer.IndByCode(boxCode: string): integer;
+function TContainer.IndByCode(boxCode: widestring): integer;
 var
   i: integer;
 begin
@@ -152,7 +152,7 @@ begin
   Result := Count;
 end;
 
-function TContainer.GetBoxByCode(BoxCode: string): TBox;
+function TContainer.GetBoxByCode(BoxCode: widestring): TBox;
 var
   Ind: integer;
 begin

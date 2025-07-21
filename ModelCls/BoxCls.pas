@@ -16,7 +16,7 @@ type
 
   TBox = class(TObjectList)
   private
-    FBoxCode: string;
+    FBoxCode: widestring;
     FGrossWeight: real;
     FBoxCount: integer;
     function IndexOf(box: TBoxItem): integer;
@@ -40,7 +40,7 @@ type
     procedure Insert(Index: Integer; newItem: TBoxItem);
     procedure Copy(Box: TBox);
     procedure ClearBox;
-    property BoxCode: string read FBoxCode write FBoxCode;
+    property BoxCode: widestring read FBoxCode write FBoxCode;
     property GroupGrossWeight: real read FGrossWeight write FGrossWeight;
     property BoxCount: integer read FBoxCount write FBoxCount;
     property GroupNetWeight: real read GetNetWeight;

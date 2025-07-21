@@ -29,7 +29,7 @@ object frmPrintMode: TfrmPrintMode
       Top = 1
       Width = 338
       Height = 348
-      ActivePage = tsModePrint
+      ActivePage = tsSelectCheck
       Align = alClient
       Style = tsButtons
       TabOrder = 0
@@ -220,19 +220,16 @@ object frmPrintMode: TfrmPrintMode
             ExplicitHeight = 13
           end
         end
-        object cbCheck: TCheckListBox
-          AlignWithMargins = True
+        object cbCheck: TTntCheckListBox
           Left = 0
-          Top = 37
+          Top = 22
           Width = 290
-          Height = 261
-          Margins.Left = 0
-          Margins.Top = 15
-          Margins.Right = 0
-          Margins.Bottom = 0
+          Height = 276
           Align = alClient
           ItemHeight = 13
           TabOrder = 1
+          ExplicitTop = 105
+          ExplicitHeight = 193
         end
       end
       object tsSelectRadio: TTabSheet

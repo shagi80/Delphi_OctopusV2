@@ -157,7 +157,7 @@ begin
   Self.grPart.Cells[1, 3] := FPart.RusName;
   Self.grPart.Cells[0, 4] := LocalTranslator.TranslateWord('Англ наименование');
   Self.grPart.Cells[1, 4] := FPart.EngName;
-  Self.grPart.Cells[0, 5] := LocalTranslator.TranslateWord('Наимее поставщика');
+  Self.grPart.Cells[0, 5] := LocalTranslator.TranslateWord('Китайское наименование');
   Self.grPart.Cells[1, 5] := FPart.ChinName;
   Self.grPart.Cells[0, 6] := LocalTranslator.TranslateWord('Ед изм');
   Self.grPart.Cells[1, 6] := FPart.PartUnit;

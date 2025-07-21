@@ -3,10 +3,9 @@ unit PrintFactoryDocControllerCls;
 interface
 
 uses
-   BoxCls, DocumentCls, BoxItemCls, frxClass, Classes, ContainerCls;
+   BoxCls, DocumentCls, BoxItemCls, frxClass, Classes, ContainerCls,
+   TntStdCtrls, TntClasses;
 
-const
-  PrintFormFile = 'PrintForm/OrderList.fr3';
 
 type
   TFactoryDocPrintMode = (fdpmNone, fdpmOrder, fdpmBalance);
@@ -17,7 +16,7 @@ type
     FFactoryOrders: TContainer;
     FMode: TFactoryDocPrintMode;
     procedure CannotPrintMessage;
-    function PreparyFactoriesList(var Factories: TStringList): boolean;
+    function PreparyFactoriesList(var Factories: TTntStringList): boolean;
     procedure Print(FactoryOrders: TContainer);
     procedure frxDataSetMasterGetValue(const VarName: string; var Value: Variant);
     procedure frxDataSetMasterNext(Sender: TObject);
@@ -120,7 +119,7 @@ begin
 end;
 
 function TPrintFactoryDocController.PreparyFactoriesList(
-  var Factories: TStringList): boolean;
+  var Factories: TTntStringList): boolean;
 var
   I: integer;
   FactoryName: widestring;
@@ -137,7 +136,7 @@ end;
 function TPrintFactoryDocController.PrepareData(
   var FactoryOrders: TContainer): boolean;
 var
-  Factories: TStringList;
+  Factories: TTntStringList;
   I, J, K: integer;
   FactoryOrder: TBox;
   FactoryOrderItem: TBoxItem;
@@ -145,7 +144,7 @@ var
 begin
   Result := False;
   // ѕолучаем список всех производителей
-  Factories := TStringList.Create;
+  Factories := TTntStringList.Create;
   if not Self.PreparyFactoriesList(Factories) then begin
     Self.CannotPrintMessage;
     Factories.Free;

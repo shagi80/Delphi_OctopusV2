@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ImgList, ComCtrls, StdCtrls, jpeg, ExtCtrls, CategoryButtons,
   StdActns, ActnList, DocumentCls, OrderCls, OrderListCls, Buttons, CheckLst,
-  Contnrs, frxClass, frxpngimage, TntStdCtrls;
+  Contnrs, frxClass, frxpngimage, TntStdCtrls, TntCheckLst, TntClasses;
 
 type
   TfrmPrintMode = class(TForm)
@@ -33,7 +33,6 @@ type
     btnCollapse: TSpeedButton;
     pnSelectTitle: TPanel;
     lbSelectCheck: TLabel;
-    cbCheck: TCheckListBox;
     pnBottom: TPanel;
     btnNext: TBitBtn;
     btnGoPrevios: TBitBtn;
@@ -68,6 +67,7 @@ type
     edSpecNum: TEdit;
     PrintFactoryOrder: TAction;
     PrintFactoryBalance: TAction;
+    cbCheck: TTntCheckListBox;
     procedure btnCollapseClick(Sender: TObject);
     procedure btnGoPreviosClick(Sender: TObject);
     procedure btnNextClick(Sender: TObject);
@@ -329,9 +329,9 @@ begin
         Title := TContainer(TObjectList(ObjectList).Items[I]).Title;
       cbCheck.Items.AddObject(Title, TObjectList(ObjectList).Items[I]);
     end
-    else if ObjectList is TStringList then
-      for I := 0 to TStringList(ObjectList).Count - 1 do
-        cbCheck.Items.Add(TStringList(ObjectList).Strings[I]);
+    else if ObjectList is TTntStringList then
+      for I := 0 to TTntStringList(ObjectList).Count - 1 do
+        cbCheck.Items.Add(TTntStringList(ObjectList).Strings[I]);
   btnNext.Font.Style := btnNext.Font.Style + [fsBold];
   btnNext.Caption := Translator.GetInstance.TranslateWord(FLastButtonCaption);
   pnBottom.Visible := True;

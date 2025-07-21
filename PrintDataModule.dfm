@@ -12,7 +12,7 @@ object dmPrint: TdmPrint
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40621.537163900500000000
-    ReportOptions.LastChange = 45857.689414895830000000
+    ReportOptions.LastChange = 45857.689414895800000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
