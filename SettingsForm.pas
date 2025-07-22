@@ -39,7 +39,7 @@ type
     vleAccuracy: TValueListEditor;
     Label9: TLabel;
     Label10: TLabel;
-    edDefFOB: TEdit;
+    edDefCFR: TEdit;
     Label11: TLabel;
     Label12: TLabel;
     edCFRCoef: TEdit;
@@ -251,7 +251,7 @@ begin
   vleAccuracy.TitleCaptions.Add(Translator.GetInstance.TranslateWord('Множитель'));
   Self.SetAccuracyFile(Settings.MultiplierFileName);
   //
-  edDefFOB.Text := FloatToStr(Settings.DefFOBPrice);
+  edDefCFR.Text := FloatToStr(Settings.DefCFRPrice);
   cbFOBForCFR.Checked := Settings.UseFOBForCFR;
   edCFRCoef.Text := FloatToStr(Settings.CFRPriceFactor);
   //
@@ -293,7 +293,7 @@ begin
   Settings.VolumeAccuracy := StrToIntDef(Self.edVolumeAccuracy.Text, 0);
   Settings.MoneyAccuracy := StrToIntDef(Self.edPriceAccuracy.Text, 0);
   Settings.MultiplierFileName := Self.edAccuracyFile.Text;
-  Settings.DefFOBPrice := StrToFloatDef(Self.edDefFOB.Text, 0);
+  Settings.DefCFRPrice := StrToFloatDef(Self.edDefCFR.Text, 0);
   Settings.UseFOBForCFR := Self.cbFOBForCFR.Checked;
   Settings.CFRPriceFactor := StrToFloatDef(Self.edCFRCoef.Text, 0);
   Settings.PricedDistributionFileName := Self.edPriceFile.Text;

@@ -20,7 +20,7 @@ type
     FOnLanguageChangeEvent : TNotifyEvent;
     FDefView: integer;
     FUseFOBForCFR: boolean;
-    FDefFOBPrice: real;
+    FDefCFRPrice: real;
     FCFRPriceFactor: real;
     FMultiplierFileName: string;
     FPricedDistributionFileName: string;
@@ -56,7 +56,7 @@ type
     property MoneyAccuracyMask: string index 2 read GetAccuracyMask;
     property DefaultView: integer read FDefView write FDefView;
     property UseFOBForCFR: boolean read FUseFOBForCFR write FUseFOBForCFR;
-    property DefFOBPrice: real read FDefFOBPrice write FDefFOBPrice;
+    property DefCFRPrice: real read FDefCFRPrice write FDefCFRPrice;
     property CFRPriceFactor: real read FCFRPriceFactor write FCFRPriceFactor;
     property MultiplierFileName: string read FMultiplierFileName
       write FMultiplierFileName;
@@ -153,7 +153,7 @@ begin
       'MULTIPLIER_FILE', FBaseDir + fnMultiplier);
     FUseFOBForCFR := IniFile.ReadBool('PRICE', 'FOB_FOR_CFR', True);
     Val := IniFile.ReadString('PRICE', 'DEF_FOB', '');
-    FDefFOBPrice := Self.UniverseStrToFloat(val, 0.01);
+    FDefCFRPrice := Self.UniverseStrToFloat(val, 0.01);
     Val := IniFile.ReadString('PRICE', 'CFR_FACTOR', '');
     FCFRPriceFactor :=  Self.UniverseStrToFloat(val, 7.3);
     FPricedDistributionFileName := IniFile.ReadString('PRICE',
@@ -185,7 +185,7 @@ begin
     FVolumeAccuracy := 4;
     FDefView := 2;
     FUseFOBForCFR := True;
-    FDefFOBPrice := 0.01;
+    FDefCFRPrice := 0.01;
     FCFRPriceFactor := 7.3;
     FPricedDistributionFileName := FBaseDir + fnPriceDistribution;
     FMultiplierFileName := FBaseDir + fnMultiplier;
@@ -221,7 +221,7 @@ begin
   IniFile.WriteInteger('ACCURACY', 'VOLUME', FVolumeAccuracy);
   IniFile.WriteString('ACCURACY', 'MULTIPLIER_FILE', FMultiplierFileName);
   IniFile.WriteBool('PRICE', 'FOB_FOR_CFR', FUseFOBForCFR);
-  IniFile.WriteFloat('PRICE', 'DEF_FOB', FDefFOBPrice);
+  IniFile.WriteFloat('PRICE', 'DEF_CFR', FDefCFRPrice);
   IniFile.WriteFloat('PRICE', 'CFR_FACTOR', FCFRPriceFactor);;
   IniFile.WriteString('PRICE', 'DISTRIBUTION_FILE', FPricedDistributionFileName);
   IniFile.WriteFloat('CONTAINER', 'DEF_GROSS', FDefContainerGross);

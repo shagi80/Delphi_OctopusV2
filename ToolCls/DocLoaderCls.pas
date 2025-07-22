@@ -129,7 +129,7 @@ begin
     CustomCode := Substrings[21];
     BoxType := Substrings[22];
   end;
-  if Part.FOBPrice = 0 then Part.FOBPrice := GlobalSettings.GetInstance.DefFOBPrice;  
+  if Part.CFRPrice = 0 then Part.CFRPrice := GlobalSettings.GetInstance.DefCFRPrice;
   Part.CFRPrice := Self.CalculateCFRPrice(Part.CFRPrice, Part.FOBPrice);
   Result := Part;
 end;
@@ -155,7 +155,7 @@ begin
     FOBPrice := UniverseStrToFloat(Substrings[17], 0);
     CFRPrice := UniverseStrToFloat(Substrings[18], 0);
   end;
-  if Part.FOBPrice = 0 then Part.FOBPrice := GlobalSettings.GetInstance.DefFOBPrice;
+  if Part.CFRPrice = 0 then Part.CFRPrice := GlobalSettings.GetInstance.DefCFRPrice;
   Part.CFRPrice := Self.CalculateCFRPrice(Part.CFRPrice, Part.FOBPrice);
   Result := Part;
 end;

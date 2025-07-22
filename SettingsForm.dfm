@@ -23,14 +23,12 @@ object frmSettings: TfrmSettings
     Top = 0
     Width = 391
     Height = 400
-    ActivePage = tsMain
+    ActivePage = tsPrice
     Align = alClient
     TabOrder = 0
-    ExplicitHeight = 381
     object tsMain: TTabSheet
       Tag = 82
       Caption = #1054#1089#1085#1086#1074#1085#1099#1077
-      ExplicitHeight = 353
       object Label1: TLabel
         Tag = 84
         Left = 24
@@ -207,7 +205,6 @@ object frmSettings: TfrmSettings
       Tag = 86
       Caption = #1054#1082#1088#1091#1075#1083#1077#1085#1080#1077
       ImageIndex = 1
-      ExplicitHeight = 353
       object Label4: TLabel
         Tag = 90
         Left = 38
@@ -416,7 +413,6 @@ object frmSettings: TfrmSettings
       Tag = 134
       Caption = #1062#1077#1085#1099
       ImageIndex = 2
-      ExplicitHeight = 353
       object Label9: TLabel
         Tag = 135
         Left = 24
@@ -514,7 +510,7 @@ object frmSettings: TfrmSettings
         Font.Style = []
         ParentFont = False
       end
-      object edDefFOB: TEdit
+      object edDefCFR: TEdit
         Left = 272
         Top = 45
         Width = 81
@@ -577,7 +573,6 @@ object frmSettings: TfrmSettings
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 381
     object btnOk: TBitBtn
       Left = 119
       Top = 16

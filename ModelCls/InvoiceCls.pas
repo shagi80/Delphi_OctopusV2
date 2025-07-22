@@ -192,7 +192,7 @@ var
   FOBPrice, CFRPrice: real;
 begin
   FOBPrice := Part.FOBPrice;
-  if FOBPrice = 0 then FOBPrice := GlobalSettings.GetInstance.DefFOBPrice;
+  if FOBPrice = 0 then Exit;//FOBPrice := GlobalSettings.GetInstance.DefCFRPrice;
   CFRPrice := FOBPrice;
   if GlobalSettings.GetInstance.CFRPriceFactor <> 0 then
     CFRPrice := CFRPrice * GlobalSettings.GetInstance.CFRPriceFactor;
