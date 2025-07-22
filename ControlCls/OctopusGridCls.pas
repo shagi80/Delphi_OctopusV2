@@ -217,36 +217,40 @@ var
   RowState: TRowState;
   BrushColor: TColor;
 begin
-  if (ARow < FixedRows) then begin
-    inherited DrawCell(ACol, ARow, ARect, AState);
-    Exit;
-  end;
-  if (ARow >= FixedRows) and (ACol >= FixedCols) then begin
-    Rct := ARect;
-    if (FColoredSelection) and (gdSelected in AState) then
-      Self.Canvas.Brush.Color := rgb(220, 250, 250)
-    else
-      if (Self.FColored) and (Self.Objects[0, ARow] <> nil) then begin
-        RowState := TRowState(Self.Objects[0, ARow]);
-        Self.Canvas.Brush.Color := RowState.Color;
-      end else Self.Canvas.Brush.Color := clWhite;
-    Self.Canvas.Font.Color := clBlack;
-    Self.Canvas.FillRect(Rct);
-    if (Self.Objects[0, ARow] <> nil) then begin
-      RowState := TRowState(Self.Objects[0, ARow]);
-      if ACol in RowState.MarkedCols then begin
-        Self.Canvas.Pen.Color := clRed;
-        BrushColor := Self.Canvas.Brush.Color;
-        Self.Canvas.Brush.Color := clRed;
-        Self.Canvas.Ellipse(Rct.Left + 2, Rct.Top + 2,
-          Rct.Left + 10, Rct.Top + 10);
-        Self.Canvas.Brush.Color := BrushColor;
-      end;
+  try
+    if (ARow < FixedRows) then begin
+      inherited DrawCell(ACol, ARow, ARect, AState);
+      Exit;
     end;
-    if (FCheckListStyle) and (ACol = 0) then Self.DrawCheckBox(Rct, ARow)
-      else Self.DrawText(Rct, ACol, ARow);
+    if (ARow >= FixedRows) and (ACol >= FixedCols) then begin
+      Rct := ARect;
+      if (FColoredSelection) and (gdSelected in AState) then
+        Self.Canvas.Brush.Color := rgb(220, 250, 250)
+      else
+        if (Self.FColored) and (Self.Objects[0, ARow] <> nil) then begin
+          RowState := TRowState(Self.Objects[0, ARow]);
+          Self.Canvas.Brush.Color := RowState.Color;
+        end else Self.Canvas.Brush.Color := clWhite;
+      Self.Canvas.Font.Color := clBlack;
+      Self.Canvas.FillRect(Rct);
+      if (Self.Objects[0, ARow] <> nil) then begin
+        RowState := TRowState(Self.Objects[0, ARow]);
+        if ACol in RowState.MarkedCols then begin
+          Self.Canvas.Pen.Color := clRed;
+          BrushColor := Self.Canvas.Brush.Color;
+          Self.Canvas.Brush.Color := clRed;
+          Self.Canvas.Ellipse(Rct.Left + 2, Rct.Top + 2,
+            Rct.Left + 10, Rct.Top + 10);
+          Self.Canvas.Brush.Color := BrushColor;
+        end;
+      end;
+      if (FCheckListStyle) and (ACol = 0) then Self.DrawCheckBox(Rct, ARow)
+        else Self.DrawText(Rct, ACol, ARow);
+    end;
+    if not EditorMode then EditorMode := (goEditing in Options);
+  except
+    inherited DrawCell(ACol, ARow, ARect, AState);
   end;
-  if not EditorMode then EditorMode := (goEditing in Options);
 end;
 
 procedure TOctopusStringGrid.Sort(Column: Integer);
