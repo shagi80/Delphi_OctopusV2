@@ -444,6 +444,10 @@ begin
   if VarName = 'Net' then
     if Item.Part.NetUnit then Value := Item.OrderCount
       else Value := Item.Part.Weight * Item.OrderCount;
+  if VarName = 'OneBoxLoadCount' then
+    Value := Box.OneBoxItemCount[dmPrint.frxDataSetSubDetail.RecNo];
+  if VarName = 'OneBoxNet' then
+    Value := Box.OneBoxItemNetWeight[dmPrint.frxDataSetSubDetail.RecNo];
 end;
 
 // Подключение TAction/ Печать списка коробок.

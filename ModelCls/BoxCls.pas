@@ -26,6 +26,9 @@ type
     function GetPackWeight: real;
     function GetOneBoxGrossWeight: real;
     function GetOneBoxNetWeight: real;
+    function GetOneBoxVolume: real;
+    function GetOneBoxItemCount(ItemInd: integer): real;
+    function GetOneBoxItemNetWeight(ItemInd: integer): real;
   protected
     function GetItem(ind: integer): TBoxItem; overload;
     procedure SetItem(ind: integer; AObject: TBoxItem);  overload;
@@ -49,6 +52,9 @@ type
     property PackageWeight: real read GetPackWeight;
     property OneBoxGrossWeight: real read GetOneBoxGrossWeight;
     property OneBoxNetWeight: real read GetOneBoxNetWeight;
+    property OneBoxVolume: real read GetOneBoxVolume;
+    property OneBoxItemCount[ItemInd: integer]: real read GetOneBoxItemCount;
+    property OneBoxItemNetWeight[ItemInd: integer]: real read GetOneBoxItemNetWeight;
     function ExtractOrder(Order: TOrder): integer;
     function ExtractOrderItem(Order: TOrder; OrderItem: TOrderItem): integer;
     procedure SetTotalGrossByOneBoxGross(OneBoxGross: real);
@@ -161,6 +167,35 @@ begin
   Result := SimpleRoundTo(
     OneBoxWeight,
     -GlobalSettings.GetInstance.WeightAccuracy);
+end;
+
+function TBox.GetOneBoxVolume: real;
+var
+  OneBoxVolume: real;
+begin
+  OneBoxVolume := Self.Volume / FBoxCount;
+  Result := SimpleRoundTo(
+    OneBoxVolume,
+    -GlobalSettings.GetInstance.VolumeAccuracy);
+end;
+
+function TBox.GetOneBoxItemCount(ItemInd: integer): real;
+var
+  OneBoxItemCount: real;
+begin
+  OneBoxItemCount := Self.Items[ItemInd].OrderCount / FBoxCount;
+  Result := SimpleRoundTo(
+    OneBoxItemCount,
+    -GlobalSettings.GetInstance.WeightAccuracy);
+end;
+
+function TBox.GetOneBoxItemNetWeight(ItemInd: integer): real;
+var
+  Item: TBoxItem;
+begin
+  Item := Self.Items[ItemInd];
+  if Item.Part.NetUnit then Result := GetOneBoxItemCount(ItemInd)
+    else Result := Item.Part.Weight * GetOneBoxItemCount(ItemInd);
 end;
 
 

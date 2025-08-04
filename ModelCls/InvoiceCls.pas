@@ -191,6 +191,7 @@ function TInvoice.MakeCFRFromFOB(Part: TPart): real;
 var
   FOBPrice, CFRPrice: real;
 begin
+  Result := Part.CFRPrice;
   FOBPrice := Part.FOBPrice;
   if FOBPrice = 0 then Exit;//FOBPrice := GlobalSettings.GetInstance.DefCFRPrice;
   CFRPrice := FOBPrice;
