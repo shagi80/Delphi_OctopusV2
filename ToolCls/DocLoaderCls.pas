@@ -22,6 +22,7 @@ type
     function CalculateCFRPrice(CFRPrice, FOBPrice: real): real;
     function UniverseStrToFloat(val: string; Def: real): real;
     procedure LoadDataFromText(Parts: TPartList);
+    function GetSubstrings(Substrings: TSubStrings; Ind: integer): string;
   public
     constructor Create(filename: string);
     destructor Destroy; override;
@@ -108,26 +109,36 @@ begin
   Result := StrToFloatDef(val, Def);
 end;
 
+function TDocLoader.GetSubstrings(Substrings: TSubStrings;
+  Ind: integer): string;
+begin
+  Result := '';
+  if (High(Substrings) >= 0) and (Ind >= 0) and (Ind <= High(Substrings)) then
+    Result := Substrings[Ind] else
+      raise Exception.Create('The file is corrupted !'
+        + 'It is possible that the file contains an extra line break.');
+end;
+
 function TDocLoader.PartBuilder(Substrings: TSubStrings): TPart;
 var
   Part: TPart;
 begin
-  Part := TPart.Create(Substrings[1]);
+  Part := TPart.Create(GetSubstrings(Substrings, 1));
   with Part do begin
-    BOM := Substrings[2];
-    ShortTitle := Substrings[3];
-    RusName := Substrings[4];
-    EngName := Substrings[5];
-    ChinName := (Substrings[20]);
-    PartUnit := Substrings[7];
-    Weight := UniverseStrToFloat(Substrings[8], 0);
-    Volume := UniverseStrToFloat(Substrings[9], 0);
-    CountInBox := UniverseStrToFloat(Substrings[10], 0);
-    SupplierPrice := UniverseStrToFloat(Substrings[14], 0);
-    FOBPrice := UniverseStrToFloat(Substrings[15], 0);
-    CFRPrice := UniverseStrToFloat(Substrings[16], 0);
-    CustomCode := Substrings[21];
-    BoxType := Substrings[22];
+    BOM := GetSubstrings(Substrings, 2);
+    ShortTitle := GetSubstrings(Substrings, 3);
+    RusName := GetSubstrings(Substrings, 4);
+    EngName := GetSubstrings(Substrings, 5);
+    ChinName := (GetSubstrings(Substrings, 20));
+    PartUnit := GetSubstrings(Substrings, 7);
+    Weight := UniverseStrToFloat(GetSubstrings(Substrings, 8), 0);
+    Volume := UniverseStrToFloat(GetSubstrings(Substrings, 9), 0);
+    CountInBox := UniverseStrToFloat(GetSubstrings(Substrings, 10), 0);
+    SupplierPrice := UniverseStrToFloat(GetSubstrings(Substrings, 14), 0);
+    FOBPrice := UniverseStrToFloat(GetSubstrings(Substrings, 15), 0);
+    CFRPrice := UniverseStrToFloat(GetSubstrings(Substrings, 16), 0);
+    CustomCode := GetSubstrings(Substrings, 21);
+    BoxType := GetSubstrings(Substrings, 22);
   end;
   if Part.CFRPrice = 0 then Part.CFRPrice := GlobalSettings.GetInstance.DefCFRPrice;
   Part.CFRPrice := Self.CalculateCFRPrice(Part.CFRPrice, Part.FOBPrice);
@@ -138,22 +149,22 @@ function TDocLoader.PartBuilder1C(Substrings: TSubStrings): TPart;
 var
   Part: TPart;
 begin
-  Part := TPart.Create(Substrings[1]);
+  Part := TPart.Create(GetSubstrings(Substrings, 1));
   with Part do begin
-    BOM := Substrings[2];
-    CustomCode := Substrings[3];
-    ShortTitle := Substrings[4];
-    RusName := Substrings[5];
-    EngName := Substrings[6];
-    ChinName := (Substrings[7]);
-    PartUnit := Substrings[9];
-    Weight := UniverseStrToFloat(Substrings[10], 0);
-    Volume := UniverseStrToFloat(Substrings[11], 0);
-    CountInBox := UniverseStrToFloat(Substrings[12], 0);
-    BoxType := Substrings[15];
-    SupplierPrice := UniverseStrToFloat(Substrings[16], 0);
-    FOBPrice := UniverseStrToFloat(Substrings[17], 0);
-    CFRPrice := UniverseStrToFloat(Substrings[18], 0);
+    BOM := GetSubstrings(Substrings, 2);
+    CustomCode := GetSubstrings(Substrings, 3);
+    ShortTitle := GetSubstrings(Substrings, 4);
+    RusName := GetSubstrings(Substrings, 5);
+    EngName := GetSubstrings(Substrings, 6);
+    ChinName := (GetSubstrings(Substrings, 7));
+    PartUnit := GetSubstrings(Substrings, 9);
+    Weight := UniverseStrToFloat(GetSubstrings(Substrings, 10), 0);
+    Volume := UniverseStrToFloat(GetSubstrings(Substrings, 11), 0);
+    CountInBox := UniverseStrToFloat(GetSubstrings(Substrings, 12), 0);
+    BoxType := GetSubstrings(Substrings, 15);
+    SupplierPrice := UniverseStrToFloat(GetSubstrings(Substrings, 16), 0);
+    FOBPrice := UniverseStrToFloat(GetSubstrings(Substrings, 17), 0);
+    CFRPrice := UniverseStrToFloat(GetSubstrings(Substrings, 18), 0);
   end;
   if Part.CFRPrice = 0 then Part.CFRPrice := GlobalSettings.GetInstance.DefCFRPrice;
   Part.CFRPrice := Self.CalculateCFRPrice(Part.CFRPrice, Part.FOBPrice);

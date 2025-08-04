@@ -12,7 +12,7 @@ object dmPrint: TdmPrint
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40621.537163900500000000
-    ReportOptions.LastChange = 45834.697238125000000000
+    ReportOptions.LastChange = 45873.784567037040000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -409,7 +409,7 @@ object dmPrint: TdmPrint
           Frame.Typ = [ftLeft, ftRight]
           HAlign = haCenter
           Memo.UTF8 = (
-            '[frxDataSetSubDetail."LoadCount"]')
+            '[frxDataSetSubDetail."OneBoxLoadCount"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -499,7 +499,7 @@ object dmPrint: TdmPrint
           Frame.Typ = [ftLeft, ftRight]
           HAlign = haCenter
           Memo.UTF8 = (
-            '[frxDataSetSubDetail."Net"]')
+            '[frxDataSetSubDetail."OneBoxNet"]')
           ParentFont = False
           VAlign = vaCenter
         end
