@@ -81,11 +81,11 @@ begin
 end;
 
 begin
-  if Check then begin 
+  {if Check then begin 
     Application.MessageBox('ATTENTION!!! The program is already running !',
       'Octopus V2',0);
     Exit;
-  end;
+  end; }
   Application.Initialize;
   Application.Title := 'OctopusV2';
   Application.CreateForm(TfrmMain, frmMain);

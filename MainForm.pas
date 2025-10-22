@@ -447,6 +447,7 @@ begin
   frmPrintMode.ExportFor1C.OnExecute := ExportController.ExportFor1C;
   frmPrintMode.ExportForInvoice.OnExecute := ExportController.ExportForInvoice;
   frmPrintMode.ExportForCustomCode.OnExecute := ExportController.ExportForCustomCode;
+  frmPrintMode.ExportForTCD.OnExecute := ExportController.ExportForTCD;
   frmPrintMode.PrintInvoiceAll.OnExecute := PrintInvoiceController.PrintInvoiceAll;
   frmPrintMode.PrintFactoryOrder.OnExecute := PrintFactoryDocController.PrintFactoryOrder;
   frmPrintMode.PrintFactoryBalance.OnExecute := PrintFactoryDocController.PrintFactoryBalance;

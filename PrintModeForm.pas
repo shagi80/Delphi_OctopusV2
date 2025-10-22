@@ -68,6 +68,7 @@ type
     PrintFactoryOrder: TAction;
     PrintFactoryBalance: TAction;
     cbCheck: TTntCheckListBox;
+    ExportForTCD: TAction;
     procedure btnCollapseClick(Sender: TObject);
     procedure btnGoPreviosClick(Sender: TObject);
     procedure btnNextClick(Sender: TObject);

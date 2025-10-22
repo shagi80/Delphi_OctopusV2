@@ -3,7 +3,7 @@ unit ExportControllerCls;
 interface
 
 uses
-   OrderCls, DocumentCls, frxClass, InvoiceCls;
+   OrderCls, DocumentCls, frxClass, InvoiceCls, ContainerCls;
 
 type
   TExportController = class(TObject)
@@ -18,14 +18,19 @@ type
       ExportFileName: string = '');
     procedure frxDataSetMasterGetValue(const VarName: string; var Value: Variant);
     procedure ResizePrintModeForm;
+    function SaveExportTo1C(Title: string; Invoice: TInvoice): boolean;
+    function SaveExportToTCD(BoxList: TContainer): boolean;
     //procedure frxDataSetMasterNext(Sender: TObject);
     //function GetSystemDecSeparator: char;
+    procedure CannotExport;
+    function GetOrderTitle: string;
   public
     constructor Create(Document: TDocument);
     destructor Destroy; override;
     procedure ExportFor1C(Sender: TObject);
     procedure ExportForInvoice(Sender: TObject);
     procedure ExportForCustomCode(Sender: TObject);
+    procedure ExportForTCD(Sender: TObject);
   end;
 
 implementation
@@ -33,7 +38,8 @@ implementation
 uses
  PrintModeForm, TranslatorCls, Dialogs, FindInShipmentCls, OrderItemCls,
  SysUtils, OrdersForm, Forms, GlobalSettingsCls, PrintDataModule,
- WaitingForm, PartCls, DocSaverCls, Windows;
+ WaitingForm, PartCls, DocSaverCls, Windows, ContainerListCls, Contnrs,
+ ContainerForm, PrintContainerControllerCls, Classes, BoxCls, FileCtrl;
 
 const
   SortNone =  -1;
@@ -44,6 +50,7 @@ const
   mdForCustom = 2;
   pfForInvoice = 'invoice.fr3';
   pfForCustomInvoice = 'CustomInvoice.fr3';
+  SEPARATOR_1C = '","';
 
 
 constructor TExportController.Create(Document: TDocument);
@@ -58,6 +65,15 @@ begin
   FDocument := nil;
   FInvoice := nil;
   inherited Destroy;
+end;
+
+procedure TExportController.CannotExport;
+var
+  Text: string;
+begin
+  Text := Translator.GetInstance.TranslateMessage(
+    115, 'Нет данных для экспорта') + ' !';
+  MessageDlg(Text, mtWarning, [mbOk], 0);
 end;
 
 procedure TExportController.CannotExportMessage;
@@ -76,22 +92,6 @@ begin
   Text := Translator.GetInstance.TranslateMessage(
     68, 'Экспорт выполнен успешно' + ' !');
   MessageDlg(Text, mtInformation, [mbOk], 0);
-end;
-
-function TExportController.GetFileName(Ext: string): string;
-var
-  SaveDlg: TSaveDialog;
-begin
-  Result := '';
-  SaveDlg := TSaveDialog.Create(nil);
-  SaveDlg.Title := Translator.GetInstance.TranslateMessage(
-    59, 'Выберите файл для сохранения');
-  SaveDlg.FileName := FDocument.InvoiceNumber + '-for_1C';
-  SaveDlg.DefaultExt := '*.' + Ext;
-  if Ext = 'txt' then SaveDlg.Filter := 'Text files (*.txt)|*.txt';
-  if Ext = 'csv' then SaveDlg.Filter := 'CSV files (*.csv)|*.csv';
-  if not SaveDlg.Execute then Exit;
-  Result := SaveDlg.FileName;
 end;
 
 procedure TExportController.ExportWithFastReports(ExportFormat: integer;
@@ -218,12 +218,33 @@ begin
   Result := pcLCA[0];
 end;    }
 
+function TExportController.GetOrderTitle: string;
+begin
+  Result := ExtractFileName(Self.FDocument.FileName);
+  Result := copy(Result, 1, 7);
+end;
+
 // Экспорт для 1С в TXT формат
+
+function TExportController.GetFileName(Ext: string): string;
+var
+  SaveDlg: TSaveDialog;
+begin
+  Result := '';
+  SaveDlg := TSaveDialog.Create(nil);
+  SaveDlg.Title := Translator.GetInstance.TranslateMessage(
+    59, 'Выберите файл для сохранения');
+  SaveDlg.FileName := FDocument.InvoiceNumber + '-for_1C';
+  SaveDlg.DefaultExt := '*.' + Ext;
+  if Ext = 'txt' then SaveDlg.Filter := 'Text files (*.txt)|*.txt';
+  if Ext = 'csv' then SaveDlg.Filter := 'CSV files (*.csv)|*.csv';
+  if not SaveDlg.Execute then Exit;
+  Result := SaveDlg.FileName;
+end;
 
 procedure TExportController.ExportFor1C(Sender: TObject);
 var
-  FileName, Title: string;
-  Saver: TDocSaver;
+  Title: string;
   Invoice: TInvoice;
   I: integer;
 begin
@@ -231,12 +252,9 @@ begin
     Self.CannotExportMessage;
     Exit;
   end;
-  FileName := Self.GetFileName('txt');
-  if Length(FileName) = 0 then Exit;
   Invoice := TInvoice.Create;
   Invoice.Prepare(FDocument);
   // Сохраням в файл
-  Saver := TDocSaver.Create(FileName);
   Title := 'Containers: ';
   for I := 0 to FDocument.Containers.Count - 1 do begin
     Title := Title + FDocument.Containers.Items[I].Title;
@@ -248,11 +266,35 @@ begin
     if I < FDocument.Orders.Count - 1 then Title := Title + ', ';
   end;
   Title := Title + '. ' + ExtractFileName(FDocument.FileName);
-  Saver.SaveExportTo1C(Title, Invoice);
-  Saver.Destroy;
+  SaveExportTo1C(Title, Invoice);
   Invoice.Free;
   Self.ExportDoneMessage;
   frmPrintMode.ShowMainPage;
+end;
+
+function TExportController.SaveExportTo1C(Title: string; Invoice: TInvoice): boolean;
+var
+  I: integer;
+  Row: TInvoiceRow;
+  FileName, str: string;
+  FFile: TextFile;
+begin
+  Result := False;
+  FileName := Self.GetFileName('txt');
+  if Length(FileName) = 0 then Exit;
+  AssignFile(FFile, filename);
+  Rewrite(FFile);
+  WriteLn(FFile, Title);
+  for I := 0 to Invoice.Count - 1 do begin
+    Row := Invoice.Row[I];
+    str := '"' + Row.Code + SEPARATOR_1C;
+    str := str + Row.ShortTitle + SEPARATOR_1C;
+    str := str + FloatToStr(Row.Count) + SEPARATOR_1C;
+    str := str +FloatToStr(Row.CFRPrice) + '"';
+    WriteLn(FFile, str);
+  end;
+  CloseFile(FFile);
+  Result := True;
 end;
 
 // Экспорт для инвойса
@@ -279,6 +321,105 @@ begin
     Self.ExportWithFastReports(ExportFormat,
       FDocument.InvoiceNumber + '_cust_code')
       else frmPrintMode.ShowMainPage;
+end;
+
+// Экспорт для ТСД
+
+function TExportController.SaveExportToTCD(BoxList: TContainer): boolean;
+var
+  I, J, Num: integer;
+  Box: TBox;
+  Path, OrderName, str, PartName: string;
+  FFile: TextFile;
+begin
+  Result := False;
+  SelectDirectory('Выбери папку:', '', Path);
+  if Length(Path) = 0 then Exit;
+  OrderName := Self.GetOrderTitle;
+
+  // Сохранение в файл Номенклатуры
+  AssignFile(FFile, Path + '\Номенклатурв.csv');
+  Rewrite(FFile);
+  str := 'Код;Артикул;Наименование;Packing.Barcode;ПоСН;Product.BasePackingId;'
+    + 'Packing.Id;Packing.Name;Packing.ИдХарактеристики';
+  WriteLn(FFile, str);
+  Num := 1;
+  for I := 0 to BoxList.Count - 1 do begin
+    Box := BoxList.Items[I];
+    PartName := Copy(Box.Items[0].Part.RusName, 1, 100);
+    for J := 0 to Box.BoxCount - 1 do begin
+      str := OrderName + '-' + Box.BoxCode + '-' + IntToStr(J + 1) + '/'
+        + IntToStr(Box.BoxCount);
+      str := FormatFloat('T0000000', Num) + ';' + FormatFloat('T0000000', Num)
+         + ';' + PartName + ';' + str + ';true;шт;шт;шт;';
+      Inc(Num);
+      WriteLn(FFile, str);
+    end;
+  end;
+  CloseFile(FFile);
+
+  // Сохранение в файл Документа прихода
+  Num := 1;
+  AssignFile(FFile, Path + '\Приход на склад ' + OrderName + '.csv');
+  Rewrite(FFile);
+  WriteLn(FFile, '#{Document}');
+  WriteLn(FFile, 'Name;Barcode');
+  WriteLn(FFile, '"Приход на склад ' + OrderName + '";123456789012398');
+  WriteLn(FFile, '#{Document.DeclaredItems}');
+  WriteLn(FFile, '{Item.ProductId};{Item.ProductBarcode};{Item.ProductName};'
+    + '{Item.DeclaredQuantity};{Item.CurrentQuantity}');
+  for I := 0 to BoxList.Count - 1 do begin
+    Box := BoxList.Items[I];
+    PartName := Copy(Box.Items[0].Part.RusName, 1, 100);
+    for J := 0 to Box.BoxCount - 1 do begin
+      str := OrderName + '-' + Box.BoxCode + '-' + IntToStr(J + 1) + '/'
+        + IntToStr(Box.BoxCount);
+      str := FormatFloat('T000000', Num) + ';' + str + ';' + PartName + ';1;0';
+      Inc(Num);
+      WriteLn(FFile, str);
+    end;
+  end;
+  CloseFile(FFile);
+
+  Result := True;
+end;
+
+procedure TExportController.ExportForTCD(Sender: TObject);
+var
+  ContainerList: TContainerList;
+  Container: TContainer;
+  BoxList: TObjectList;
+  SortMode: Integer;
+  PrintController: TPrintContainerController;
+begin
+  if frmContainers.CurrentContainer = nil then begin
+    Self.CannotExport;
+    Exit;
+  end;
+  BoxList := TObjectList.Create(False);
+  frmContainers.grContainer.GetSelectedObjects(1, BoxList);
+  if BoxList.Count = 0 then BoxList := frmContainers.CurrentContainer;
+  if BoxList.Count = 0 then begin
+    BoxList.Free;
+    Self.CannotExport;
+    Exit;
+  end;
+  SortMode := SortNone;
+  if not frmPrintMode.GetBoxSortMode(SortMode) then begin
+    frmPrintMode.ShowMainPage;
+    Exit;
+  end;
+  ContainerList := TContainerList.Create;
+  Container := TContainer.Create;
+  Container.Title := frmContainers.CurrentContainer.Title;
+  PrintController := TPrintContainerController.Create(Self.FDocument);
+  PrintController.CreateBoxData(TContainer(BoxList), Container, SortMode);
+  PrintController.Free;
+  ContainerList.Add(Container);
+  if SaveExportToTCD(Container) then Self.ExportDoneMessage;
+  BoxList.Free;
+  ContainerList.Free;
+  frmPrintMode.ShowMainPage;
 end;
 
 end.

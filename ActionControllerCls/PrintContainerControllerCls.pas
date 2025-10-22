@@ -24,7 +24,6 @@ type
     procedure PrintCurrent(Sender: TObject);
     procedure PrintSelect(Sender: TObject);
     procedure PrintSelectBox(Sender: TObject);
-    procedure CreateBoxData(Source, Target: TContainer; SortInd: integer);
     procedure MultiplyBoxes(Containers: TContainerList);
     procedure ResizePrintModeForm;
     procedure PrepareBarCode(Report: TfrxReport);
@@ -38,6 +37,7 @@ type
     procedure PrintBoxFromCurrentContainer(Sender: TObject);
     procedure PrintBoxFromSelectContainer(Sender: TObject);
     procedure PrintSelectBoxFromSelectContainer(Sender: TObject);
+    procedure CreateBoxData(Source, Target: TContainer; SortInd: integer);
   end;
 
 implementation

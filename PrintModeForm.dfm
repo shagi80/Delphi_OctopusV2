@@ -29,7 +29,7 @@ object frmPrintMode: TfrmPrintMode
       Top = 1
       Width = 338
       Height = 348
-      ActivePage = tsSelectCheck
+      ActivePage = tsModeExport
       Align = alClient
       Style = tsButtons
       TabOrder = 0
@@ -228,8 +228,6 @@ object frmPrintMode: TfrmPrintMode
           Align = alClient
           ItemHeight = 13
           TabOrder = 1
-          ExplicitTop = 105
-          ExplicitHeight = 193
         end
       end
       object tsSelectRadio: TTabSheet
@@ -341,6 +339,9 @@ object frmPrintMode: TfrmPrintMode
                 end
                 item
                   Action = ExportForCustomCode
+                end
+                item
+                  Action = ExportForTCD
                 end>
             end>
           RegularButtonColor = clWhite
@@ -2363,6 +2364,11 @@ object frmPrintMode: TfrmPrintMode
       Tag = 190
       Category = 'PrintFactoryDoc'
       Caption = 'PrintFactoryBalance'
+    end
+    object ExportForTCD: TAction
+      Tag = 194
+      Category = 'Export'
+      Caption = 'ExportForTCD'
     end
   end
 end
