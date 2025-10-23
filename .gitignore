@@ -1,2 +1,7 @@
 *.txt
 __history/
+*.dcu
+*.exe
+*.dsk
+*.~*
+*.dproj.local
