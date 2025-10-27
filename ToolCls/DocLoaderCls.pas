@@ -307,6 +307,12 @@ begin
       Value := copy(Value, pos('|', Value) + 1, MaxInt);
       Part.Factory := UTF8Decode(copy(Value, 1, pos('|', Value) - 1));
       Value := copy(Value, pos('|', Value) + 1, MaxInt);
+      // преобразование сепаратра в системный
+      if (Pos('.', Value) > 0) and (SysUtils.DecimalSeparator = ',') then
+        Value := StringReplace(Value, '.', ',', [rfReplaceAll])
+      else if (Pos(',', Value) > 0) and (SysUtils.DecimalSeparator = '.') then
+        Value := StringReplace(Value, ',', '.', [rfReplaceAll]);
+      //
       Part.SupplierPrice := StrToFloatDef(copy(Value, 1, pos('|', Value) - 1), 0);
       Part.CFRPrice := StrToFloatDef(copy(Value, pos('|', Value) + 1, MaxInt), 0);
     end;

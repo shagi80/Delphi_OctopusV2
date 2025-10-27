@@ -338,7 +338,7 @@ begin
   OrderName := Self.GetOrderTitle;
 
   // Сохранение в файл Номенклатуры
-  AssignFile(FFile, Path + '\Номенклатурв.csv');
+  AssignFile(FFile, Path + '\Номенклатура.csv');
   Rewrite(FFile);
   str := 'Код;Артикул;Наименование;Packing.Barcode;ПоСН;Product.BasePackingId;'
     + 'Packing.Id;Packing.Name;Packing.ИдХарактеристики';

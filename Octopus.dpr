@@ -51,7 +51,6 @@ uses
   MultiplierManagerCls in 'ToolCls\MultiplierManagerCls.pas',
   InvoiceCls in 'ModelCls\InvoiceCls.pas',
   InvoiceControllerCls in 'ActionControllerCls\InvoiceControllerCls.pas',
-  LoggerCls in 'ToolCls\LoggerCls.pas',
   ContainerEditForm in 'ContainerEditForm.pas' {frmContainerEdit},
   SettingsForm in 'SettingsForm.pas' {frmSettings},
   EntitiesBaseCls in 'ToolCls\EntitiesBaseCls.pas',

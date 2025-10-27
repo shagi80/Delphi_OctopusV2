@@ -197,8 +197,8 @@ object frmContainers: TfrmContainers
         AlignWithMargins = True
         Left = 5
         Top = 3
-        Width = 190
-        Height = 13
+        Width = 568
+        Height = 18
         Margins.Left = 5
         Align = alClient
         Caption = #1055#1088#1086#1074#1077#1088#1100#1090#1077' '#1079#1072#1087#1086#1083#1085#1077#1085#1080#1077' '#1080#1085#1074#1086#1081#1089#1072' !'
@@ -211,6 +211,8 @@ object frmContainers: TfrmContainers
         ParentColor = False
         ParentFont = False
         Layout = tlCenter
+        ExplicitWidth = 190
+        ExplicitHeight = 13
       end
     end
   end
@@ -629,7 +631,7 @@ object frmContainers: TfrmContainers
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 244
+        Width = 591
         Height = 13
         Align = alTop
         Alignment = taCenter
@@ -641,6 +643,7 @@ object frmContainers: TfrmContainers
         Font.Style = []
         ParentFont = False
         Layout = tlCenter
+        ExplicitWidth = 244
       end
       object pnEachSeparately: TPanel
         AlignWithMargins = True
