@@ -201,6 +201,10 @@ type
     N39: TMenuItem;
     ContainerSelectByOrder: TAction;
     ContainerSelectByOrder1: TMenuItem;
+    PartLoadDataFromText: TAction;
+    N40: TMenuItem;
+    PartListUpdate1: TMenuItem;
+    PartLoadDataFromText1: TMenuItem;
     procedure FileMergeExecute(Sender: TObject);
     procedure HelpAboutExecute(Sender: TObject);
     procedure ApplicationEvents1Message(var Msg: tagMSG; var Handled: Boolean);
@@ -323,6 +327,7 @@ begin
   PartDelete.OnExecute := PartController.PartDeleteExecute;
   PartSearch.OnExecute := PartController.PartSearchExecute;
   PartListUpdate.OnExecute := PartController.PartListUpdate;
+  PartLoadDataFromText.OnExecute := PartController.PartUpdateForText;
 
   OrderAdd.OnExecute := OrderController.OrderAddExecute;
   OrderNewFromFile.OnExecute := OrderController.OrderAddExecute;
@@ -375,6 +380,7 @@ begin
   frmPartProperty.btnPartDelete.Action := PartDelete;
   frmPartProperty.btnSearchPart.Action := PartSearch;
   frmPartProperty.btnPartListUpdate.Action := PartListUpdate;
+  frmPartProperty.btnLoadFromText.Action := PartLoadDataFromText;
 
   frmOrders.tbEdit.Images := Self.imgMain;
   frmOrders.btnOrderAdd.Action := OrderAdd;
@@ -731,6 +737,7 @@ begin
   PartDelete.Enabled := (AccesManager.GetInstance.CanEditParts) and (frmPartProperty.Part <> nil);
   PartSearch.Enabled := (frmPartProperty.Part <> nil);
   PartListUpdate.Enabled := (FDocument.Parts.Count > 0);
+  PartLoadDataFromText.Enabled := (FDocument.Parts.Count > 0);
 
   OrderDelete.Enabled := (frmOrders.CurrentOrder <> nil);
   OrderConcate.Enabled := (FDocument.Orders.Count > 1);
