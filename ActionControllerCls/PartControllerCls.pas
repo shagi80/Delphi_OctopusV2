@@ -24,6 +24,7 @@ type
     procedure PartListUpdate(Sender: TObject);
     property OnChangeModel: TOnChangeModel read FOnChangeModel
       write FOnChangeModel;
+    procedure PartUpdateForText(Sender: TObject);
   end;
 
 implementation
@@ -165,6 +166,22 @@ begin
   OpenDlg.Free;
   NewPart.Free;
   Loader.Free;
+end;
+
+procedure TPartController.PartUpdateForText(Sender: TObject);
+var
+  Loader: TDocLoader;
+begin
+  if MessageDlg(Translator.GetInstance.TranslateMessage(116,
+    'Внимание ! Данные о ценах и китайских наименованиях будут обновлены !'),
+    mtWarning, [mbOk, mbCancel], 0) <> mrOk then Exit;
+  Loader := TDocLoader.Create();
+  Loader.LoadDataFromText(FDocument.Parts, True);
+  Loader.Free;
+  Self.RefreshAllGrids;
+  Self.ChangeModelEvent(False);
+  ShowMessage(Translator.GetInstance.TranslateMessage(117,
+    'Обновление выполнено успешно !'));
 end;
 
 end.

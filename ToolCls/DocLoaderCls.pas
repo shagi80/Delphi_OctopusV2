@@ -11,6 +11,7 @@ type
   TDocLoader = class(TObject)
   private
     FFile: TextFile;
+    FIsAssigned: boolean;
     function LoadPartsAndOrders(doc: TDocument): boolean;
     function LoadContainers(doc: TDocument): boolean;
     function ParseString(valString: string): TSubStrings;
@@ -21,15 +22,15 @@ type
     const SEPARATOR = '","';
     function CalculateCFRPrice(CFRPrice, FOBPrice: real): real;
     function UniverseStrToFloat(val: string; Def: real): real;
-    procedure LoadDataFromText(Parts: TPartList);
     function GetSubstrings(Substrings: TSubStrings; Ind: integer): string;
   public
-    constructor Create(filename: string);
+    constructor Create(filename: string='');
     destructor Destroy; override;
     function Load(doc: TDocument): boolean;
     function LoadOrderFrom1C(var Order: TOrder; Doc: TDocument): boolean;
     function GetPartListFrom1CFile(Parts: TPartList): boolean;
     function FileIs1C: boolean;
+    procedure LoadDataFromText(Parts: TPartList; Forced: boolean=False);
   end;
 
 
@@ -42,16 +43,20 @@ uses
 const
   TextDataFile = 'add_data.txt';
 
-constructor TDocLoader.Create(filename: string);
+constructor TDocLoader.Create(filename: string='');
 begin
   inherited Create;
-  AssignFile(FFile, filename);
-  Reset(FFile);
+  FIsAssigned := False;
+  if Length(FileName) > 0 then begin
+    AssignFile(FFile, filename);
+    Reset(FFile);
+    FIsAssigned := True;
+  end;
 end;
 
 destructor TDocLoader.Destroy;
 begin
-  CloseFile(FFile);
+  if FIsAssigned then CloseFile(FFile);
   inherited Destroy;
 end;
 
@@ -283,7 +288,7 @@ begin
   end;
 end;
 
-procedure TDocLoader.LoadDataFromText(Parts: TPartList);
+procedure TDocLoader.LoadDataFromText(Parts: TPartList; Forced: boolean=False);
 var
   FileName, PartCode: string;
   DataStrings: TStringList;
@@ -307,8 +312,15 @@ begin
       Value := copy(Value, pos('|', Value) + 1, MaxInt);
       Part.Factory := UTF8Decode(copy(Value, 1, pos('|', Value) - 1));
       Value := copy(Value, pos('|', Value) + 1, MaxInt);
+      // преобразование сепаратра в системный
+      if (Pos('.', Value) > 0) and (SysUtils.DecimalSeparator = ',') then
+        Value := StringReplace(Value, '.', ',', [rfReplaceAll])
+      else if (Pos(',', Value) > 0) and (SysUtils.DecimalSeparator = '.') then
+        Value := StringReplace(Value, ',', '.', [rfReplaceAll]);
+      //
       Part.SupplierPrice := StrToFloatDef(copy(Value, 1, pos('|', Value) - 1), 0);
-      Part.CFRPrice := StrToFloatDef(copy(Value, pos('|', Value) + 1, MaxInt), 0);
+      if (Forced) or (Part.CFRPrice = 0) then
+        Part.CFRPrice := StrToFloatDef(copy(Value, pos('|', Value) + 1, MaxInt), 0);
     end;
   DataStrings.Free;
 end;

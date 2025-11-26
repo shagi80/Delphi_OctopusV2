@@ -27,6 +27,7 @@ type
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
     btnPartListUpdate: TToolButton;
+    btnLoadFromText: TToolButton;
     procedure grPartDblClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);

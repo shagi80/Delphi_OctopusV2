@@ -55,7 +55,7 @@ object frmPartProperty: TfrmPartProperty
       object tbEdit: TToolBar
         Left = 1
         Top = 1
-        Width = 236
+        Width = 259
         Height = 22
         Align = alLeft
         AutoSize = True
@@ -117,6 +117,12 @@ object frmPartProperty: TfrmPartProperty
           Top = 0
           Caption = 'btnPartListUpdate'
           ImageIndex = 6
+        end
+        object btnLoadFromText: TToolButton
+          Left = 236
+          Top = 0
+          Caption = 'btnLoadFromText'
+          ImageIndex = 7
         end
       end
     end

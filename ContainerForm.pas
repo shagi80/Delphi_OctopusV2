@@ -165,7 +165,7 @@ implementation
 
 {$R *.dfm}
 uses
-  Math, TranslatorCls, GlobalSettingsCls, BoxForm, WaitingForm, LoggerCls,
+  Math, TranslatorCls, GlobalSettingsCls, BoxForm, WaitingForm,
   SelectOrdersForm, OrderCls;
 
 // Сеттеры.
